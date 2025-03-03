@@ -1,6 +1,4 @@
 "use client";
-import { useState } from "react";
-
 import { AiOutlinePlus } from "react-icons/ai";
 import { IoDiamondOutline } from "react-icons/io5"; 
 import styles from "./AddGoal.module.css";
@@ -8,15 +6,16 @@ import GoalDifficulty from "./goalDifficulty/GoalDifficulty";
 import AddCustomReward from "./addCustomReward/AddCustomReward";
 import AddOrCancelBtn from "./addOrCancelBtn/AddOrCancelBtn";
 
-export default function AddGoal({ addNewGoal, setDifficulty, difficulty, goalName, setGoalName }: { 
+export default function AddGoal({ addNewGoal, setDifficulty, difficulty, goalName, setGoalName, expanded, setExpanded } : { 
   addNewGoal: () => void, 
   setDifficulty: (diamonds: number) => void, 
   setGoalName: (name: string) => void
   difficulty: number | null,
-  goalName: string | null
+  goalName: string | null,
+  expanded: boolean,
+  setExpanded: (value: boolean) => void 
 }) {
-  const [expanded, setExpanded] = useState(false);
-
+  
   function easy(diamonds: number) {
     setDifficulty(diamonds);  
   } 
@@ -43,7 +42,7 @@ export default function AddGoal({ addNewGoal, setDifficulty, difficulty, goalNam
       }
         </div>
 
-      {expanded && <div className={styles.expandedContent}>
+   <div className={styles.expandedContent}>
         <div className={styles.difficultyContainer}>
         <GoalDifficulty easy = {easy} difficultyLevel="Easy" diamonds = {5} />
         <GoalDifficulty easy = {easy} difficultyLevel="Boring" diamonds = {10} />
@@ -52,9 +51,9 @@ export default function AddGoal({ addNewGoal, setDifficulty, difficulty, goalNam
         </div>
        
         <AddCustomReward/>
-        <AddOrCancelBtn addNewGoal= {addNewGoal}/>
+        <AddOrCancelBtn addNewGoal = {addNewGoal}  onCancel={() => setExpanded(!expanded)}/>
 
-      </div>}
+      </div>
     </div>
   );
 }

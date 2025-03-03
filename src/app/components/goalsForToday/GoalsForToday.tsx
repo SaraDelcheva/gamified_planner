@@ -11,6 +11,7 @@ export default function GoalsForToday() {
     
       const [difficulty, setDifficulty] = useState<number | null>(null); 
       const [goalName, setGoalName] = useState<string>("");
+      const [expanded, setExpanded] = useState(false); 
 
       function addNewGoal() {
         if (difficulty === null || !goalName.trim()) return; 
@@ -19,6 +20,7 @@ export default function GoalsForToday() {
             { title: goalName, diamonds: difficulty }
         ]);
         setGoalName(""); 
+        setExpanded(false);
       }
 
     return (
@@ -33,6 +35,8 @@ export default function GoalsForToday() {
            difficulty={difficulty} 
            goalName={goalName} 
            setGoalName={setGoalName} 
+           expanded={expanded} 
+           setExpanded={setExpanded} 
            />
             {goals.map((goal, index) => (
           <NewGoal key={index} goalTitle={goal.title} diamonds={goal.diamonds} />
