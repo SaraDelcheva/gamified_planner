@@ -1,0 +1,5 @@
+.rewards {
+    border: rgba(140, 90, 63, 0.17) 2px solid;
+    border-bottom: none;
+    flex-basis: 75%;
+}

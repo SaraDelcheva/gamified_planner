@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter, Karla } from "next/font/google";
+import LeftMenu from './components/leftMenu/LeftMenu'; 
+
 import "./globals.css";
+
+const inter = Inter({
+  variable: "--font-inter", 
+  subsets: ['latin'], 
+  weight: ['100', '200', '400', '700'] 
+});
+
+const karla = Karla({
+  variable: '--font-karla', // Custom variable name for the font
+  subsets: ['latin'],
+  weight: ['400', '700'], // You can add other weights you need here
+});
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,9 +39,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${karla.variable}`}>
+                <LeftMenu /> 
         {children}
       </body>
     </html>
   );
 }
+
+

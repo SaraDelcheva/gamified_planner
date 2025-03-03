@@ -1,0 +1,19 @@
+.addOrCancelBtn{
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
+
+.cancelBtn, .addBtn {   
+    background-color: transparent;
+    margin-left: 5px;
+    font-size: 25px;
+    background-color: rgb(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding: 4px;
+    line-height: 0;
+}
+
+.cancelBtn:hover, .addBtn:hover{
+background-color: rgba(252, 235, 82, 0.4);
+}

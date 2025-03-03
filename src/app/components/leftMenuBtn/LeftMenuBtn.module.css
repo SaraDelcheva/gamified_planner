@@ -1,0 +1,14 @@
+.leftMenuBtn {
+    background-color: #FFC301;
+    color: #3D3D3D;
+    margin-bottom: 30px;
+    padding: 40px;
+    text-align: center;
+    border-radius: 50px;
+    user-select: none;
+}
+
+.leftMenuBtn:hover{
+    background-color: #D26F37;
+}
+
