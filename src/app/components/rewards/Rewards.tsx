@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import styles from "./Rewards.module.css"
+import styles from "./Rewards.module.css";
 import RewardCard from "./rewardCard/RewardCard";
 import AddNewReward from "./addNewReward/AddNewReward";
 import Treasure from "./treasure/Treasure";
@@ -11,14 +11,14 @@ interface Rewards {
   cover: string;
 }
 
-export default function Rewards({totalDiamonds}:{totalDiamonds:string}) {
+export default function Rewards({ totalDiamonds }: { totalDiamonds: number }) {
   const [rewards, setRewards] = useState<Rewards[]>([]);
   const [rewardName, setRewardName] = useState<string>("");
   const [coverName, setCoverName] = useState<string>("");
-  const [difficulty, setDifficulty] = useState<number | null>(null); 
+  const [difficulty, setDifficulty] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [imageName, setImageName] = useState<string>("");
-  const imageNames: string[] = ['book.png', 'coffee.png'];
+  const imageNames: string[] = ["book.png", "coffee.png"];
 
   const InputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRewardName(e.target.value);
@@ -28,15 +28,19 @@ export default function Rewards({totalDiamonds}:{totalDiamonds:string}) {
     const value = e.target.value.trim() === "" ? null : Number(e.target.value);
     setDifficulty(value);
   };
-  
+
   function addNewReward() {
-    if (difficulty === null || !rewardName.trim()) return; 
-    
+    if (difficulty === null || !rewardName.trim()) return;
+
     setRewards((prevRewards) => [
       ...prevRewards,
-      { title: rewardName, diamonds: difficulty !== null ? difficulty : null, cover: coverName } 
+      {
+        title: rewardName,
+        diamonds: difficulty !== null ? difficulty : null,
+        cover: coverName,
+      },
     ]);
-  
+
     setRewardName("");
     setDifficulty(null);
   }
@@ -48,30 +52,42 @@ export default function Rewards({totalDiamonds}:{totalDiamonds:string}) {
       </div>
       <div className={styles.rewardsContainer}>
         {rewards.map((reward, index) => (
-          <RewardCard key={index} rewardName = {reward.title} diamonds={reward.diamonds ?? 0}cover={reward.cover}/>
-        ))} 
-      <AddNewReward diamonds={difficulty} 
-          newRewardName={rewardName} 
+          <RewardCard
+            key={index}
+            rewardName={reward.title}
+            diamonds={reward.diamonds ?? 0}
+            cover={reward.cover}
+          />
+        ))}
+        <AddNewReward
+          diamonds={difficulty}
+          newRewardName={rewardName}
           addNewReward={addNewReward}
           handleInputChange={InputChange}
-          handleInputDiamondChange={DiamondChange} 
+          handleInputDiamondChange={DiamondChange}
           chooseRewardCover={() => setIsModalOpen(true)}
-          imageName={imageName}/>
+          imageName={imageName}
+        />
       </div>
       <Treasure totalDiamonds={totalDiamonds} />
-      {isModalOpen  &&  <div className = {styles.modalContainer}>
-        <div className = {styles.modalInner}>
-        {imageNames.map((imageName, index) => (
+      {isModalOpen && (
+        <div className={styles.modalContainer}>
+          <div className={styles.modalInner}>
+            {imageNames.map((imageName, index) => (
               <div
-                onClick = {()=> {setCoverName(imageName); setImageName(imageName); setIsModalOpen(false)}}
+                onClick={() => {
+                  setCoverName(imageName);
+                  setImageName(imageName);
+                  setIsModalOpen(false);
+                }}
                 key={index}
                 className={styles.modalImage}
                 style={{ backgroundImage: `url(/images/${imageName})` }}
               ></div>
-        ))}
+            ))}
+          </div>
         </div>
-      </div>
-      }
+      )}
     </div>
   );
 }

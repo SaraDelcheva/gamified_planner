@@ -4,12 +4,11 @@
   font-family: var(--font-karla), sans-serif;
 }
 
-.dailyGoalsContainer{
+.dailyGoalsContainer {
   overflow-y: scroll;
   height: calc(100% - 50px);
   padding: 15px;
   border-left: rgba(140, 90, 63, 0.17) 2px solid;
   border-right: rgba(140, 90, 63, 0.17) 2px solid;
   padding-bottom: 100px;
-
 }
