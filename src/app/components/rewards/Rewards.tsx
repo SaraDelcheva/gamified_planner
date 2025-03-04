@@ -3,6 +3,7 @@ import { useState } from "react";
 import styles from "./Rewards.module.css"
 import RewardCard from "./rewardCard/RewardCard";
 import AddNewReward from "./addNewReward/AddNewReward";
+import Treasure from "./treasure/Treasure";
 
 interface Rewards {
   title: string;
@@ -10,14 +11,13 @@ interface Rewards {
   cover: string;
 }
 
-export default function Rewards() {
+export default function Rewards({totalDiamonds}:{totalDiamonds:string}) {
   const [rewards, setRewards] = useState<Rewards[]>([]);
   const [rewardName, setRewardName] = useState<string>("");
   const [coverName, setCoverName] = useState<string>("");
   const [difficulty, setDifficulty] = useState<number | null>(null); 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [imageName, setImageName] = useState<string>("");
-
   const imageNames: string[] = ['book.png', 'coffee.png'];
 
   const InputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,6 +58,7 @@ export default function Rewards() {
           chooseRewardCover={() => setIsModalOpen(true)}
           imageName={imageName}/>
       </div>
+      <Treasure totalDiamonds={totalDiamonds} />
       {isModalOpen  &&  <div className = {styles.modalContainer}>
         <div className = {styles.modalInner}>
         {imageNames.map((imageName, index) => (

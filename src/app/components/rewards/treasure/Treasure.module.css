@@ -1,0 +1,10 @@
+.treasure {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-image: url("../../../../../public/images/treasure.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 88px;
+    width: 110px;
+}
