@@ -4,7 +4,7 @@ import Rewards from "./components/rewards/Rewards";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
+    <div className={styles.page} >
     <GoalsForToday/>
     <Rewards/>
     </div>

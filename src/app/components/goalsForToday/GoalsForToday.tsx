@@ -4,10 +4,13 @@ import styles from "./GoalsForToday.module.css";
 import AddGoal from "./addGoal/AddGoal";
 import NewGoal from "./newGoal/NewGoal";
 
+interface Goal {
+  title: string;
+  diamonds: number;
+}
+
 export default function GoalsForToday() {
-    const [goals, setGoals] = useState([
-        { title: "Wash Dishes", diamonds: 19 }
-      ]);
+    const [goals, setGoals] = useState<Goal[]>([]);
     
       const [difficulty, setDifficulty] = useState<number | null>(null); 
       const [goalName, setGoalName] = useState<string>("");
@@ -21,6 +24,7 @@ export default function GoalsForToday() {
         ]);
         setGoalName(""); 
         setExpanded(false);
+        setDifficulty(null);
       }
 
     return (
