@@ -1,7 +1,6 @@
 .leftMenu {
-    height: 100vh;
-    padding: 30px;
-    width: 250px;
-    border-right: rgba(140, 90, 63, 0.17) 2px solid;
+  height: 100vh;
+  padding: 30px;
+  width: 250px;
+  border-right: rgba(140, 90, 63, 0.17) 2px solid;
 }
-

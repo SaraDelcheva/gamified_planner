@@ -1,10 +1,20 @@
 .treasure {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background-image: url("../../../../../public/images/treasure.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 88px;
-    width: 110px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 20px;
+  background-image: url("../../../../../public/images/treasure.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 88px;
+  width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.totalDiamonds {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
 }

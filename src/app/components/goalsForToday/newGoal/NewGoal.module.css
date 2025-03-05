@@ -1,44 +1,48 @@
 .newGoal {
-    height: 55px;
-    transition: all 0.3s ease-in-out;
-    border-radius: 25px;
-    background-color: #D26F37;
-    cursor: pointer;
-    color: #363636;
-    margin-bottom: 15px;
+  height: 55px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 25px;
+  background-color: #d26f37;
+  cursor: pointer;
+  color: #363636;
+  margin-bottom: 15px;
 }
 
 .newGoalHeader {
-    height: 55px;
-    border-radius: 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  height: 55px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .newGoalHeader:hover {
-    background-color: #966040;
-    color: #3D3D3D;
+  background-color: #966040;
+  color: #3d3d3d;
 }
 
 .newGoalP {
-    font-size: 25px;
-    margin-left: 30px;
+  font-size: 25px;
+  margin-left: 30px;
 }
 
-.newBtn{
-    height: 100%;
-    background-color: #7A9B81;
-    color: #ffffff;
-    border-radius: 25px;
-    width: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    font-size:25px;
+.newBtn {
+  height: 100%;
+  background-color: #7a9b81;
+  color: #ffffff;
+  border-radius: 25px;
+  width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 25px;
 }
 
-.newGoalHeader:hover .newBtn{
-    transform: scale(1.1);
+.newBtn:hover {
+  background-color: #419b81;
+}
+
+.newGoalHeader:hover .newBtn {
+  transform: scale(1.1);
 }
