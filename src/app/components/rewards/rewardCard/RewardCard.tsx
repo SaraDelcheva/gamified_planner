@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./RewardCard.module.css";
 import { IoDiamondOutline } from "react-icons/io5";
 
@@ -5,11 +6,16 @@ export default function RewardCard({
   rewardName,
   diamonds,
   cover,
+  totalDiamonds,
 }: {
   rewardName: string;
   diamonds: number;
   cover: string;
+  totalDiamonds: number;
 }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const isClaimable = diamonds <= totalDiamonds;
+
   return (
     <div className={styles.rewardCard}>
       <p className={styles.rewardCardP}>{rewardName}</p>
@@ -19,9 +25,26 @@ export default function RewardCard({
           backgroundImage: `url('/images/${cover ? cover : "reward.png"}')`,
         }}
       ></div>
-      <button className={`${styles.newBtn} boxShadow`}>
-        {diamonds} <IoDiamondOutline />
-      </button>
+      <div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {isHovered && isClaimable ? (
+          <button
+            className={`${styles.claimBtn} boxShadow`}
+            disabled={!isClaimable}
+          >
+            Claim
+          </button>
+        ) : (
+          <button
+            className={`${styles.newBtn} boxShadow`}
+            disabled={!isClaimable}
+          >
+            {diamonds} <IoDiamondOutline />
+          </button>
+        )}
+      </div>
     </div>
   );
 }

@@ -10,9 +10,9 @@
   background-size: cover;
 }
 
-.newBtn {
+.newBtn,
+.claimBtn {
   height: 45px;
-  background-color: #a1552a;
   color: #ffffff;
   border-radius: 25px;
   width: 70px;
@@ -24,4 +24,13 @@
   position: absolute;
   bottom: -20px;
   right: -50px;
+}
+
+.newBtn {
+  background-color: #a1552a;
+}
+
+.claimBtn {
+  background-color: #419b81;
+  font-weight: 600;
 }

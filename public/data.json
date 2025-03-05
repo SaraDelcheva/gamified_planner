@@ -20,7 +20,12 @@
       "title": "dsfsdf",
       "diamonds": 12,
       "cover": "book.png"
+    },
+    {
+      "title": "3243",
+      "diamonds": 315,
+      "cover": ""
     }
   ],
-  "totalDiamonds": 255
+  "totalDiamonds": 315
 }

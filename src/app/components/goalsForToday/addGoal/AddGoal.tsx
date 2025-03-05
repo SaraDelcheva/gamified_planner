@@ -5,54 +5,41 @@ import styles from "./AddGoal.module.css";
 import GoalDifficulty from "./goalDifficulty/GoalDifficulty";
 import AddCustomReward from "./addCustomReward/AddCustomReward";
 import AddOrCancelBtn from "./addOrCancelBtn/AddOrCancelBtn";
+import { AddGoalI } from "@/app/helpers/interfaces";
 
-export default function AddGoal({
-  addNewGoal,
-  setDifficulty,
-  difficulty,
-  goalName,
-  setGoalName,
-  expanded,
-  setExpanded,
-}: {
-  addNewGoal: () => void;
-  setDifficulty: (diamonds: number) => void;
-  setGoalName: (name: string) => void;
-  difficulty: number | null;
-  goalName: string | null;
-  expanded: boolean;
-  setExpanded: (value: boolean) => void;
-}) {
+export default function AddGoal(props: AddGoalI) {
   function easy(diamonds: number) {
-    setDifficulty(diamonds);
+    props.setDifficulty(diamonds);
   }
 
   return (
-    <div className={`${styles.addGoal} ${expanded ? styles.expanded : ""}`}>
+    <div
+      className={`${styles.addGoal} ${props.expanded ? styles.expanded : ""}`}
+    >
       <div className={styles.addGoalHeader}>
-        {!expanded ? (
+        {!props.expanded ? (
           <p className={styles.addGoalP}>Add A Goal</p>
         ) : (
           <input
             className={styles.addGoalInput}
             placeholder="Goal Name"
             type="text"
-            value={goalName ?? ""}
-            onChange={(e) => setGoalName(e.target.value)}
+            value={props.goalName ?? ""}
+            onChange={(e) => props.setGoalName(e.target.value)}
           />
         )}
 
-        {!expanded && (
+        {!props.expanded && (
           <button
             className={`${styles.addBtn} boxShadow`}
-            onClick={() => setExpanded(!expanded)}
+            onClick={() => props.setExpanded(!props.expanded)}
           >
             <AiOutlinePlus />
           </button>
         )}
-        {expanded && difficulty !== null && (
+        {props.expanded && props.difficulty !== null && (
           <button className={`${styles.newBtn} boxShadow`}>
-            {difficulty} <IoDiamondOutline />
+            {props.difficulty} <IoDiamondOutline />
           </button>
         )}
       </div>
@@ -75,8 +62,8 @@ export default function AddGoal({
 
         <AddCustomReward />
         <AddOrCancelBtn
-          addNewGoal={addNewGoal}
-          onCancel={() => setExpanded(!expanded)}
+          addNewGoal={props.addNewGoal}
+          onCancel={() => props.setExpanded(!props.expanded)}
         />
       </div>
     </div>
