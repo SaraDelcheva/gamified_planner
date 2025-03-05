@@ -1,10 +1,26 @@
 {
-  "goals": [
+  "goals": [],
+  "rewards": [
     {
-      "title": "dasdasd",
-      "diamonds": 10
+      "title": "sadasd",
+      "diamonds": 43,
+      "cover": ""
+    },
+    {
+      "title": "sd",
+      "diamonds": 234234,
+      "cover": "book.png"
+    },
+    {
+      "title": "dasdsad",
+      "diamonds": 423423,
+      "cover": ""
+    },
+    {
+      "title": "dsfsdf",
+      "diamonds": 12,
+      "cover": "book.png"
     }
   ],
-  "rewards": [],
-  "totalDiamonds": 245
+  "totalDiamonds": 255
 }

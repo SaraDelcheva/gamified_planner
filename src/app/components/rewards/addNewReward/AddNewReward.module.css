@@ -2,8 +2,7 @@
   flex-basis: 10%;
   cursor: pointer;
   position: relative;
-  background-color: red;
-  height: 50%;
+  height: fit-content;
 }
 .expanded.addNewReward:hover .addNewRewardP {
   transform: scale(1.1);

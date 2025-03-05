@@ -1,50 +1,39 @@
 "use client";
-import { useState } from "react";
 import styles from "./Rewards.module.css";
 import RewardCard from "./rewardCard/RewardCard";
 import AddNewReward from "./addNewReward/AddNewReward";
 import Treasure from "./treasure/Treasure";
+import { RewardI } from "@/app/helpers/interfaces";
 
-interface Rewards {
-  title: string;
-  diamonds: number | null;
-  cover: string;
-}
-
-export default function Rewards({ totalDiamonds }: { totalDiamonds: number }) {
-  const [rewards, setRewards] = useState<Rewards[]>([]);
-  const [rewardName, setRewardName] = useState<string>("");
-  const [coverName, setCoverName] = useState<string>("");
-  const [difficulty, setDifficulty] = useState<number | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [imageName, setImageName] = useState<string>("");
-  const imageNames: string[] = ["book.png", "coffee.png"];
-
-  const InputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRewardName(e.target.value);
-  };
-
-  const DiamondChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim() === "" ? null : Number(e.target.value);
-    setDifficulty(value);
-  };
-
-  function addNewReward() {
-    if (difficulty === null || !rewardName.trim()) return;
-
-    setRewards((prevRewards) => [
-      ...prevRewards,
-      {
-        title: rewardName,
-        diamonds: difficulty !== null ? difficulty : null,
-        cover: coverName,
-      },
-    ]);
-
-    setRewardName("");
-    setDifficulty(null);
-  }
-
+export default function Rewards({
+  totalDiamonds,
+  rewards,
+  rewardName,
+  difficulty,
+  isModalOpen,
+  imageName,
+  setCoverName,
+  setIsModalOpen,
+  setImageName,
+  imageNames,
+  InputChange,
+  DiamondChange,
+  addNewReward,
+}: {
+  totalDiamonds: number;
+  rewards: RewardI[];
+  rewardName: string;
+  difficulty: number | null;
+  isModalOpen: boolean;
+  imageName: string;
+  setCoverName: React.Dispatch<React.SetStateAction<string>>;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setImageName: React.Dispatch<React.SetStateAction<string>>;
+  imageNames: string[];
+  InputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  DiamondChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  addNewReward: () => void;
+}) {
   return (
     <div className={styles.rewards}>
       <div className="header">
