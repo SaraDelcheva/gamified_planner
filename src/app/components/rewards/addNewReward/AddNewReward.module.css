@@ -1,54 +1,54 @@
-
-.addNewReward{
-    /* display: flex; */
-    flex-basis: 10%;
-    cursor: pointer;
-    position: relative;
+.addNewReward {
+  flex-basis: 10%;
+  cursor: pointer;
+  position: relative;
+  background-color: red;
+  height: 50%;
 }
-.expanded.addNewReward:hover{
-    transform: scale(1.1)
-}
-
-.addNewRewardP{
-    display: flex;
+.expanded.addNewReward:hover .addNewRewardP {
+  transform: scale(1.1);
 }
 
-.addNewRewardInput{
-max-width: 100px;
+.addNewRewardP {
+  display: flex;
 }
 
-.addNewRewardInputNum{
-max-width: 30px;
-margin-left: 10px;
-text-align: center;
+.addNewRewardInput {
+  max-width: 100px;
 }
 
-.addNewRewardInputNum::placeholder{
-    color: #ffffff;
+.addNewRewardInputNum {
+  max-width: 30px;
+  margin-left: 10px;
+  text-align: center;
+}
+
+.addNewRewardInputNum::placeholder {
+  color: #ffffff;
 }
 
 .expandedContent {
-    width: 100%;
+  width: 100%;
 }
 
-.rewardCardImg{
-    width: 100%;
-    aspect-ratio: 1/1;
-    background-size: cover;
+.rewardCardImg {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background-size: cover;
 }
-    
-.newBtn{
-    height: 45px;
-    background-color: #A1552A;
-    color: #ffffff;
-    border-radius: 25px;
-    width: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    font-size:15px;
-    position: absolute;
-    bottom: -20px;
-    right: -50px;
+
+.newBtn {
+  height: 45px;
+  background-color: #a1552a;
+  color: #ffffff;
+  border-radius: 25px;
+  width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 15px;
+  position: absolute;
+  bottom: -20px;
+  right: -50px;
 }
