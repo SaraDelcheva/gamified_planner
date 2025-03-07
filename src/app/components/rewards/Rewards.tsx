@@ -4,12 +4,13 @@ import RewardCard from "./rewardCard/RewardCard";
 import AddNewReward from "./addNewReward/AddNewReward";
 import Treasure from "./treasure/Treasure";
 import { RewardsI } from "@/app/helpers/interfaces";
+import AddOrCancelBtn from "../goalsForToday/addGoal/addOrCancelBtn/AddOrCancelBtn";
 
 export default function Rewards({
   totalDiamonds,
   rewards,
   rewardName,
-  difficulty,
+  rewardPrice,
   isModalOpen,
   imageName,
   setCoverName,
@@ -19,6 +20,7 @@ export default function Rewards({
   InputChange,
   DiamondChange,
   addNewReward,
+  claimReward,
 }: RewardsI) {
   return (
     <div className={styles.rewards}>
@@ -33,10 +35,11 @@ export default function Rewards({
             diamonds={reward.diamonds ?? 0}
             cover={reward.cover}
             totalDiamonds={totalDiamonds}
+            claimReward={claimReward}
           />
         ))}
         <AddNewReward
-          diamonds={difficulty}
+          diamonds={rewardPrice}
           newRewardName={rewardName}
           addNewReward={addNewReward}
           handleInputChange={InputChange}
@@ -49,18 +52,24 @@ export default function Rewards({
       {isModalOpen && (
         <div className={styles.modalContainer}>
           <div className={styles.modalInner}>
-            {imageNames.map((imageName, index) => (
-              <div
-                onClick={() => {
-                  setCoverName(imageName);
-                  setImageName(imageName);
-                  setIsModalOpen(false);
-                }}
-                key={index}
-                className={styles.modalImage}
-                style={{ backgroundImage: `url(/images/${imageName})` }}
-              ></div>
-            ))}
+            <div className="header">Choose Cover Image</div>
+            <div className={styles.modalImagesContainer}>
+              {imageNames.map((imageName, index) => (
+                <div
+                  onClick={() => {
+                    setCoverName(imageName);
+                    setImageName(imageName);
+                  }}
+                  key={index}
+                  className={styles.modalImage}
+                  style={{ backgroundImage: `url(/images/${imageName})` }}
+                ></div>
+              ))}
+            </div>
+            <AddOrCancelBtn
+              addNewGoal={() => setIsModalOpen(false)}
+              onCancel={() => setIsModalOpen(false)}
+            />
           </div>
         </div>
       )}

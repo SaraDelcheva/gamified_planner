@@ -9,9 +9,6 @@ export default function GoalsForToday(props: GoalsForTodayI) {
     <div className={styles.goalsForToday}>
       <div className="header">
         <h1 className="headerH1">Goals for Today</h1>
-        <div className="headerDiamonds">
-          <p>Total Diamonds: {props.totalDiamonds}</p>
-        </div>
       </div>
       <div className={styles.dailyGoalsContainer}>
         <AddGoal

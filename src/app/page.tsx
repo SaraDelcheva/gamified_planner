@@ -17,6 +17,7 @@ export default function Home() {
   const [imageName, setImageName] = useState<string>("");
   const [goalName, setGoalName] = useState<string>("");
   const [expanded, setExpanded] = useState(false);
+  const [rewardPrice, setRewardPrice] = useState<number | null>(null);
 
   const imageNames: string[] = ["reward.png", "book.png", "coffee.png"];
 
@@ -83,13 +84,13 @@ export default function Home() {
   }
 
   function addNewReward() {
-    if (difficulty === null || !rewardName.trim()) return;
+    if (rewardPrice === null || !rewardName.trim()) return;
 
     const updatedRewards = [
       ...rewards,
       {
         title: rewardName,
-        diamonds: difficulty,
+        diamonds: rewardPrice,
         cover: coverName || imageName,
       },
     ];
@@ -97,7 +98,27 @@ export default function Home() {
     saveData({ rewards: updatedRewards });
 
     setRewardName("");
-    setDifficulty(null);
+    setRewardPrice(null);
+  }
+
+  function claimReward() {
+    const claimableRewards = rewards.filter(
+      (reward) => reward.diamonds && reward.diamonds <= totalDiamonds
+    );
+
+    if (!claimableRewards.length) return;
+
+    const claimedReward = claimableRewards[0];
+    const updatedRewards = rewards.filter((reward) => reward !== claimedReward);
+    const newTotalDiamonds = totalDiamonds - claimedReward.diamonds!;
+
+    setRewards(updatedRewards);
+    setTotalDiamonds(newTotalDiamonds);
+
+    saveData({
+      rewards: updatedRewards,
+      totalDiamonds: newTotalDiamonds,
+    });
   }
 
   return (
@@ -121,7 +142,7 @@ export default function Home() {
           totalDiamonds,
           rewards,
           rewardName,
-          difficulty,
+          rewardPrice,
           isModalOpen,
           imageName,
           setCoverName,
@@ -130,10 +151,11 @@ export default function Home() {
           imageNames,
           InputChange: (e) => setRewardName(e.target.value),
           DiamondChange: (e) =>
-            setDifficulty(
+            setRewardPrice(
               e.target.value.trim() === "" ? null : Number(e.target.value)
             ),
           addNewReward,
+          claimReward,
         }}
       />
     </div>

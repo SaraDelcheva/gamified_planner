@@ -7,11 +7,13 @@ export default function RewardCard({
   diamonds,
   cover,
   totalDiamonds,
+  claimReward,
 }: {
   rewardName: string;
   diamonds: number;
   cover: string;
   totalDiamonds: number;
+  claimReward: () => void;
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const isClaimable = diamonds <= totalDiamonds;
@@ -33,6 +35,7 @@ export default function RewardCard({
           <button
             className={`${styles.claimBtn} boxShadow`}
             disabled={!isClaimable}
+            onClick={claimReward}
           >
             Claim
           </button>

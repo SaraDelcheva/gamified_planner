@@ -36,7 +36,7 @@ export interface RewardsI {
   totalDiamonds: number;
   rewards: RewardI[];
   rewardName: string;
-  difficulty: number | null;
+  rewardPrice: number | null;
   isModalOpen: boolean;
   imageName: string;
   setCoverName: React.Dispatch<React.SetStateAction<string>>;
@@ -46,4 +46,5 @@ export interface RewardsI {
   InputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   DiamondChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   addNewReward: () => void;
+  claimReward: () => void;
 }

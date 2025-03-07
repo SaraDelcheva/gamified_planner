@@ -27,10 +27,13 @@ export default function AddNewReward({
   return (
     <div
       className={`${styles.addNewReward} ${!expanded && styles.expanded}`}
-      onClick={() => { if (!expanded) setExpanded(true); }}
+      onClick={() => {
+        if (!expanded) setExpanded(true);
+      }}
     >
       <p className={styles.addNewRewardP}>
-        <AiOutlinePlus /> {expanded ? (
+        <AiOutlinePlus />{" "}
+        {expanded ? (
           <input
             type="text"
             value={String(newRewardName)}
@@ -38,14 +41,18 @@ export default function AddNewReward({
             className={styles.addNewRewardInput}
             placeholder="Add a reward"
           />
-        ) : "Add a reward"}
+        ) : (
+          "Add a reward"
+        )}
       </p>
       {expanded && (
         <div className={styles.expandedContent}>
           <div
-            onClick ={chooseRewardCover}
+            onClick={chooseRewardCover}
             className={styles.rewardCardImg}
-            style={{ backgroundImage: `url('/images/${imageName || 'book.png'}')` }}
+            style={{
+              backgroundImage: `url('/images/${imageName || "reward.png"}')`,
+            }}
           ></div>
           <button
             onClick={addNewReward}
@@ -60,12 +67,13 @@ export default function AddNewReward({
             />
             <IoDiamondOutline />
           </button>
-          <AddOrCancelBtn 
-          addNewGoal={() => {
-            addNewReward();
-            setExpanded(!expanded);
-          }}
-          onCancel={() => setExpanded(!expanded)} />
+          <AddOrCancelBtn
+            addNewGoal={() => {
+              addNewReward();
+              setExpanded(!expanded);
+            }}
+            onCancel={() => setExpanded(!expanded)}
+          />
         </div>
       )}
     </div>
