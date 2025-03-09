@@ -37,14 +37,19 @@ export interface RewardsI {
   rewards: RewardI[];
   rewardName: string;
   rewardPrice: number | null;
-  isModalOpen: boolean;
-  imageName: string;
-  setCoverName: React.Dispatch<React.SetStateAction<string>>;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setImageName: React.Dispatch<React.SetStateAction<string>>;
-  imageNames: string[];
   InputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  DiamondChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  DiamondChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   addNewReward: () => void;
-  claimReward: () => void;
+  claimReward: (e:React.MouseEvent<HTMLButtonElement>) => void;
+  coverName: string
+  setCoverName: React.Dispatch<React.SetStateAction<string>>;
 }
+export interface AddNewRewardI {
+  addNewReward: () => void;
+  diamonds: number | null;
+  newRewardName: string | null;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputDiamondChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  coverName: string
+  setCoverName: React.Dispatch<React.SetStateAction<string>>;
+} 

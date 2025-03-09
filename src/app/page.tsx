@@ -11,15 +11,15 @@ export default function Home() {
   const [goals, setGoals] = useState<GoalI[]>([]);
 
   const [rewardName, setRewardName] = useState<string>("");
-  const [coverName, setCoverName] = useState<string>("");
+ 
   const [difficulty, setDifficulty] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [imageName, setImageName] = useState<string>("");
   const [goalName, setGoalName] = useState<string>("");
   const [expanded, setExpanded] = useState(false);
   const [rewardPrice, setRewardPrice] = useState<number | null>(null);
+  const [coverName, setCoverName] = useState<string>("");
 
-  const imageNames: string[] = ["reward.png", "book.png", "coffee.png"];
+
 
   // Fetch all data once
   useEffect(() => {
@@ -91,7 +91,7 @@ export default function Home() {
       {
         title: rewardName,
         diamonds: rewardPrice,
-        cover: coverName || imageName,
+        cover: coverName,
       },
     ];
     setRewards(updatedRewards);
@@ -101,11 +101,14 @@ export default function Home() {
     setRewardPrice(null);
   }
 
-  function claimReward() {
+  function claimReward(e:React.MouseEvent<HTMLButtonElement>) {
     const claimableRewards = rewards.filter(
       (reward) => reward.diamonds && reward.diamonds <= totalDiamonds
     );
-
+    const button = e.target as HTMLButtonElement;
+    const parentElement = button.parentElement; 
+//add keys on all rewards and goals
+    console.log(parentElement); 
     if (!claimableRewards.length) return;
 
     const claimedReward = claimableRewards[0];
@@ -144,18 +147,17 @@ export default function Home() {
           rewardName,
           rewardPrice,
           isModalOpen,
-          imageName,
-          setCoverName,
           setIsModalOpen,
-          setImageName,
-          imageNames,
           InputChange: (e) => setRewardName(e.target.value),
           DiamondChange: (e) =>
+          {  e.preventDefault();
             setRewardPrice(
               e.target.value.trim() === "" ? null : Number(e.target.value)
-            ),
+            )},
           addNewReward,
           claimReward,
+          coverName,
+          setCoverName
         }}
       />
     </div>

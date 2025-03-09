@@ -1,5 +1,6 @@
 .rewardCard {
-  flex-basis: 10%;
+  flex-basis: 100px; 
+  max-width: 100px;
   position: relative;
   height: fit-content;
 }
@@ -8,7 +9,7 @@
   width: 100%;
   aspect-ratio: 1/1;
   background-size: cover;
-}
+} 
 
 .newBtn,
 .claimBtn {

@@ -1,5 +1,6 @@
 .addNewReward {
-  flex-basis: 10%;
+  flex-basis: 100px; 
+  max-width: 100px;
   cursor: pointer;
   position: relative;
   height: fit-content;
@@ -14,16 +15,13 @@
 
 .addNewRewardInput {
   max-width: 100px;
+  font-size: 15px;
 }
 
-.addNewRewardInputNum {
+.addNewRewardDropdown {
   max-width: 30px;
   margin-left: 10px;
   text-align: center;
-}
-
-.addNewRewardInputNum::placeholder {
-  color: #ffffff;
 }
 
 .expandedContent {
@@ -50,4 +48,39 @@
   position: absolute;
   bottom: -20px;
   right: -50px;
+}
+
+.modalContainer {
+  position: absolute;
+  background-color: rgb(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+.modalInner {
+  position: absolute;
+  background-color: rgb(75, 75, 75);
+  width: 50%;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.modalImagesContainer {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+}
+
+.modalImage {
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  cursor: pointer;
+}
+.selected {
+  border: 2px solid white;
 }

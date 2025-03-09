@@ -11,16 +11,12 @@ export default function Rewards({
   rewards,
   rewardName,
   rewardPrice,
-  isModalOpen,
-  imageName,
-  setCoverName,
-  setIsModalOpen,
-  setImageName,
-  imageNames,
   InputChange,
   DiamondChange,
   addNewReward,
   claimReward,
+  coverName,
+  setCoverName
 }: RewardsI) {
   return (
     <div className={styles.rewards}>
@@ -44,35 +40,12 @@ export default function Rewards({
           addNewReward={addNewReward}
           handleInputChange={InputChange}
           handleInputDiamondChange={DiamondChange}
-          chooseRewardCover={() => setIsModalOpen(true)}
-          imageName={imageName}
+          setCoverName={setCoverName}
+          coverName={coverName}
         />
       </div>
       <Treasure totalDiamonds={totalDiamonds} />
-      {isModalOpen && (
-        <div className={styles.modalContainer}>
-          <div className={styles.modalInner}>
-            <div className="header">Choose Cover Image</div>
-            <div className={styles.modalImagesContainer}>
-              {imageNames.map((imageName, index) => (
-                <div
-                  onClick={() => {
-                    setCoverName(imageName);
-                    setImageName(imageName);
-                  }}
-                  key={index}
-                  className={styles.modalImage}
-                  style={{ backgroundImage: `url(/images/${imageName})` }}
-                ></div>
-              ))}
-            </div>
-            <AddOrCancelBtn
-              addNewGoal={() => setIsModalOpen(false)}
-              onCancel={() => setIsModalOpen(false)}
-            />
-          </div>
-        </div>
-      )}
+     
     </div>
   );
 }

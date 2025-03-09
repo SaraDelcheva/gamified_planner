@@ -1,21 +1,5 @@
 {
   "goals": [],
-  "rewards": [
-    {
-      "title": "werewrwer",
-      "diamonds": 23423,
-      "cover": "coffee.png"
-    },
-    {
-      "title": "werewr",
-      "diamonds": 23432,
-      "cover": "book.png"
-    },
-    {
-      "title": "sadsa",
-      "diamonds": 324,
-      "cover": "book.png"
-    }
-  ],
-  "totalDiamonds": 78
+  "rewards": [],
+  "totalDiamonds": 1910
 }

@@ -12,6 +12,10 @@ export default function AddGoal(props: AddGoalI) {
     props.setDifficulty(diamonds);
   }
 
+  function addCustomReward(){
+    console.log('blae')
+  }
+
   return (
     <div
       className={`${styles.addGoal} ${props.expanded ? styles.expanded : ""}`}
@@ -60,7 +64,7 @@ export default function AddGoal(props: AddGoalI) {
           />
         </div>
 
-        <AddCustomReward />
+        <AddCustomReward handleAddCustomReward={addCustomReward} />
         <AddOrCancelBtn
           addNewGoal={props.addNewGoal}
           onCancel={() => props.setExpanded(!props.expanded)}

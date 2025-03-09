@@ -1,3 +1,25 @@
 .addCustomReward {
   margin-top: 10px;
 }
+
+.addCustomRewardBtn{
+  background-color: transparent;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.addCustomRewardBtn:hover {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0)
+    );
+    transform: translate(1.1);
+}
+
+.plusIcon{
+  font-size: 20px;
+  margin-right: 10px;
+}

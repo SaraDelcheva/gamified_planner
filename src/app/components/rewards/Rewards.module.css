@@ -11,37 +11,5 @@
   flex-wrap: wrap;
   height: calc(100% - 50px);
   gap: 80px;
-  flex-basis: 100%;
-}
-
-.modalContainer {
-  position: absolute;
-  background-color: rgb(0, 0, 0, 0.4);
-  height: 100%;
-  width: 100%;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-}
-.modalInner {
-  position: absolute;
-  background-color: rgb(75, 75, 75);
-  width: 50%;
-  height: 400px;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-}
-
-.modalImagesContainer {
-  display: flex;
-  gap: 10px;
-  padding: 20px;
-}
-
-.modalImage {
-  width: 100px;
-  height: 100px;
-  background-size: cover;
-  cursor: pointer;
+  align-content: flex-start;
 }
