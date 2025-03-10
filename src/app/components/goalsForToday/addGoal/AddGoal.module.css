@@ -92,6 +92,7 @@
   height: 200px;
   padding: 15px;
   background-color: #7a9b81;
+  position: static;
 }
 
 .difficultyContainer {

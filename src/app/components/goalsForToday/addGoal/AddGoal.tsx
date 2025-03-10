@@ -1,4 +1,3 @@
-"use client";
 import { AiOutlinePlus } from "react-icons/ai";
 import { IoDiamondOutline } from "react-icons/io5";
 import styles from "./AddGoal.module.css";
@@ -10,10 +9,6 @@ import { AddGoalI } from "@/app/helpers/interfaces";
 export default function AddGoal(props: AddGoalI) {
   function easy(diamonds: number) {
     props.setDifficulty(diamonds);
-  }
-
-  function addCustomReward(){
-    console.log('blae')
   }
 
   return (
@@ -64,7 +59,12 @@ export default function AddGoal(props: AddGoalI) {
           />
         </div>
 
-        <AddCustomReward handleAddCustomReward={addCustomReward} />
+        <AddCustomReward
+          handleAddCustomReward={props.handleAddCustomReward}
+          customCoverName={props.customCoverName}
+          setCustomCoverName={props.setCustomCoverName}
+          setCustomRewardName={props.setCustomRewardName}
+        />
         <AddOrCancelBtn
           addNewGoal={props.addNewGoal}
           onCancel={() => props.setExpanded(!props.expanded)}

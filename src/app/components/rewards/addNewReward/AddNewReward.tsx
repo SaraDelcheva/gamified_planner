@@ -3,23 +3,14 @@ import { useState } from "react";
 import styles from "./AddNewReward.module.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import { IoDiamondOutline } from "react-icons/io5";
-import AddOrCancelBtn from "../../goalsForToday/addGoal/addOrCancelBtn/AddOrCancelBtn";
 import { AddNewRewardI } from "@/app/helpers/interfaces";
+import AddOrCancelBtn from "../../goalsForToday/addGoal/addOrCancelBtn/AddOrCancelBtn";
+import CoverModal from "../../coverModal/CoverModal";
 
-export default function AddNewReward({
-  addNewReward,
-  diamonds,
-  newRewardName,
-  handleInputChange,
-  handleInputDiamondChange,
-  coverName,
-  setCoverName
-}: AddNewRewardI) {
+export default function AddNewReward(props: AddNewRewardI) {
   const [expanded, setExpanded] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const imageNames: string[] = ["reward.png", "book.png", "coffee.png"];
   const diamondOptions = [5, 10, 20, 30, 50, 100, 200, 500, 1000];
-  const [tempCoverName, setTempCoverName] = useState<string>(coverName);
 
   return (
     <>
@@ -34,8 +25,8 @@ export default function AddNewReward({
           {expanded ? (
             <input
               type="text"
-              value={String(newRewardName)}
-              onChange={handleInputChange}
+              value={String(props.newRewardName)}
+              onChange={props.handleInputChange}
               className={styles.addNewRewardInput}
               placeholder="Add a reward"
             />
@@ -49,16 +40,16 @@ export default function AddNewReward({
               onClick={() => setIsModalOpen(true)}
               className={styles.rewardCardImg}
               style={{
-                backgroundImage: `url('/images/${coverName || "reward.png"}')`,
+                backgroundImage: `url('/images/${
+                  props.coverName || "reward.png"
+                }')`,
               }}
             ></div>
-            <button
-              className={`${styles.newBtn} boxShadow`}
-            >
+            <button className={`${styles.newBtn} boxShadow`}>
               <select
                 className={styles.addNewRewardDropdown}
-                value={diamonds ?? ""}
-                onChange={(e) => handleInputDiamondChange(e)}
+                value={props.diamonds ?? ""}
+                onChange={(e) => props.handleInputDiamondChange(e)}
               >
                 <option value="" disabled>
                   ?
@@ -73,7 +64,7 @@ export default function AddNewReward({
             </button>
             <AddOrCancelBtn
               addNewGoal={() => {
-                addNewReward();
+                props.addNewReward();
                 setExpanded(!expanded);
               }}
               onCancel={() => setExpanded(!expanded)}
@@ -82,35 +73,11 @@ export default function AddNewReward({
         )}
       </div>
       {isModalOpen && (
-        <div className={styles.modalContainer}>
-          <div className={styles.modalInner}>
-            <div className="header">Choose Cover Image</div>
-            <div className={styles.modalImagesContainer}>
-              {imageNames.map((imageName, index) => (
-                <div
-                  onClick={() => {
-                    setTempCoverName(imageName)
-                  }}
-                  key={index}
-                  className={`${styles.modalImage} ${
-                    tempCoverName === imageName ? styles.selected : ""
-                  }`}
-                  style={{ backgroundImage: `url(/images/${imageName})` }}
-                ></div>
-              ))}
-            </div>
-            <AddOrCancelBtn
-           addNewGoal={() => {
-            setCoverName(tempCoverName); 
-            setIsModalOpen(false);
-          }}
-          onCancel={() => {
-            setTempCoverName(coverName);
-            setIsModalOpen(false);
-          }}
-            />
-          </div>
-        </div>
+        <CoverModal
+          coverName={props.coverName}
+          setCoverName={props.setCoverName}
+          setIsModalOpen={setIsModalOpen}
+        />
       )}
     </>
   );

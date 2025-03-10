@@ -1,30 +1,21 @@
 import { useState } from "react";
 import styles from "./RewardCard.module.css";
 import { IoDiamondOutline } from "react-icons/io5";
+import { RewardCardI } from "@/app/helpers/interfaces";
 
-export default function RewardCard({
-  rewardName,
-  diamonds,
-  cover,
-  totalDiamonds,
-  claimReward,
-}: {
-  rewardName: string;
-  diamonds: number;
-  cover: string;
-  totalDiamonds: number;
-  claimReward: () => void;
-}) {
+export default function RewardCard(props: RewardCardI) {
   const [isHovered, setIsHovered] = useState(false);
-  const isClaimable = diamonds <= totalDiamonds;
+  const isClaimable = props.diamonds <= props.totalDiamonds;
 
   return (
-    <div className={styles.rewardCard}>
-      <p className={styles.rewardCardP}>{rewardName}</p>
+    <div className={styles.rewardCard} id={props.id}>
+      <p className={styles.rewardCardP}>{props.rewardName}</p>
       <div
         className={styles.rewardCardImg}
         style={{
-          backgroundImage: `url('/images/${cover ? cover : "reward.png"}')`,
+          backgroundImage: `url('/images/${
+            props.cover ? props.cover : "reward.png"
+          }')`,
         }}
       ></div>
       <div
@@ -35,7 +26,7 @@ export default function RewardCard({
           <button
             className={`${styles.claimBtn} boxShadow`}
             disabled={!isClaimable}
-            onClick={claimReward}
+            onClick={props.claimReward}
           >
             Claim
           </button>
@@ -44,7 +35,7 @@ export default function RewardCard({
             className={`${styles.newBtn} boxShadow`}
             disabled={!isClaimable}
           >
-            {diamonds} <IoDiamondOutline />
+            {props.diamonds} <IoDiamondOutline />
           </button>
         )}
       </div>

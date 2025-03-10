@@ -1,8 +1,9 @@
 .addCustomReward {
   margin-top: 10px;
+  z-index: 99;
 }
 
-.addCustomRewardBtn{
+.addCustomRewardBtn {
   background-color: transparent;
   width: 100%;
   text-align: left;
@@ -15,11 +16,17 @@
     to right,
     rgba(255, 255, 255, 0.2),
     rgba(255, 255, 255, 0)
-    );
-    transform: translate(1.1);
+  );
+  transform: translate(1.1);
 }
 
-.plusIcon{
+.plusIcon {
   font-size: 20px;
   margin-right: 10px;
+}
+
+.customCoverImg {
+  width: 20%;
+  aspect-ratio: 1/1;
+  background-size: cover;
 }

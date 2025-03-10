@@ -1,5 +1,32 @@
 {
-  "goals": [],
-  "rewards": [],
-  "totalDiamonds": 1910
+  "goals": [
+    {
+      "title": "",
+      "diamonds": 0,
+      "coverName": "coffee.png",
+      "rewardName": "asdasd",
+      "isCustom": true
+    }
+  ],
+  "rewards": [
+    {
+      "title": "sss",
+      "diamonds": 200,
+      "cover": "coffee.png",
+      "id": "2c054359-5f1a-4150-bd4a-591f1c0f7c02"
+    },
+    {
+      "title": "sadasd",
+      "diamonds": 100,
+      "cover": "book.png",
+      "id": "d91a0bf5-a9f9-476e-8256-cecf1f5f6526"
+    },
+    {
+      "title": "asdsd",
+      "diamonds": 5,
+      "cover": "coffee.png",
+      "id": "407c4e82-3048-4197-8a64-a6979c33a338"
+    }
+  ],
+  "totalDiamonds": 8480
 }

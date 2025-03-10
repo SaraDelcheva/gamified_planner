@@ -19,6 +19,10 @@ export default function GoalsForToday(props: GoalsForTodayI) {
           setGoalName={props.setGoalName}
           expanded={props.expanded}
           setExpanded={props.setExpanded}
+          handleAddCustomReward={props.handleAddCustomReward}
+          customCoverName={props.customCoverName}
+          setCustomCoverName={props.setCustomCoverName}
+          setCustomRewardName={props.setCustomRewardName}
         />
         {props.goals.map((goal, index) => (
           <NewGoal

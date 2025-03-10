@@ -1,5 +1,5 @@
 .addNewReward {
-  flex-basis: 100px; 
+  flex-basis: 100px;
   max-width: 100px;
   cursor: pointer;
   position: relative;
@@ -48,39 +48,4 @@
   position: absolute;
   bottom: -20px;
   right: -50px;
-}
-
-.modalContainer {
-  position: absolute;
-  background-color: rgb(0, 0, 0, 0.4);
-  height: 100%;
-  width: 100%;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-}
-.modalInner {
-  position: absolute;
-  background-color: rgb(75, 75, 75);
-  width: 50%;
-  height: 400px;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-}
-
-.modalImagesContainer {
-  display: flex;
-  gap: 10px;
-  padding: 20px;
-}
-
-.modalImage {
-  width: 100px;
-  height: 100px;
-  background-size: cover;
-  cursor: pointer;
-}
-.selected {
-  border: 2px solid white;
 }
