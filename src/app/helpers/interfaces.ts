@@ -1,9 +1,9 @@
 export interface GoalI {
   title: string;
   diamonds: number;
-  coverName?: string;
-  rewardName?: string;
-  isCustom?: boolean;
+  coverName: string;
+  rewardName: string;
+  isCustom: boolean;
 }
 
 export interface RewardI {
@@ -24,13 +24,15 @@ export interface AddGoalI {
   customCoverName: string;
   setCustomCoverName: React.Dispatch<React.SetStateAction<string>>;
   setCustomRewardName: React.Dispatch<React.SetStateAction<string>>;
-  handleAddCustomReward: () => void;
+  setIsCustom: React.Dispatch<React.SetStateAction<boolean>>;
+  isCustom: boolean;
 }
 
 export interface GoalsForTodayI extends AddGoalI {
   completeGoal: (goalTitle: string) => void;
   goals: GoalI[];
   totalDiamonds: number;
+  customRewardName: string;
 }
 export interface RewardsI {
   totalDiamonds: number;

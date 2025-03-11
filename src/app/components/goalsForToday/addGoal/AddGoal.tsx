@@ -5,12 +5,12 @@ import GoalDifficulty from "./goalDifficulty/GoalDifficulty";
 import AddCustomReward from "./addCustomReward/AddCustomReward";
 import AddOrCancelBtn from "./addOrCancelBtn/AddOrCancelBtn";
 import { AddGoalI } from "@/app/helpers/interfaces";
+import { BiPlus } from "react-icons/bi";
 
 export default function AddGoal(props: AddGoalI) {
   function easy(diamonds: number) {
     props.setDifficulty(diamonds);
   }
-
   return (
     <div
       className={`${styles.addGoal} ${props.expanded ? styles.expanded : ""}`}
@@ -36,38 +36,78 @@ export default function AddGoal(props: AddGoalI) {
             <AiOutlinePlus />
           </button>
         )}
-        {props.expanded && props.difficulty !== null && (
+        {props.expanded && props.isCustom && (
+          <button
+            className={`${styles.customBtn} boxShadow`}
+            style={
+              props.customCoverName
+                ? { backgroundImage: `url("/images/${props.customCoverName}")` }
+                : { backgroundImage: `url("/images/reward.png")` }
+            }
+          ></button>
+        )}
+        {props.expanded && !props.isCustom && (
           <button className={`${styles.newBtn} boxShadow`}>
             {props.difficulty} <IoDiamondOutline />
           </button>
         )}
       </div>
-
       <div className={styles.expandedContent}>
-        <div className={styles.difficultyContainer}>
-          <GoalDifficulty easy={easy} difficultyLevel="Easy" diamonds={5} />
-          <GoalDifficulty easy={easy} difficultyLevel="Boring" diamonds={10} />
-          <GoalDifficulty
-            easy={easy}
-            difficultyLevel="Difficult"
-            diamonds={20}
-          />
-          <GoalDifficulty
-            easy={easy}
-            difficultyLevel="Impossible"
-            diamonds={30}
-          />
-        </div>
+        <div className={styles.buttons}>
+          <button
+            className={`${styles.addCustomRewardBtn} ${
+              !props.isCustom ? styles.selected : ""
+            }`}
+            onClick={() => {
+              props.setIsCustom(false);
+            }}
+          >
+            <BiPlus className={styles.plusIcon} /> Choose Difficulty
+          </button>
 
-        <AddCustomReward
-          handleAddCustomReward={props.handleAddCustomReward}
-          customCoverName={props.customCoverName}
-          setCustomCoverName={props.setCustomCoverName}
-          setCustomRewardName={props.setCustomRewardName}
-        />
+          <button
+            className={`${styles.addCustomRewardBtn} ${
+              props.isCustom ? styles.selected : ""
+            }`}
+            onClick={() => {
+              props.setIsCustom(true);
+            }}
+          >
+            <BiPlus className={styles.plusIcon} /> Add Custom Reward
+          </button>
+        </div>
+        {!props.isCustom ? (
+          <div className={styles.difficultyContainer}>
+            <GoalDifficulty easy={easy} difficultyLevel="Easy" diamonds={5} />
+            <GoalDifficulty
+              easy={easy}
+              difficultyLevel="Boring"
+              diamonds={10}
+            />
+            <GoalDifficulty
+              easy={easy}
+              difficultyLevel="Difficult"
+              diamonds={20}
+            />
+            <GoalDifficulty
+              easy={easy}
+              difficultyLevel="Impossible"
+              diamonds={30}
+            />
+          </div>
+        ) : (
+          <AddCustomReward
+            customCoverName={props.customCoverName}
+            setCustomCoverName={props.setCustomCoverName}
+            setCustomRewardName={props.setCustomRewardName}
+          />
+        )}
         <AddOrCancelBtn
           addNewGoal={props.addNewGoal}
-          onCancel={() => props.setExpanded(!props.expanded)}
+          onCancel={() => {
+            props.setExpanded(!props.expanded);
+            props.setIsCustom(false);
+          }}
         />
       </div>
     </div>

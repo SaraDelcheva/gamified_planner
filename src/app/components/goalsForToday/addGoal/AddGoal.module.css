@@ -58,10 +58,10 @@
   color: #363636;
 }
 
-.newBtn {
+.newBtn,
+.customBtn {
   height: 100%;
   flex-shrink: 0;
-  background-color: #7a9b81;
   color: #ffffff;
   border-radius: 25px;
   width: 70px;
@@ -70,6 +70,15 @@
   justify-content: center;
   gap: 3px;
   font-size: 25px;
+}
+
+.newBtn {
+  background-color: #7a9b81;
+}
+.customBtn {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .addGoalHeader:hover .addBtn {
@@ -99,4 +108,36 @@
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+}
+.addCustomRewardBtn {
+  background-color: transparent;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  padding: 10px 2px;
+  border-radius: 2px;
+  margin: 10px 0;
+}
+
+.addCustomRewardBtn:hover {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0)
+  );
+  transform: translate(1.1);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.selected {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0)
+  );
 }

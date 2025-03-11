@@ -1,23 +1,5 @@
 .addCustomReward {
-  margin-top: 10px;
   z-index: 99;
-}
-
-.addCustomRewardBtn {
-  background-color: transparent;
-  width: 100%;
-  text-align: left;
-  display: flex;
-  align-items: center;
-}
-
-.addCustomRewardBtn:hover {
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0.2),
-    rgba(255, 255, 255, 0)
-  );
-  transform: translate(1.1);
 }
 
 .plusIcon {
@@ -25,8 +7,23 @@
   margin-right: 10px;
 }
 
+.customRewardTitle {
+  /* background-color: rgba(255, 255, 255, 0.1); */
+}
+
+.customRewardTitle::placeholder {
+  color: white;
+}
+
 .customCoverImg {
   width: 20%;
   aspect-ratio: 1/1;
   background-size: cover;
+  display: flex;
+  align-items: center;
+}
+
+.customChooseCover {
+  height: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
 }

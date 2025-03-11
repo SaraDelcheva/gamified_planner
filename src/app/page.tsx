@@ -13,7 +13,7 @@ export default function Home() {
 
   const [rewardName, setRewardName] = useState<string>("");
 
-  const [difficulty, setDifficulty] = useState<number | null>(null);
+  const [difficulty, setDifficulty] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [goalName, setGoalName] = useState<string>("");
   const [expanded, setExpanded] = useState(false);
@@ -21,7 +21,7 @@ export default function Home() {
   const [coverName, setCoverName] = useState<string>("");
   const [customCoverName, setCustomCoverName] = useState("");
   const [customRewardName, setCustomRewardName] = useState("");
-  // const [isCustom, setIsCustom] = useState(false);
+  const [isCustom, setIsCustom] = useState(false);
 
   // Fetch all data once
   useEffect(() => {
@@ -57,37 +57,30 @@ export default function Home() {
     });
   }
 
-  //Add custom reward
-  function handleAddCustomReward() {
+  // Add new goal
+  function addNewGoal() {
+    if ((difficulty === 0 && isCustom === false) || !goalName.trim()) return;
+    console.log("ADDDED");
+
     const updatedGoals = [
       ...goals,
       {
         title: goalName,
-        diamonds: 0,
-        coverName: customCoverName,
-        rewardName: customRewardName,
-        isCustom: true,
+        diamonds: isCustom ? 0 : difficulty,
+        coverName: isCustom ? customCoverName : "",
+        rewardName: isCustom ? customRewardName : "",
+        isCustom: isCustom,
       },
     ];
     setGoals(updatedGoals);
     saveData({ goals: updatedGoals });
 
     setGoalName("");
+    setCustomCoverName("reward.png");
+    setCustomRewardName("");
     setExpanded(false);
-    setDifficulty(null);
-  }
-
-  // Add new goal
-  function addNewGoal() {
-    if (difficulty === null || !goalName.trim()) return;
-
-    const updatedGoals = [...goals, { title: goalName, diamonds: difficulty }];
-    setGoals(updatedGoals);
-    saveData({ goals: updatedGoals });
-
-    setGoalName("");
-    setExpanded(false);
-    setDifficulty(null);
+    setDifficulty(0);
+    setIsCustom(false);
   }
 
   // Complete goal
@@ -162,10 +155,12 @@ export default function Home() {
           completeGoal,
           difficulty,
           setDifficulty,
-          handleAddCustomReward,
           customCoverName,
           setCustomCoverName,
           setCustomRewardName,
+          isCustom,
+          setIsCustom,
+          customRewardName,
         }}
       />
       <Rewards

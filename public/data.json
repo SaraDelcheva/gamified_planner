@@ -1,10 +1,45 @@
 {
   "goals": [
     {
-      "title": "",
+      "title": "asdsad",
+      "diamonds": 0,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false
+    },
+    {
+      "title": "sadsa",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false
+    },
+    {
+      "title": "bkq",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false
+    },
+    {
+      "title": "bla bla",
       "diamonds": 0,
       "coverName": "coffee.png",
-      "rewardName": "asdasd",
+      "rewardName": "Bla bla",
+      "isCustom": true
+    },
+    {
+      "title": "DASDA",
+      "diamonds": 0,
+      "coverName": "coffee.png",
+      "rewardName": "ASDASD",
+      "isCustom": true
+    },
+    {
+      "title": "sdsad",
+      "diamonds": 0,
+      "coverName": "book.png",
+      "rewardName": "",
       "isCustom": true
     }
   ],

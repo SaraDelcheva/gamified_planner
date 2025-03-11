@@ -1,41 +1,30 @@
 "use client";
 import { useState } from "react";
 import styles from "./AddCustomReward.module.css";
-import { BiPlus } from "react-icons/bi";
 import CoverModal from "@/app/components/coverModal/CoverModal";
 
 export default function AddCustomReward({
-  handleAddCustomReward,
   customCoverName,
   setCustomCoverName,
   setCustomRewardName,
 }: {
-  handleAddCustomReward: () => void;
   customCoverName: string;
   setCustomCoverName: React.Dispatch<React.SetStateAction<string>>;
   setCustomRewardName: React.Dispatch<React.SetStateAction<string>>;
 }) {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
       <div className={styles.addCustomReward}>
-        <button
-          onClick={() => setIsExpanded(true)}
-          className={styles.addCustomRewardBtn}
-        >
-          <BiPlus className={styles.plusIcon} /> Add Custom Reward
-        </button>
-        {isExpanded && (
-          <div className={styles.expandedContent}>
-            <input
-              type="text"
-              onChange={(e) => setCustomRewardName(e.target.value)}
-              placeholder="Rewards name"
-            />
-          </div>
-        )}
+        <div className={styles.expandedContent}>
+          <input
+            type="text"
+            onChange={(e) => setCustomRewardName(e.target.value)}
+            className={styles.customRewardTitle}
+            placeholder="Reward title"
+          />
+        </div>
       </div>
       <div
         className={styles.customCoverImg}
@@ -45,8 +34,12 @@ export default function AddCustomReward({
             : { backgroundImage: `url("./images/reward.png")` }
         }
       >
-        <button onClick={() => setIsModalOpen(true)}>Choose Cover</button>
-        <button onClick={handleAddCustomReward}>done</button>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className={styles.customChooseCover}
+        >
+          Choose Cover
+        </button>
       </div>
       {isModalOpen && (
         <CoverModal

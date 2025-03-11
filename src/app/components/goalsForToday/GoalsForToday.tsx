@@ -19,17 +19,21 @@ export default function GoalsForToday(props: GoalsForTodayI) {
           setGoalName={props.setGoalName}
           expanded={props.expanded}
           setExpanded={props.setExpanded}
-          handleAddCustomReward={props.handleAddCustomReward}
           customCoverName={props.customCoverName}
           setCustomCoverName={props.setCustomCoverName}
           setCustomRewardName={props.setCustomRewardName}
+          setIsCustom={props.setIsCustom}
+          isCustom={props.isCustom}
         />
         {props.goals.map((goal, index) => (
           <NewGoal
             key={index}
             goalTitle={goal.title}
             diamonds={goal.diamonds}
+            isCustom={goal.isCustom}
             completeGoal={props.completeGoal}
+            customCoverName={goal.coverName}
+            customRewardName={goal.rewardName}
           />
         ))}
       </div>
