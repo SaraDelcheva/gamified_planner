@@ -26,6 +26,7 @@ export interface AddGoalI {
   setCustomRewardName: React.Dispatch<React.SetStateAction<string>>;
   setIsCustom: React.Dispatch<React.SetStateAction<boolean>>;
   isCustom: boolean;
+  cancelAddGoal: () => void;
 }
 
 export interface GoalsForTodayI extends AddGoalI {

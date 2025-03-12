@@ -44,7 +44,17 @@ export default function AddNewReward(props: AddNewRewardI) {
                   props.coverName || "reward.png"
                 }')`,
               }}
-            ></div>
+            >
+              <div className={styles.addCancelContainer}>
+                <AddOrCancelBtn
+                  addNewGoal={() => {
+                    props.addNewReward();
+                    setExpanded(!expanded);
+                  }}
+                  onCancel={() => setExpanded(!expanded)}
+                />
+              </div>
+            </div>
             <button className={`${styles.newBtn} boxShadow`}>
               <select
                 className={styles.addNewRewardDropdown}
@@ -62,13 +72,6 @@ export default function AddNewReward(props: AddNewRewardI) {
               </select>
               <IoDiamondOutline />
             </button>
-            <AddOrCancelBtn
-              addNewGoal={() => {
-                props.addNewReward();
-                setExpanded(!expanded);
-              }}
-              onCancel={() => setExpanded(!expanded)}
-            />
           </div>
         )}
       </div>

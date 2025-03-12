@@ -1,67 +1,27 @@
 {
   "goals": [
     {
-      "title": "asdsad",
-      "diamonds": 0,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false
-    },
-    {
-      "title": "sadsa",
-      "diamonds": 10,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false
-    },
-    {
-      "title": "bkq",
-      "diamonds": 10,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false
-    },
-    {
-      "title": "bla bla",
+      "title": "dsfsdf",
       "diamonds": 0,
       "coverName": "coffee.png",
-      "rewardName": "Bla bla",
+      "rewardName": "asdsad",
       "isCustom": true
     },
     {
-      "title": "DASDA",
+      "title": "sadasd",
       "diamonds": 0,
       "coverName": "coffee.png",
-      "rewardName": "ASDASD",
-      "isCustom": true
-    },
-    {
-      "title": "sdsad",
-      "diamonds": 0,
-      "coverName": "book.png",
-      "rewardName": "",
+      "rewardName": "asdsad",
       "isCustom": true
     }
   ],
   "rewards": [
     {
-      "title": "sss",
-      "diamonds": 200,
-      "cover": "coffee.png",
-      "id": "2c054359-5f1a-4150-bd4a-591f1c0f7c02"
-    },
-    {
-      "title": "sadasd",
+      "title": "sadsad",
       "diamonds": 100,
-      "cover": "book.png",
-      "id": "d91a0bf5-a9f9-476e-8256-cecf1f5f6526"
-    },
-    {
-      "title": "asdsd",
-      "diamonds": 5,
-      "cover": "coffee.png",
-      "id": "407c4e82-3048-4197-8a64-a6979c33a338"
+      "cover": "",
+      "id": "d6e24767-2a21-4af9-ab3a-a2e929b972c0"
     }
   ],
-  "totalDiamonds": 8480
+  "totalDiamonds": 8190
 }

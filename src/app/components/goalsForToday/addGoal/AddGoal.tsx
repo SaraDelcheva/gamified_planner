@@ -46,7 +46,7 @@ export default function AddGoal(props: AddGoalI) {
             }
           ></button>
         )}
-        {props.expanded && !props.isCustom && (
+        {props.expanded && !props.isCustom && props.difficulty !== 0 && (
           <button className={`${styles.newBtn} boxShadow`}>
             {props.difficulty} <IoDiamondOutline />
           </button>
@@ -102,13 +102,15 @@ export default function AddGoal(props: AddGoalI) {
             setCustomRewardName={props.setCustomRewardName}
           />
         )}
-        <AddOrCancelBtn
-          addNewGoal={props.addNewGoal}
-          onCancel={() => {
-            props.setExpanded(!props.expanded);
-            props.setIsCustom(false);
-          }}
-        />
+        <div className={styles.addCancelContainer}>
+          <AddOrCancelBtn
+            addNewGoal={props.addNewGoal}
+            onCancel={() => {
+              props.setExpanded(!props.expanded);
+              props.cancelAddGoal();
+            }}
+          />
+        </div>
       </div>
     </div>
   );

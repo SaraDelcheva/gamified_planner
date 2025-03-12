@@ -4,6 +4,7 @@ import { useState } from "react";
 import styles from "./NewGoal.module.css";
 import { IoDiamondOutline } from "react-icons/io5";
 import { FaCheck } from "react-icons/fa";
+import { BiDiamond } from "react-icons/bi";
 
 export default function NewGoal({
   goalTitle,
@@ -20,23 +21,21 @@ export default function NewGoal({
   customCoverName: string;
   customRewardName: string;
 }) {
-  const [isChecked, setIsChecked] = useState(false);
   const [isGoalHovered, setIsGoalHovered] = useState(false);
+
   return (
     <div
       className={styles.newGoal}
       onMouseEnter={() => {
-        setIsChecked(true);
-        if (isCustom) setIsGoalHovered(true);
+        setIsGoalHovered(true);
       }}
       onMouseLeave={() => {
-        setIsChecked(false);
-        if (isCustom) setIsGoalHovered(false);
+        setIsGoalHovered(false);
       }}
     >
       <div className={styles.newGoalHeader}>
         <p className={styles.newGoalP}>{goalTitle}</p>
-        {isChecked ? (
+        {isGoalHovered ? (
           <button
             onClick={() => completeGoal(goalTitle)}
             className={`${styles.newBtn} boxShadow`}
@@ -55,11 +54,22 @@ export default function NewGoal({
             {diamonds} <IoDiamondOutline />
           </button>
         )}
-        {isGoalHovered && (
+
+        <div
+          className={`${styles.customRewardDetails} ${
+            isGoalHovered && styles.isHovered
+          }`}
+        >
           <div className={styles.customRewardDescription}>
-            {customRewardName}
+            <p className={styles.customRewardDescriptionP}>
+              Receive on completion:
+            </p>
+            <p className={styles.customRewardName}>
+              <BiDiamond />
+              {isCustom ? <>{customRewardName}</> : <>{diamonds}</>}
+            </p>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

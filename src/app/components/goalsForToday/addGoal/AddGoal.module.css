@@ -141,3 +141,8 @@
     rgba(255, 255, 255, 0)
   );
 }
+
+.addCancelContainer {
+  display: flex;
+  justify-content: right;
+}

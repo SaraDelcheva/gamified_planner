@@ -24,6 +24,7 @@ export default function GoalsForToday(props: GoalsForTodayI) {
           setCustomRewardName={props.setCustomRewardName}
           setIsCustom={props.setIsCustom}
           isCustom={props.isCustom}
+          cancelAddGoal={props.cancelAddGoal}
         />
         {props.goals.map((goal, index) => (
           <NewGoal

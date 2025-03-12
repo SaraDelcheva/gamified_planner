@@ -59,8 +59,12 @@ export default function Home() {
 
   // Add new goal
   function addNewGoal() {
-    if ((difficulty === 0 && isCustom === false) || !goalName.trim()) return;
-    console.log("ADDDED");
+    if (
+      (difficulty === 0 && !isCustom) ||
+      !goalName.trim() ||
+      (!customRewardName && isCustom)
+    )
+      return;
 
     const updatedGoals = [
       ...goals,
@@ -82,7 +86,15 @@ export default function Home() {
     setDifficulty(0);
     setIsCustom(false);
   }
-
+  //Cancel add goal
+  function cancelAddGoal() {
+    setGoalName("");
+    setCustomCoverName("reward.png");
+    setCustomRewardName("");
+    setExpanded(false);
+    setDifficulty(0);
+    setIsCustom(false);
+  }
   // Complete goal
   function completeGoal(goalTitle: string) {
     const completedGoal = goals.find((goal) => goal.title === goalTitle);
@@ -161,6 +173,7 @@ export default function Home() {
           isCustom,
           setIsCustom,
           customRewardName,
+          cancelAddGoal,
         }}
       />
       <Rewards
