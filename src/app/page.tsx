@@ -124,7 +124,7 @@ export default function Home() {
     ];
     setRewards(updatedRewards);
     saveData({ rewards: updatedRewards });
-
+    setCoverName("reward.png");
     setRewardName("");
     setRewardPrice(null);
   }

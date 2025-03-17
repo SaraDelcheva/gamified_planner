@@ -6,6 +6,11 @@ export interface GoalI {
   isCustom: boolean;
 }
 
+export interface HabitI {
+  title: string;
+  dates: { date: string; isComplete: boolean }[];
+}
+
 export interface RewardI {
   title: string;
   diamonds: number | null;

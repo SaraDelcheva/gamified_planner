@@ -45,13 +45,19 @@ export default function AddNewReward(props: AddNewRewardI) {
                 }')`,
               }}
             >
-              <div className={styles.addCancelContainer}>
+              <div
+                className={styles.addCancelContainer}
+                onClick={(e) => e.stopPropagation()}
+              >
                 <AddOrCancelBtn
                   addNewGoal={() => {
                     props.addNewReward();
                     setExpanded(!expanded);
                   }}
-                  onCancel={() => setExpanded(!expanded)}
+                  onCancel={() => {
+                    setExpanded(!expanded);
+                    props.setCoverName("reward.png");
+                  }}
                 />
               </div>
             </div>

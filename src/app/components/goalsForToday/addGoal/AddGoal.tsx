@@ -104,7 +104,7 @@ export default function AddGoal(props: AddGoalI) {
         )}
         <div className={styles.addCancelContainer}>
           <AddOrCancelBtn
-            addNewGoal={props.addNewGoal}
+            onAdd={props.addNewGoal}
             onCancel={() => {
               props.setExpanded(!props.expanded);
               props.cancelAddGoal();

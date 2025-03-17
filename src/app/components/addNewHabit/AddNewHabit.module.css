@@ -1,0 +1,7 @@
+.addNewHabit {
+  cursor: pointer;
+}
+
+.addNewHabit:hover {
+  transform: translate(1.1);
+}

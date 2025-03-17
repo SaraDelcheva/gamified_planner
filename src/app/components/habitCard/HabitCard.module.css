@@ -1,0 +1,37 @@
+.date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #363636;
+  height: 45px;
+  width: 45px;
+  margin: 5px auto;
+  border-radius: 50%;
+  box-shadow: inset 1px 5px 5px rgb(31, 31, 31);
+  cursor: pointer;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.clicked {
+  background-image: url("../../../../public/images/chain.svg");
+  border-radius: 0;
+  box-shadow: unset;
+  background-color: unset;
+}
+
+.habitName {
+  background-color: #ffc301;
+  border-radius: 10px;
+  padding-top: 5px;
+  color: #3d3d3d;
+  font-weight: bold;
+  text-align: center;
+  height: 50px;
+  width: 100px;
+  margin: 0 5px 5px 5px;
+}
+
+.date:hover {
+  background: #4d4d4d;
+}

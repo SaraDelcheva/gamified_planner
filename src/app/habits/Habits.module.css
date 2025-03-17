@@ -1,0 +1,42 @@
+.habits {
+  width: 100%;
+  padding: 20px 20px 0;
+}
+
+.habitsContainer {
+  display: flex;
+  margin-top: 20px;
+}
+
+.dates {
+  margin-top: 50px;
+  margin-right: 20px;
+}
+
+.date {
+  background-color: #ffc301;
+  width: 100px;
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 5px 10px;
+  color: #3d3d3d;
+  height: 45px;
+}
+
+.today {
+  background-color: #ffcc00;
+  font-weight: bold;
+}
+
+.dateText {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.dayText {
+  font-size: 14px;
+}
+
+.habitsInner {
+  display: flex;
+}

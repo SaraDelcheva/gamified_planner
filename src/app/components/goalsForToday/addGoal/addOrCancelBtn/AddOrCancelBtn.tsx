@@ -3,10 +3,10 @@ import { AiOutlineClose } from "react-icons/ai";
 import { FaPlay } from "react-icons/fa";
 
 export default function AddOrCancelBtn({
-  addNewGoal,
+  onAdd,
   onCancel,
 }: {
-  addNewGoal: () => void;
+  onAdd: () => void;
   onCancel: () => void;
 }) {
   return (
@@ -16,7 +16,7 @@ export default function AddOrCancelBtn({
       </button>
       <button
         onClick={() => {
-          addNewGoal();
+          onAdd();
         }}
         className={styles.addBtn}
       >

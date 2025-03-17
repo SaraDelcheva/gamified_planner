@@ -5,6 +5,7 @@ export default function LeftMenu() {
   return (
     <div className={styles.leftMenu}>
       <LeftMenuBtn title="Home" id="/" />
+      <LeftMenuBtn title="Habits" id="habits" />
       <LeftMenuBtn title="Quests" id="quests" />
       <LeftMenuBtn title="To Do" id="todo" />
       <LeftMenuBtn title="Journal" id="journal" />

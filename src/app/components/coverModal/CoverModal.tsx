@@ -34,7 +34,7 @@ export default function CoverModal({
         </div>
         <div className={styles.addCancelContainer}>
           <AddOrCancelBtn
-            addNewGoal={() => {
+            onAdd={() => {
               setCoverName(tempCoverName);
               setIsModalOpen(false);
             }}

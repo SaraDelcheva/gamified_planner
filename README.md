@@ -36,3 +36,10 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 different types of currency for different type of tasks
+dates;
+upload images;
+claimed rewards for today;
+history
+repeated goals;
+rewards that can be claimed a specific amount of times per day;
+streaks;
