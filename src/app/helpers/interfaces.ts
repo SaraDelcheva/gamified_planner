@@ -8,6 +8,8 @@ export interface GoalI {
 
 export interface HabitI {
   title: string;
+  latestStreak: number;
+  maxStreak: number;
   dates: { date: string; isComplete: boolean }[];
 }
 

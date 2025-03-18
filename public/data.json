@@ -1,312 +1,268 @@
 {
-  "goals": [],
+  "goals": [
+    {
+      "title": "hwd",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false
+    }
+  ],
   "rewards": [
     {
-      "title": "adasd",
-      "diamonds": 30,
-      "cover": "book.png",
-      "id": "b23c67a7-2da5-4ed7-a2df-a54c6960432d"
+      "title": "dasd",
+      "diamonds": 50,
+      "cover": "",
+      "id": "76f511be-28da-4c5c-b846-7944eb0462b0"
     },
     {
-      "title": "dasd",
-      "diamonds": 100,
-      "cover": "book.png",
-      "id": "a364fa0a-ae7f-4aaa-91b4-807fba3c70f8"
+      "title": "xcxc",
+      "diamonds": 20,
+      "cover": "coffee.png",
+      "id": "811950e2-e546-4f51-8832-27b8c52be903"
+    },
+    {
+      "title": "ss",
+      "diamonds": 50,
+      "cover": "",
+      "id": "59dbfc99-90b1-4766-ac1c-7451a1d842b8"
     }
   ],
   "habits": [
     {
-      "title": "dasdsa",
+      "title": "dasds",
+      "latestStreak": 0,
+      "maxStreak": 3,
       "dates": [
         {
-          "date": "Mar 17",
+          "date": "Mar 18, 2025",
           "isComplete": true
         },
         {
-          "date": "Mar 16",
+          "date": "Mar 17, 2025",
           "isComplete": true
         },
         {
-          "date": "Mar 15",
+          "date": "Mar 16, 2025",
           "isComplete": true
         },
         {
-          "date": "Mar 14",
+          "date": "Mar 13, 2025",
           "isComplete": true
-        },
-        {
-          "date": "Mar 13",
-          "isComplete": true
-        },
-        {
-          "date": "Mar 12",
-          "isComplete": true
-        },
-        {
-          "date": "Mar 11",
-          "isComplete": true
-        },
-        {
-          "date": "Mar 10",
-          "isComplete": true
-        },
-        {
-          "date": "Mar 9",
-          "isComplete": true
-        },
-        {
-          "date": "Mar 8",
-          "isComplete": true
-        },
-        {
-          "date": "Mar 7",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 6",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 5",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 4",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 3",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 2",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 1",
-          "isComplete": false
         }
       ]
     },
     {
-      "title": "ettt",
+      "title": "asdsa",
+      "latestStreak": 0,
+      "maxStreak": 5,
       "dates": [
         {
-          "date": "Mar 17",
+          "date": "Mar 18, 2025",
           "isComplete": true
         },
         {
-          "date": "Mar 16",
+          "date": "Mar 17, 2025",
           "isComplete": true
         },
         {
-          "date": "Mar 15",
+          "date": "Mar 16, 2025",
           "isComplete": true
         },
         {
-          "date": "Mar 14",
+          "date": "Mar 15, 2025",
           "isComplete": true
         },
         {
-          "date": "Mar 13",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 12",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 11",
+          "date": "Mar 14, 2025",
           "isComplete": true
-        },
-        {
-          "date": "Mar 10",
-          "isComplete": true
-        },
-        {
-          "date": "Mar 9",
-          "isComplete": true
-        },
-        {
-          "date": "Mar 8",
-          "isComplete": true
-        },
-        {
-          "date": "Mar 7",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 6",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 5",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 4",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 3",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 2",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 1",
-          "isComplete": false
         }
       ]
     },
     {
-      "title": "dsad",
+      "title": "adssad",
+      "latestStreak": 2,
+      "maxStreak": 7,
       "dates": [
         {
-          "date": "Mar 17",
-          "isComplete": false
+          "date": "Mar 18, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 16",
-          "isComplete": false
+          "date": "Mar 17, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 15",
-          "isComplete": false
+          "date": "Mar 15, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 14",
-          "isComplete": false
+          "date": "Mar 14, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 13",
-          "isComplete": false
+          "date": "Mar 11, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 12",
-          "isComplete": false
+          "date": "Mar 10, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 11",
-          "isComplete": false
+          "date": "Mar 9, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 10",
-          "isComplete": false
+          "date": "Mar 8, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 9",
-          "isComplete": false
+          "date": "Mar 7, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 8",
-          "isComplete": false
+          "date": "Mar 6, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 7",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 6",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 5",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 4",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 3",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 2",
-          "isComplete": false
-        },
-        {
-          "date": "Mar 1",
-          "isComplete": false
+          "date": "Mar 5, 2025",
+          "isComplete": true
         }
       ]
     },
     {
-      "title": "dsada",
+      "title": "asd",
+      "latestStreak": 6,
+      "maxStreak": 1,
       "dates": [
         {
-          "date": "Mar 17",
-          "isComplete": false
+          "date": "Mar 18, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 16",
-          "isComplete": false
+          "date": "Mar 17, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 15",
-          "isComplete": false
+          "date": "Mar 16, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 14",
-          "isComplete": false
+          "date": "Mar 15, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 13",
-          "isComplete": false
+          "date": "Mar 14, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 12",
-          "isComplete": false
+          "date": "Mar 13, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 11",
-          "isComplete": false
+          "date": "Mar 11, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 10",
-          "isComplete": false
+          "date": "Mar 10, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 9",
-          "isComplete": false
+          "date": "Mar 9, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 8",
-          "isComplete": false
+          "date": "Mar 8, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 7",
-          "isComplete": false
+          "date": "Mar 7, 2025",
+          "isComplete": true
+        }
+      ]
+    },
+    {
+      "title": "dsfds",
+      "latestStreak": 0,
+      "maxStreak": 5,
+      "dates": [
+        {
+          "date": "Mar 18, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 6",
-          "isComplete": false
+          "date": "Mar 17, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 5",
-          "isComplete": false
+          "date": "Mar 16, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 4",
-          "isComplete": false
+          "date": "Mar 15, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 3",
-          "isComplete": false
+          "date": "Mar 14, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 2",
-          "isComplete": false
+          "date": "Mar 12, 2025",
+          "isComplete": true
         },
         {
-          "date": "Mar 1",
-          "isComplete": false
+          "date": "Mar 11, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 10, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 9, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 8, 2025",
+          "isComplete": true
+        }
+      ]
+    },
+    {
+      "title": "dfdsf",
+      "latestStreak": 2,
+      "maxStreak": 5,
+      "dates": [
+        {
+          "date": "Mar 18, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 17, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 14, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 13, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 12, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 11, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 10, 2025",
+          "isComplete": true
         }
       ]
     }
   ],
-  "totalDiamonds": 8040
+  "totalDiamonds": 7930
 }

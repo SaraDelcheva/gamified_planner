@@ -20,18 +20,6 @@
   background-color: unset;
 }
 
-.habitName {
-  background-color: #ffc301;
-  border-radius: 10px;
-  padding-top: 5px;
-  color: #3d3d3d;
-  font-weight: bold;
-  text-align: center;
-  height: 50px;
-  width: 100px;
-  margin: 0 5px 5px 5px;
-}
-
 .date:hover {
   background: #4d4d4d;
 }

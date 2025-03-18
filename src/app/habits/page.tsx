@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import styles from "./Habits.module.css";
 import AddNewHabit from "../components/addNewHabit/AddNewHabit";
-import HabitCard from "../components/habitCard/HabitCard";
+import RenderHabitDates from "../components/renderHabitDates/RenderHabitDates";
 import { HabitI } from "../helpers/interfaces";
 
 export default function Habits() {
@@ -14,6 +14,66 @@ export default function Habits() {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
+  //check consecutive dates
+  function getConsecutiveDates(
+    habitDates: { date: string; isComplete: boolean }[]
+  ) {
+    const completedDates = habitDates
+      .filter((dateObj) => dateObj.isComplete)
+      .map((dateObj) => new Date(dateObj.date)); // Keep original date format
+
+    // Sort descending (latest first)
+
+    let consecutiveCount = 1;
+    let maxConsecutiveCount = 1;
+    let latestStreak = 0;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Track the latest streak (count uninterrupted days from today)
+    if (completedDates[0].getTime() === today.getTime()) {
+      latestStreak = 1;
+      let prevDate = today.getTime();
+
+      // Loop through the dates to check the uninterrupted streak
+      for (let i = 1; i < completedDates.length; i++) {
+        const currentDate = completedDates[i];
+
+        // Check if the current date is one day before the previous date
+        if (prevDate - currentDate.getTime() === 24 * 60 * 60 * 1000) {
+          latestStreak++;
+          prevDate = currentDate.getTime();
+        } else {
+          break; // Streak ends
+        }
+      }
+    }
+
+    // Calculate the max streak (the longest streak)
+    for (let i = 1; i < completedDates.length; i++) {
+      const currentDate = completedDates[i - 1];
+      const previousDate = completedDates[i];
+      console.log(currentDate, previousDate);
+
+      // Calculate day difference
+      const dayDifference =
+        (currentDate.getTime() - previousDate.getTime()) / (1000 * 3600 * 24);
+      console.log(dayDifference);
+      if (dayDifference === 1) {
+        console.log("aa");
+        consecutiveCount++; // Increment streak if consecutive
+      } else {
+        consecutiveCount = 1; // Reset streak if not consecutive
+      }
+
+      // Update the max consecutive streak
+      maxConsecutiveCount = Math.max(maxConsecutiveCount, consecutiveCount);
+    }
+
+    return { maxConsecutiveCount, latestStreak };
+  }
+
   //Complete Habit
   function completeHabit(
     index: number | null,
@@ -22,20 +82,44 @@ export default function Habits() {
   ) {
     if (index === null) return;
 
-    const clickedDate = event.currentTarget.id;
+    const clickedDate = event.currentTarget.id.replace(/"/g, "");
 
     const updatedHabits = habits.map((habit) => {
       if (habit.title === title) {
-        const updatedDates = habit.dates.map((dateObj) =>
-          dateObj.date === clickedDate.replace(/"/g, "")
-            ? { ...dateObj, isComplete: !dateObj.isComplete }
-            : dateObj
+        const existingDateIndex = habit.dates.findIndex(
+          (dateObj) => dateObj.date === clickedDate
         );
 
-        return {
-          ...habit,
-          dates: updatedDates,
-        };
+        if (existingDateIndex !== -1) {
+          const updatedDates = habit.dates.filter(
+            (dateObj) => dateObj.date !== clickedDate
+          );
+          const maxStreak =
+            getConsecutiveDates(updatedDates).maxConsecutiveCount;
+          const latestStreak = getConsecutiveDates(updatedDates).latestStreak;
+
+          return {
+            ...habit,
+            latestStreak,
+            maxStreak,
+            dates: updatedDates,
+          };
+        } else {
+          const newDate = { date: clickedDate, isComplete: true };
+          const updatedDates = [...habit.dates, newDate].sort((a, b) => {
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+          });
+          const maxStreak =
+            getConsecutiveDates(updatedDates).maxConsecutiveCount;
+          const latestStreak = getConsecutiveDates(updatedDates).latestStreak;
+
+          return {
+            ...habit,
+            latestStreak,
+            maxStreak,
+            dates: updatedDates,
+          };
+        }
       }
 
       return habit;
@@ -85,6 +169,7 @@ export default function Habits() {
       const formattedDate = new Intl.DateTimeFormat("en-US", {
         month: "short",
         day: "numeric",
+        year: "numeric",
       }).format(date);
 
       const day = new Intl.DateTimeFormat("en-US", {
@@ -139,10 +224,9 @@ export default function Habits() {
       ...habits,
       {
         title: habitName,
-        dates: dates.map((date) => ({
-          date: date.formattedDate,
-          isComplete: false,
-        })),
+        latestStreak: 0,
+        maxStreak: 0,
+        dates: [],
       },
     ];
     setHabits(updatedHabits);
@@ -171,17 +255,28 @@ export default function Habits() {
             </div>
           ))}
         </div>
+
         <div className={styles.habitsInner}>
           <div className={styles.habitsInner}>
             {habits.map((habit, index) => (
-              <HabitCard
-                key={index}
-                habit={habit}
-                completeHabit={completeHabit}
-              />
+              <div className={styles.habitCard} key={index}>
+                <div className={styles.habitName}>
+                  {habit.title}
+                  <p>Max streak: {habit.maxStreak}</p>
+                  <p>Latest streak: {habit.latestStreak}</p>
+                </div>
+                <div className={styles.habitDates}>
+                  <RenderHabitDates
+                    habit={habit}
+                    completeHabit={completeHabit}
+                    dates={dates}
+                  />
+                </div>
+              </div>
             ))}
           </div>
         </div>
+
         <AddNewHabit
           addNewHabit={addNewHabit}
           habitName={habitName}

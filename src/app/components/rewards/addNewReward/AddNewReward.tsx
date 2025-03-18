@@ -50,7 +50,7 @@ export default function AddNewReward(props: AddNewRewardI) {
                 onClick={(e) => e.stopPropagation()}
               >
                 <AddOrCancelBtn
-                  addNewGoal={() => {
+                  onAdd={() => {
                     props.addNewReward();
                     setExpanded(!expanded);
                   }}
