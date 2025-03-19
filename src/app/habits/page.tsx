@@ -20,9 +20,7 @@ export default function Habits() {
   ) {
     const completedDates = habitDates
       .filter((dateObj) => dateObj.isComplete)
-      .map((dateObj) => new Date(dateObj.date)); // Keep original date format
-
-    // Sort descending (latest first)
+      .map((dateObj) => new Date(dateObj.date));
 
     let consecutiveCount = 1;
     let maxConsecutiveCount = 1;
@@ -31,21 +29,18 @@ export default function Habits() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // Track the latest streak (count uninterrupted days from today)
     if (completedDates[0].getTime() === today.getTime()) {
       latestStreak = 1;
       let prevDate = today.getTime();
 
-      // Loop through the dates to check the uninterrupted streak
       for (let i = 1; i < completedDates.length; i++) {
         const currentDate = completedDates[i];
 
-        // Check if the current date is one day before the previous date
         if (prevDate - currentDate.getTime() === 24 * 60 * 60 * 1000) {
           latestStreak++;
           prevDate = currentDate.getTime();
         } else {
-          break; // Streak ends
+          break;
         }
       }
     }
@@ -56,18 +51,15 @@ export default function Habits() {
       const previousDate = completedDates[i];
       console.log(currentDate, previousDate);
 
-      // Calculate day difference
       const dayDifference =
         (currentDate.getTime() - previousDate.getTime()) / (1000 * 3600 * 24);
       console.log(dayDifference);
       if (dayDifference === 1) {
         console.log("aa");
-        consecutiveCount++; // Increment streak if consecutive
+        consecutiveCount++;
       } else {
-        consecutiveCount = 1; // Reset streak if not consecutive
+        consecutiveCount = 1;
       }
-
-      // Update the max consecutive streak
       maxConsecutiveCount = Math.max(maxConsecutiveCount, consecutiveCount);
     }
 

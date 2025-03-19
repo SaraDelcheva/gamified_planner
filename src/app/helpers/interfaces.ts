@@ -6,10 +6,17 @@ export interface GoalI {
   isCustom: boolean;
 }
 
+export interface Streak {
+  start: string;
+  end: string;
+  length: number; // Ensure `length` exists
+}
+
 export interface HabitI {
   title: string;
   latestStreak: number;
   maxStreak: number;
+
   dates: { date: string; isComplete: boolean }[];
 }
 

@@ -1,0 +1,15 @@
+.personalInfo {
+  flex-basis: 50%;
+  background-color: #7a9b81;
+  display: flex;
+  padding: 20px;
+}
+
+.avatar {
+  height: 100px;
+  width: 100px;
+  background-image: url("../../../../public/images/avatar.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

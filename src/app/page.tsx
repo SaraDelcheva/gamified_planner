@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import GoalsForToday from "./components/goalsForToday/GoalsForToday";
 import Rewards from "./components/rewards/Rewards";
 import { RewardI, GoalI } from "./helpers/interfaces";
+import PersonalInfo from "./components/personalInfo/PersonalInfo";
 
 export default function Home() {
   const [totalDiamonds, setTotalDiamonds] = useState<number>(0);
@@ -22,6 +23,7 @@ export default function Home() {
   const [customCoverName, setCustomCoverName] = useState("");
   const [customRewardName, setCustomRewardName] = useState("");
   const [isCustom, setIsCustom] = useState(false);
+  // const [todaysHistory, setTodaysHistory] = useState([]);
 
   // Fetch all data once
   useEffect(() => {
@@ -32,6 +34,7 @@ export default function Home() {
       setTotalDiamonds(data.totalDiamonds || 0);
       setRewards(Array.isArray(data.rewards) ? data.rewards : []);
       setGoals(Array.isArray(data.goals) ? data.goals : []);
+      // setTodaysHistory(data.todaysHistory ? data.todaysHistory : []);
     }
 
     fetchData();
@@ -85,6 +88,7 @@ export default function Home() {
     setExpanded(false);
     setDifficulty(0);
     setIsCustom(false);
+    // setTodaysHistory(...todaysHistory, `Completed ${goalName}`);
   }
   //Cancel add goal
   function cancelAddGoal() {
@@ -197,6 +201,7 @@ export default function Home() {
           setCoverName,
         }}
       />
+      <PersonalInfo />
     </div>
   );
 }
