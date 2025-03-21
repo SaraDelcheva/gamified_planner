@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import styles from "./Habits.module.css";
 import AddNewHabit from "../components/addNewHabit/AddNewHabit";
 import RenderHabitDates from "../components/renderHabitDates/RenderHabitDates";
-import { HabitI } from "../helpers/interfaces";
+import { HabitI, TodaysHistoryI } from "../helpers/interfaces";
 
 export default function Habits() {
   const [dates, setDates] = useState<{ formattedDate: string; day: string }[]>(
@@ -13,6 +13,38 @@ export default function Habits() {
   const [habitName, setHabitName] = useState<string>("");
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [todaysHistory, setTodaysHistory] = useState<TodaysHistoryI[]>([]);
+
+  // Fetch all data once
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch("/api/data");
+      const data = await res.json();
+      setHabits(Array.isArray(data.habits) ? data.habits : []);
+      setTodaysHistory(data.todaysHistory ? data.todaysHistory : []);
+    }
+
+    fetchData();
+  }, []);
+
+  // Save all updated data at once
+  async function saveData(
+    updatedData: Partial<{
+      habits: { title: string }[];
+      todaysHistory: TodaysHistoryI[];
+    }>
+  ) {
+    const res = await fetch("/api/data");
+    const data = await res.json();
+
+    const newData = { ...data, ...updatedData };
+
+    await fetch("/api/data", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: newData }),
+    });
+  }
 
   //check consecutive dates
   function getConsecutiveDates(
@@ -49,13 +81,10 @@ export default function Habits() {
     for (let i = 1; i < completedDates.length; i++) {
       const currentDate = completedDates[i - 1];
       const previousDate = completedDates[i];
-      console.log(currentDate, previousDate);
 
       const dayDifference =
         (currentDate.getTime() - previousDate.getTime()) / (1000 * 3600 * 24);
-      console.log(dayDifference);
       if (dayDifference === 1) {
-        console.log("aa");
         consecutiveCount++;
       } else {
         consecutiveCount = 1;
@@ -116,37 +145,17 @@ export default function Habits() {
 
       return habit;
     });
-
-    setHabits(updatedHabits);
-    saveData({ habits: updatedHabits });
-  }
-
-  // Save all updated data at once
-  async function saveData(
-    updatedData: Partial<{ habits: { title: string }[] }>
-  ) {
-    const res = await fetch("/api/data");
-    const data = await res.json();
-
-    const newData = { ...data, ...updatedData };
-
-    await fetch("/api/data", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ data: newData }),
-    });
-  }
-
-  // Fetch all data once
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("/api/data");
-      const data = await res.json();
-      setHabits(Array.isArray(data.habits) ? data.habits : []);
+    const formattedDate = new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    }).format(new Date());
+    if (clickedDate === formattedDate) {
+      setTodaysHistory([...todaysHistory, { type: "habit", title: title }]);
     }
-
-    fetchData();
-  }, []);
+    setHabits(updatedHabits);
+    saveData({ habits: updatedHabits, todaysHistory: todaysHistory });
+  }
 
   //Generate dates
 

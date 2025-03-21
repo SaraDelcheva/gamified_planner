@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import styles from "./page.module.css";
 import GoalsForToday from "./components/goalsForToday/GoalsForToday";
 import Rewards from "./components/rewards/Rewards";
-import { RewardI, GoalI } from "./helpers/interfaces";
+import { RewardI, GoalI, TodaysHistoryI } from "./helpers/interfaces";
 import PersonalInfo from "./components/personalInfo/PersonalInfo";
 
 export default function Home() {
@@ -19,11 +19,11 @@ export default function Home() {
   const [goalName, setGoalName] = useState<string>("");
   const [expanded, setExpanded] = useState(false);
   const [rewardPrice, setRewardPrice] = useState<number | null>(null);
-  const [coverName, setCoverName] = useState<string>("");
+  const [coverName, setCoverName] = useState<string>("reward.png");
   const [customCoverName, setCustomCoverName] = useState("");
   const [customRewardName, setCustomRewardName] = useState("");
   const [isCustom, setIsCustom] = useState(false);
-  // const [todaysHistory, setTodaysHistory] = useState([]);
+  const [todaysHistory, setTodaysHistory] = useState<TodaysHistoryI[]>([]);
 
   // Fetch all data once
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function Home() {
       setTotalDiamonds(data.totalDiamonds || 0);
       setRewards(Array.isArray(data.rewards) ? data.rewards : []);
       setGoals(Array.isArray(data.goals) ? data.goals : []);
-      // setTodaysHistory(data.todaysHistory ? data.todaysHistory : []);
+      setTodaysHistory(data.todaysHistory ? data.todaysHistory : []);
     }
 
     fetchData();
@@ -46,6 +46,7 @@ export default function Home() {
       totalDiamonds: number;
       rewards: RewardI[];
       goals: GoalI[];
+      todaysHistory: TodaysHistoryI[];
     }>
   ) {
     const res = await fetch("/api/data");
@@ -88,8 +89,8 @@ export default function Home() {
     setExpanded(false);
     setDifficulty(0);
     setIsCustom(false);
-    // setTodaysHistory(...todaysHistory, `Completed ${goalName}`);
   }
+
   //Cancel add goal
   function cancelAddGoal() {
     setGoalName("");
@@ -99,6 +100,7 @@ export default function Home() {
     setDifficulty(0);
     setIsCustom(false);
   }
+
   // Complete goal
   function completeGoal(goalTitle: string) {
     const completedGoal = goals.find((goal) => goal.title === goalTitle);
@@ -107,13 +109,20 @@ export default function Home() {
     const updatedGoals = goals.filter((goal) => goal.title !== goalTitle);
     setGoals(updatedGoals);
     setTotalDiamonds((prev) => prev + completedGoal.diamonds);
+    const newHistory = [
+      ...todaysHistory,
+      { type: "goal", title: completedGoal.title },
+    ];
+    setTodaysHistory(newHistory);
 
     saveData({
       goals: updatedGoals,
       totalDiamonds: totalDiamonds + completedGoal.diamonds,
+      todaysHistory: newHistory,
     });
   }
 
+  //Add New Reward
   function addNewReward() {
     if (rewardPrice === null || !rewardName.trim()) return;
 
@@ -133,6 +142,7 @@ export default function Home() {
     setRewardPrice(null);
   }
 
+  //claim reward
   function claimReward(e: React.MouseEvent<HTMLButtonElement>) {
     const claimableRewards = rewards.filter(
       (reward) => reward.diamonds && reward.diamonds <= totalDiamonds
@@ -148,12 +158,23 @@ export default function Home() {
     );
     const newTotalDiamonds = totalDiamonds - claimedReward[0].diamonds!;
 
+    const newHistory = [
+      ...todaysHistory,
+      {
+        type: "reward",
+        title: claimedReward[0].title,
+        cover: claimedReward[0].cover,
+      },
+    ];
+
+    setTodaysHistory(newHistory);
     setRewards(updatedRewards);
     setTotalDiamonds(newTotalDiamonds);
 
     saveData({
       rewards: updatedRewards,
       totalDiamonds: newTotalDiamonds,
+      todaysHistory: newHistory,
     });
   }
 
@@ -201,7 +222,7 @@ export default function Home() {
           setCoverName,
         }}
       />
-      <PersonalInfo />
+      <PersonalInfo todaysHistory={todaysHistory} />
     </div>
   );
 }

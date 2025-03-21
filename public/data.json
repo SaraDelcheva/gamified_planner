@@ -1,39 +1,16 @@
 {
-  "goals": [
-    {
-      "title": "hwd",
-      "diamonds": 5,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false
-    }
-  ],
-  "rewards": [
-    {
-      "title": "xcxc",
-      "diamonds": 20,
-      "cover": "coffee.png",
-      "id": "811950e2-e546-4f51-8832-27b8c52be903"
-    },
-    {
-      "title": "444",
-      "diamonds": 20,
-      "cover": "book.png",
-      "id": "5d25af85-bc3f-42f7-81ac-489e9186d903"
-    },
-    {
-      "title": "3434",
-      "diamonds": 100,
-      "cover": "reward.png",
-      "id": "752467f4-67e3-4a3e-b003-6cd8f3e76ab4"
-    }
-  ],
+  "goals": [],
+  "rewards": [],
   "habits": [
     {
       "title": "dasds",
-      "latestStreak": 0,
+      "latestStreak": 1,
       "maxStreak": 3,
       "dates": [
+        {
+          "date": "Mar 21, 2025",
+          "isComplete": true
+        },
         {
           "date": "Mar 18, 2025",
           "isComplete": true
@@ -54,9 +31,13 @@
     },
     {
       "title": "asdsa",
-      "latestStreak": 0,
+      "latestStreak": 1,
       "maxStreak": 5,
       "dates": [
+        {
+          "date": "Mar 21, 2025",
+          "isComplete": true
+        },
         {
           "date": "Mar 18, 2025",
           "isComplete": true
@@ -84,6 +65,14 @@
       "latestStreak": 2,
       "maxStreak": 7,
       "dates": [
+        {
+          "date": "Mar 21, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 20, 2025",
+          "isComplete": true
+        },
         {
           "date": "Mar 18, 2025",
           "isComplete": true
@@ -132,9 +121,21 @@
     },
     {
       "title": "asd",
-      "latestStreak": 6,
-      "maxStreak": 1,
+      "latestStreak": 9,
+      "maxStreak": 9,
       "dates": [
+        {
+          "date": "Mar 21, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 20, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 19, 2025",
+          "isComplete": true
+        },
         {
           "date": "Mar 18, 2025",
           "isComplete": true
@@ -183,9 +184,17 @@
     },
     {
       "title": "dsfds",
-      "latestStreak": 0,
+      "latestStreak": 2,
       "maxStreak": 5,
       "dates": [
+        {
+          "date": "Mar 21, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 20, 2025",
+          "isComplete": true
+        },
         {
           "date": "Mar 18, 2025",
           "isComplete": true
@@ -230,7 +239,15 @@
       "maxStreak": 2,
       "dates": [
         {
+          "date": "Mar 21, 2025",
+          "isComplete": true
+        },
+        {
           "date": "Mar 19, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 17, 2025",
           "isComplete": true
         },
         {
@@ -244,6 +261,29 @@
       ]
     }
   ],
-  "totalDiamonds": 7830,
-  "todaysHistory": []
+  "totalDiamonds": 7720,
+  "todaysHistory": [
+    {
+      "type": "goal",
+      "title": "32423"
+    },
+    {
+      "type": "reward",
+      "title": "sadsad",
+      "cover": "book.png"
+    },
+    {
+      "type": "reward",
+      "title": "sdsa",
+      "cover": "reward.png"
+    },
+    {
+      "type": "goal",
+      "title": "dsadas"
+    },
+    {
+      "type": "habit",
+      "title": "asd"
+    }
+  ]
 }

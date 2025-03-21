@@ -6,10 +6,16 @@ export interface GoalI {
   isCustom: boolean;
 }
 
+export interface TodaysHistoryI {
+  type: string;
+  title: string;
+  cover?: string;
+}
+
 export interface Streak {
   start: string;
   end: string;
-  length: number; // Ensure `length` exists
+  length: number;
 }
 
 export interface HabitI {
