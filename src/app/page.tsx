@@ -20,9 +20,13 @@ export default function Home() {
   const [expanded, setExpanded] = useState(false);
   const [rewardPrice, setRewardPrice] = useState<number | null>(null);
   const [coverName, setCoverName] = useState<string>("reward.png");
-  const [customCoverName, setCustomCoverName] = useState("");
+  const [customCoverName, setCustomCoverName] = useState("reward.png");
   const [customRewardName, setCustomRewardName] = useState("");
   const [isCustom, setIsCustom] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [goalDate, setGoalDate] = useState("");
+  const [today, setToday] = useState("");
+
   const [todaysHistory, setTodaysHistory] = useState<TodaysHistoryI[]>([]);
 
   // Fetch all data once
@@ -35,6 +39,15 @@ export default function Home() {
       setRewards(Array.isArray(data.rewards) ? data.rewards : []);
       setGoals(Array.isArray(data.goals) ? data.goals : []);
       setTodaysHistory(data.todaysHistory ? data.todaysHistory : []);
+
+      const today = new Date();
+      const formattedDate = new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+      }).format(today);
+      setGoalDate(formattedDate);
+      setToday(formattedDate);
     }
 
     fetchData();
@@ -78,6 +91,7 @@ export default function Home() {
         coverName: isCustom ? customCoverName : "",
         rewardName: isCustom ? customRewardName : "",
         isCustom: isCustom,
+        date: goalDate,
       },
     ];
     setGoals(updatedGoals);
@@ -178,10 +192,22 @@ export default function Home() {
     });
   }
 
+  //add Date
+  function onClickDay(value: Date) {
+    const formattedDate = new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    }).format(value);
+
+    setGoalDate(formattedDate);
+  }
+
   return (
     <div className={styles.page}>
       <GoalsForToday
         {...{
+          title: "Goals For Today",
           goals,
           totalDiamonds,
           addNewGoal,
@@ -199,6 +225,12 @@ export default function Home() {
           setIsCustom,
           customRewardName,
           cancelAddGoal,
+          isCalendarOpen,
+          setIsCalendarOpen,
+          goalDate,
+          setGoalDate,
+          onClickDay,
+          containerDate: today,
         }}
       />
       <Rewards

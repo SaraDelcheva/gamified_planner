@@ -5,9 +5,11 @@ import { FaPlay } from "react-icons/fa";
 export default function AddOrCancelBtn({
   onAdd,
   onCancel,
+  addParam,
 }: {
-  onAdd: () => void;
+  onAdd: (param?: string) => void;
   onCancel: () => void;
+  addParam?: string;
 }) {
   return (
     <div className={styles.addOrCancelBtn}>
@@ -16,7 +18,7 @@ export default function AddOrCancelBtn({
       </button>
       <button
         onClick={() => {
-          onAdd();
+          onAdd(addParam);
         }}
         className={styles.addBtn}
       >

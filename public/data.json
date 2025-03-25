@@ -1,5 +1,30 @@
 {
-  "goals": [],
+  "goals": [
+    {
+      "title": "jh",
+      "diamonds": 30,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 24, 2025"
+    },
+    {
+      "title": "jhjh",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 26, 2025"
+    },
+    {
+      "title": "dsd",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 24, 2025"
+    }
+  ],
   "rewards": [],
   "habits": [
     {
@@ -7,6 +32,10 @@
       "latestStreak": 1,
       "maxStreak": 3,
       "dates": [
+        {
+          "date": "Mar 24, 2025",
+          "isComplete": true
+        },
         {
           "date": "Mar 21, 2025",
           "isComplete": true
@@ -121,9 +150,17 @@
     },
     {
       "title": "asd",
-      "latestStreak": 9,
+      "latestStreak": 2,
       "maxStreak": 9,
       "dates": [
+        {
+          "date": "Mar 24, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 23, 2025",
+          "isComplete": true
+        },
         {
           "date": "Mar 21, 2025",
           "isComplete": true
@@ -188,6 +225,14 @@
       "maxStreak": 5,
       "dates": [
         {
+          "date": "Mar 24, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 23, 2025",
+          "isComplete": true
+        },
+        {
           "date": "Mar 21, 2025",
           "isComplete": true
         },
@@ -235,11 +280,27 @@
     },
     {
       "title": "dfdsf",
-      "latestStreak": 1,
-      "maxStreak": 2,
+      "latestStreak": 10,
+      "maxStreak": 10,
       "dates": [
         {
+          "date": "Mar 24, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 23, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 22, 2025",
+          "isComplete": true
+        },
+        {
           "date": "Mar 21, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 20, 2025",
           "isComplete": true
         },
         {
@@ -247,7 +308,19 @@
           "isComplete": true
         },
         {
+          "date": "Mar 18, 2025",
+          "isComplete": true
+        },
+        {
           "date": "Mar 17, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 16, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 15, 2025",
           "isComplete": true
         },
         {
@@ -257,11 +330,27 @@
         {
           "date": "Mar 10, 2025",
           "isComplete": true
+        },
+        {
+          "date": "Mar 9, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 8, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 7, 2025",
+          "isComplete": true
+        },
+        {
+          "date": "Mar 6, 2025",
+          "isComplete": true
         }
       ]
     }
   ],
-  "totalDiamonds": 7720,
+  "totalDiamonds": 7680,
   "todaysHistory": [
     {
       "type": "goal",
@@ -284,6 +373,39 @@
     {
       "type": "habit",
       "title": "asd"
+    },
+    {
+      "type": "goal",
+      "title": "dsadsad"
+    },
+    {
+      "type": "reward",
+      "title": "dsfds",
+      "cover": "reward.png"
+    },
+    {
+      "type": "habit",
+      "title": "dfdsf"
+    },
+    {
+      "type": "habit",
+      "title": "asd"
+    },
+    {
+      "type": "habit",
+      "title": "dsfds"
+    },
+    {
+      "type": "habit",
+      "title": "dasds"
+    },
+    {
+      "type": "habit",
+      "title": "dsfds"
+    },
+    {
+      "type": "habit",
+      "title": "dsfds"
     }
   ]
 }

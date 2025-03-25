@@ -11,6 +11,7 @@ export default function AddGoal(props: AddGoalI) {
   function easy(diamonds: number) {
     props.setDifficulty(diamonds);
   }
+
   return (
     <div
       className={`${styles.addGoal} ${props.expanded ? styles.expanded : ""}`}
@@ -31,7 +32,10 @@ export default function AddGoal(props: AddGoalI) {
         {!props.expanded && (
           <button
             className={`${styles.addBtn} boxShadow`}
-            onClick={() => props.setExpanded(!props.expanded)}
+            onClick={() => {
+              props.setExpanded(!props.expanded);
+              console.log(props.containerDate, "yeah");
+            }}
           >
             <AiOutlinePlus />
           </button>
@@ -53,6 +57,13 @@ export default function AddGoal(props: AddGoalI) {
         )}
       </div>
       <div className={styles.expandedContent}>
+        <div
+          className={styles.date}
+          onClick={() => props.setIsCalendarOpen(true)}
+        >
+          {props.goalDate ? props.goalDate : "Today"}
+        </div>
+
         <div className={styles.buttons}>
           <button
             className={`${styles.addCustomRewardBtn} ${
@@ -104,7 +115,7 @@ export default function AddGoal(props: AddGoalI) {
         )}
         <div className={styles.addCancelContainer}>
           <AddOrCancelBtn
-            onAdd={props.addNewGoal}
+            onAdd={() => props.addNewGoal(props.containerDate)}
             onCancel={() => {
               props.setExpanded(!props.expanded);
               props.cancelAddGoal();
