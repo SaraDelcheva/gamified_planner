@@ -35,11 +35,11 @@ export interface RewardI {
 }
 
 export interface AddGoalI {
+  goalName: string | null;
   addNewGoal: (containerDate: string) => void;
   setGoalName: (name: string) => void;
   setDifficulty: (diamonds: number) => void;
   difficulty: number | null;
-  goalName: string | null;
   expanded: boolean;
   setExpanded: (expanded: boolean) => void;
   customCoverName: string;
@@ -96,4 +96,15 @@ export interface RewardCardI {
   totalDiamonds: number;
   claimReward: (e: React.MouseEvent<HTMLButtonElement>) => void;
   id: string;
+}
+
+export interface SaveDataFunctionI {
+  (
+    updatedData: Partial<{
+      totalDiamonds: number;
+      rewards: RewardI[];
+      goals: GoalI[];
+      todaysHistory: TodaysHistoryI[];
+    }>
+  ): Promise<void>;
 }

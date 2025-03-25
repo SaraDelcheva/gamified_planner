@@ -23,6 +23,126 @@
       "rewardName": "",
       "isCustom": false,
       "date": "Mar 24, 2025"
+    },
+    {
+      "title": "q",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 25, 2025"
+    },
+    {
+      "title": "ds",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": ""
+    },
+    {
+      "title": "rewrwe",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": ""
+    },
+    {
+      "title": "dsda",
+      "diamonds": 20,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 30, 2025"
+    },
+    {
+      "title": "lala",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 29, 2025"
+    },
+    {
+      "title": "sdasd",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 27, 2025"
+    },
+    {
+      "title": "asdsd",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": ""
+    },
+    {
+      "title": "ttt",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 26, 2025"
+    },
+    {
+      "title": "DSAD",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 29, 2025"
+    },
+    {
+      "title": "SDSD",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 26, 2025"
+    },
+    {
+      "title": "dasd",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 27, 2025"
+    },
+    {
+      "title": "adssad",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 13, 2025"
+    },
+    {
+      "title": "dfg",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 29, 2025"
+    },
+    {
+      "title": "dasdsad",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 08, 2025"
+    },
+    {
+      "title": "dasd",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 08, 2025"
     }
   ],
   "rewards": [],
@@ -350,7 +470,7 @@
       ]
     }
   ],
-  "totalDiamonds": 7680,
+  "totalDiamonds": 7730,
   "todaysHistory": [
     {
       "type": "goal",
@@ -406,6 +526,26 @@
     {
       "type": "habit",
       "title": "dsfds"
+    },
+    {
+      "type": "goal",
+      "title": "dasdas"
+    },
+    {
+      "type": "goal",
+      "title": "yo"
+    },
+    {
+      "type": "goal",
+      "title": "cxvc"
+    },
+    {
+      "type": "goal",
+      "title": "helloo"
+    },
+    {
+      "type": "goal",
+      "title": "ee"
     }
   ]
 }

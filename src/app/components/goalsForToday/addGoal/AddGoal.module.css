@@ -1,15 +1,30 @@
 .addGoal {
-  height: 55px;
+  max-height: 55px;
   border-radius: 25px;
   background-color: transparent;
   cursor: pointer;
   color: #363636;
   margin-bottom: 15px;
-  transition: all 0.3s ease-in-out;
+  transition: max-height 0.3s ease-in-out;
+  overflow: hidden;
 }
 
 .addGoal.expanded {
-  height: 320px;
+  max-height: 400px;
+}
+
+.expandedContent {
+  padding: 15px;
+  margin-top: 5px;
+  background-color: #7a9b81;
+  color: #ffffff;
+  border-radius: 2px 2px 25px 25px;
+  position: relative;
+}
+
+.addGoal.expanded .expandedContent {
+  background-color: #7a9b81;
+  position: static;
 }
 
 .addGoalInput::placeholder {
@@ -83,25 +98,6 @@
 
 .addGoalHeader:hover .addBtn {
   transform: scale(1.1);
-}
-
-.expandedContent {
-  margin-top: 5px;
-  background-color: #7a9b81;
-  height: calc(100% - 55px);
-  color: #ffffff;
-  border-radius: 2px 2px 25px 25px;
-  position: relative;
-  transition: all 0.3s ease-in-out;
-  height: 0;
-  overflow: hidden;
-}
-
-.addGoal.expanded .expandedContent {
-  height: 260px;
-  padding: 15px;
-  background-color: #7a9b81;
-  position: static;
 }
 
 .difficultyContainer {
