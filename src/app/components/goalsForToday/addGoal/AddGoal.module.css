@@ -10,7 +10,7 @@
 }
 
 .addGoal.expanded {
-  max-height: 400px;
+  max-height: 100vh;
 }
 
 .expandedContent {
@@ -142,4 +142,11 @@
   margin-top: 20px;
   display: flex;
   justify-content: right;
+}
+
+.calendarContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
 }

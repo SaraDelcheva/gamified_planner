@@ -49,14 +49,6 @@
       "date": ""
     },
     {
-      "title": "dsda",
-      "diamonds": 20,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "date": "Mar 30, 2025"
-    },
-    {
       "title": "lala",
       "diamonds": 5,
       "coverName": "",
@@ -143,6 +135,70 @@
       "rewardName": "",
       "isCustom": false,
       "date": "Mar 08, 2025"
+    },
+    {
+      "title": "dasdsd",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 21, 2025"
+    },
+    {
+      "title": "ss",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 27, 2025"
+    },
+    {
+      "title": "sss",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 28, 2025"
+    },
+    {
+      "title": "1",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 28, 2025"
+    },
+    {
+      "title": "ss",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 28, 2025"
+    },
+    {
+      "title": "ww",
+      "diamonds": 20,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 30, 2025"
+    },
+    {
+      "title": "sdad",
+      "diamonds": 20,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 29, 2025"
+    },
+    {
+      "title": "dee",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 27, 2025"
     }
   ],
   "rewards": [],
@@ -470,7 +526,7 @@
       ]
     }
   ],
-  "totalDiamonds": 7730,
+  "totalDiamonds": 7650,
   "todaysHistory": [
     {
       "type": "goal",
@@ -546,6 +602,15 @@
     {
       "type": "goal",
       "title": "ee"
+    },
+    {
+      "type": "goal",
+      "title": "dsda"
+    },
+    {
+      "type": "reward",
+      "title": "asdasd",
+      "cover": "reward.png"
     }
   ]
 }

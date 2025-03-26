@@ -36,33 +36,38 @@ export interface RewardI {
 
 export interface AddGoalI {
   goalName: string | null;
+  difficulty: number | null;
+  isCustom: boolean;
+  customCoverName: string;
+  newGoalDate: string;
+  goalDate: string;
+
   addNewGoal: (containerDate: string) => void;
+  cancelAddGoal: () => void;
+
   setGoalName: (name: string) => void;
   setDifficulty: (diamonds: number) => void;
-  difficulty: number | null;
-  expanded: boolean;
-  setExpanded: (expanded: boolean) => void;
-  customCoverName: string;
+  setIsCustom: React.Dispatch<React.SetStateAction<boolean>>;
   setCustomCoverName: React.Dispatch<React.SetStateAction<string>>;
   setCustomRewardName: React.Dispatch<React.SetStateAction<string>>;
-  setIsCustom: React.Dispatch<React.SetStateAction<boolean>>;
-  isCustom: boolean;
-  cancelAddGoal: () => void;
+  setExpanded: (expanded: boolean) => void;
   setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  containerDate: string;
+
+  expanded: boolean;
   isCalendarOpen: boolean;
-  goalDate: string;
+
+  onClickDay: (value: Date) => void;
 }
 
 export interface GoalsForTodayI extends AddGoalI {
   title: string;
-  completeGoal: (goalTitle: string) => void;
   goals: GoalI[];
+  completeGoal: (goalTitle: string) => void;
   totalDiamonds: number;
   customRewardName: string;
   setGoalDate: React.Dispatch<React.SetStateAction<string>>;
-  onClickDay: (value: Date) => void;
 }
+
 export interface RewardsI {
   totalDiamonds: number;
   rewards: RewardI[];

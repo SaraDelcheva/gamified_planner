@@ -3,11 +3,9 @@ import AddGoal from "./addGoal/AddGoal";
 import NewGoal from "./newGoal/NewGoal";
 import { GoalsForTodayI } from "../../helpers/interfaces";
 
-import Calendar from "react-calendar";
-
 export default function GoalsForToday(props: GoalsForTodayI) {
   return (
-    <div className={styles.goalsForToday}>
+    <div className={styles.goalsForToday} id={props.goalDate}>
       <div className="header">
         <h1 className="headerH1">{props.title}</h1>
       </div>
@@ -29,15 +27,12 @@ export default function GoalsForToday(props: GoalsForTodayI) {
           isCalendarOpen={props.isCalendarOpen}
           setIsCalendarOpen={props.setIsCalendarOpen}
           goalDate={props.goalDate}
-          containerDate={props.containerDate}
+          onClickDay={props.onClickDay}
+          newGoalDate={props.newGoalDate}
         />
-        {props.isCalendarOpen && (
-          <div className={styles.calendarContainer}>
-            <Calendar onClickDay={props.onClickDay} />
-          </div>
-        )}
+
         {props.goals
-          .filter((goal) => goal.date === props.containerDate)
+          .filter((goal) => goal.date === props.goalDate)
           .map((goal, index) => (
             <NewGoal
               key={index}

@@ -6,6 +6,7 @@ import AddCustomReward from "./addCustomReward/AddCustomReward";
 import AddOrCancelBtn from "./addOrCancelBtn/AddOrCancelBtn";
 import { AddGoalI } from "@/app/helpers/interfaces";
 import { BiPlus } from "react-icons/bi";
+import Calendar from "react-calendar";
 
 export default function AddGoal(props: AddGoalI) {
   function easy(diamonds: number) {
@@ -34,7 +35,7 @@ export default function AddGoal(props: AddGoalI) {
             className={`${styles.addBtn} boxShadow`}
             onClick={() => {
               props.setExpanded(!props.expanded);
-              console.log(props.containerDate, "yeah");
+              console.log(props.goalDate, "yeah");
             }}
           >
             <AiOutlinePlus />
@@ -61,7 +62,7 @@ export default function AddGoal(props: AddGoalI) {
           className={styles.date}
           onClick={() => props.setIsCalendarOpen(true)}
         >
-          {props.goalDate ? props.goalDate : "Today"}
+          {props.newGoalDate ? props.newGoalDate : props.goalDate}
         </div>
 
         <div className={styles.buttons}>
@@ -113,9 +114,14 @@ export default function AddGoal(props: AddGoalI) {
             setCustomRewardName={props.setCustomRewardName}
           />
         )}
+        {props.isCalendarOpen && (
+          <div className={styles.calendarContainer}>
+            <Calendar onClickDay={props.onClickDay} />
+          </div>
+        )}
         <div className={styles.addCancelContainer}>
           <AddOrCancelBtn
-            onAdd={() => props.addNewGoal(props.containerDate)}
+            onAdd={() => props.addNewGoal(props.goalDate)}
             onCancel={() => {
               props.setExpanded(!props.expanded);
               props.cancelAddGoal();

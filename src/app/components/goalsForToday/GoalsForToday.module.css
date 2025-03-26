@@ -12,10 +12,3 @@
   border-right: rgba(140, 90, 63, 0.17) 2px solid;
   padding-bottom: 100px;
 }
-
-.calendarContainer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 15px;
-}
