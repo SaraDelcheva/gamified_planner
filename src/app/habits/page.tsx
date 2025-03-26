@@ -4,6 +4,7 @@ import styles from "./Habits.module.css";
 import AddNewHabit from "../components/addNewHabit/AddNewHabit";
 import RenderHabitDates from "../components/renderHabitDates/RenderHabitDates";
 import { HabitI, TodaysHistoryI } from "../helpers/interfaces";
+import { formatDate, createDates } from "../helpers/functions";
 
 export default function Habits() {
   const [dates, setDates] = useState<{ formattedDate: string; day: string }[]>(
@@ -47,12 +48,10 @@ export default function Habits() {
   }
 
   //check consecutive dates
-  function getConsecutiveDates(
-    habitDates: { date: string; isComplete: boolean }[]
-  ) {
-    const completedDates = habitDates
-      .filter((dateObj) => dateObj.isComplete)
-      .map((dateObj) => new Date(dateObj.date));
+  function getConsecutiveDates(habitDates: { date: string }[]) {
+    const completedDates = habitDates.map(
+      (habitDate) => new Date(habitDate.date)
+    );
 
     let consecutiveCount = 1;
     let maxConsecutiveCount = 1;
@@ -104,20 +103,37 @@ export default function Habits() {
     if (index === null) return;
 
     const clickedDate = event.currentTarget.id.replace(/"/g, "");
+    const formattedDate = formatDate(new Date());
+
+    let updatedTodaysHistory = [...todaysHistory];
 
     const updatedHabits = habits.map((habit) => {
       if (habit.title === title) {
         const existingDateIndex = habit.dates.findIndex(
-          (dateObj) => dateObj.date === clickedDate
+          (date) => date === clickedDate
         );
 
         if (existingDateIndex !== -1) {
+          // Removing the date
           const updatedDates = habit.dates.filter(
-            (dateObj) => dateObj.date !== clickedDate
+            (date) => date !== clickedDate
           );
+
+          const updatedDatesObjects = updatedDates.map((date) => ({ date }));
           const maxStreak =
-            getConsecutiveDates(updatedDates).maxConsecutiveCount;
-          const latestStreak = getConsecutiveDates(updatedDates).latestStreak;
+            getConsecutiveDates(updatedDatesObjects).maxConsecutiveCount;
+          const latestStreak =
+            getConsecutiveDates(updatedDatesObjects).latestStreak;
+
+          if (clickedDate === formattedDate) {
+            updatedTodaysHistory = updatedTodaysHistory.filter(
+              (historyItem) =>
+                !(
+                  historyItem.date === clickedDate &&
+                  historyItem.title === title
+                )
+            );
+          }
 
           return {
             ...habit,
@@ -126,13 +142,30 @@ export default function Habits() {
             dates: updatedDates,
           };
         } else {
-          const newDate = { date: clickedDate, isComplete: true };
-          const updatedDates = [...habit.dates, newDate].sort((a, b) => {
-            return new Date(b.date).getTime() - new Date(a.date).getTime();
+          // Adding the date
+          const updatedDates = [...habit.dates, clickedDate].sort((a, b) => {
+            return new Date(b).getTime() - new Date(a).getTime();
           });
+
+          const updatedDatesObjects = updatedDates.map((date) => ({ date }));
           const maxStreak =
-            getConsecutiveDates(updatedDates).maxConsecutiveCount;
-          const latestStreak = getConsecutiveDates(updatedDates).latestStreak;
+            getConsecutiveDates(updatedDatesObjects).maxConsecutiveCount;
+          const latestStreak =
+            getConsecutiveDates(updatedDatesObjects).latestStreak;
+
+          if (clickedDate === formattedDate) {
+            // Ensure no duplicates in today's history
+            updatedTodaysHistory = [
+              ...updatedTodaysHistory.filter(
+                (historyItem) =>
+                  !(
+                    historyItem.date === clickedDate &&
+                    historyItem.title === title
+                  )
+              ),
+              { date: clickedDate, type: "habit", title },
+            ];
+          }
 
           return {
             ...habit,
@@ -145,71 +178,42 @@ export default function Habits() {
 
       return habit;
     });
-    const formattedDate = new Intl.DateTimeFormat("en-US", {
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
-    }).format(new Date());
-    if (clickedDate === formattedDate) {
-      setTodaysHistory([...todaysHistory, { type: "habit", title: title }]);
-    }
+
     setHabits(updatedHabits);
-    saveData({ habits: updatedHabits, todaysHistory: todaysHistory });
+    setTodaysHistory(updatedTodaysHistory);
+
+    saveData({
+      habits: updatedHabits,
+      todaysHistory: updatedTodaysHistory,
+    });
   }
-
-  //Generate dates
-
-  const generateDates = (startIndex: number, count: number) => {
-    const today = new Date();
-    const tempDates = [];
-
-    for (let i = 0; i < count; i++) {
-      const date = new Date(today);
-      date.setDate(today.getDate() - (startIndex + i));
-
-      const formattedDate = new Intl.DateTimeFormat("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      }).format(date);
-
-      const day = new Intl.DateTimeFormat("en-US", {
-        weekday: "long",
-      }).format(date);
-
-      tempDates.push({ formattedDate, day });
-    }
-
-    return tempDates;
-  };
 
   // Load initial 17 dates
   useEffect(() => {
-    setDates(generateDates(0, 17));
+    setDates(createDates(0, 17, "backward"));
   }, []);
 
   // Function to handle scroll
-  const handleScroll = () => {
-    if (loading) return;
-
-    const bottom =
-      document.documentElement.scrollHeight ===
-      document.documentElement.scrollTop + window.innerHeight;
-
-    if (bottom) {
-      setLoading(true);
-
-      // Load next 3 dates
-      setDates((prevDates) => [
-        ...prevDates,
-        ...generateDates(prevDates.length, 3),
-      ]);
-
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const handleScroll = () => {
+      if (loading) return;
+
+      const bottom =
+        document.documentElement.scrollHeight ===
+        document.documentElement.scrollTop + window.innerHeight;
+
+      if (bottom) {
+        setLoading(true);
+
+        // Load next 3 dates
+        setDates((prevDates) => [
+          ...prevDates,
+          ...createDates(prevDates.length, 3, "backward"),
+        ]);
+
+        setLoading(false);
+      }
+    };
     window.addEventListener("scroll", handleScroll);
 
     return () => {

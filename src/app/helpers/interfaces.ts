@@ -8,6 +8,7 @@ export interface GoalI {
 }
 
 export interface TodaysHistoryI {
+  date: string;
   type: string;
   title: string;
   cover?: string;
@@ -23,8 +24,7 @@ export interface HabitI {
   title: string;
   latestStreak: number;
   maxStreak: number;
-
-  dates: { date: string; isComplete: boolean }[];
+  dates: string[];
 }
 
 export interface RewardI {

@@ -32,7 +32,7 @@ export default function Todo() {
     [key: string]: boolean;
   }>({});
 
-  const dates = createDates(7);
+  const dates = createDates(0, 7);
 
   // ---------- Data Fetching ----------
   useEffect(() => {
@@ -106,7 +106,11 @@ export default function Todo() {
 
     const newHistory = [
       ...todaysHistory,
-      { type: "goal", title: completedGoal.title },
+      {
+        date: dates[0].formattedDate,
+        type: "goal",
+        title: completedGoal.title,
+      },
     ];
     setTodaysHistory(newHistory);
 
@@ -145,12 +149,12 @@ export default function Todo() {
   // ---------- Render ----------
   return (
     <div className={styles.todo}>
-      {dates.map(({ formattedDate, dayName }) => (
+      {dates.map(({ formattedDate, day }) => (
         <GoalsForToday
           key={formattedDate}
           {...{
             // From GoalsForTodayI
-            title: dayName,
+            title: day,
             goals,
             completeGoal,
             totalDiamonds,

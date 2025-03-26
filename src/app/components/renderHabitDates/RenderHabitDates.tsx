@@ -22,8 +22,8 @@ export default function RenderHabitDates({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return dates.map(({ formattedDate }, index) => {
-    const habitDate = habit.dates.find((d) => d.date === formattedDate);
-    const isComplete = habitDate ? habitDate.isComplete : false;
+    const habitDate = habit.dates.find((date) => date === formattedDate);
+    const isComplete = habitDate ? true : false;
 
     return (
       <div

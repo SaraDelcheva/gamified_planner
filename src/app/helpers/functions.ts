@@ -57,6 +57,7 @@ export function claimReward({
   setTodaysHistory,
   setRewards,
   setTotalDiamonds,
+  dates,
 }: {
   e: React.MouseEvent<HTMLButtonElement>;
   rewards: RewardI[];
@@ -65,6 +66,10 @@ export function claimReward({
   setTodaysHistory: React.Dispatch<React.SetStateAction<TodaysHistoryI[]>>;
   setRewards: React.Dispatch<React.SetStateAction<RewardI[]>>;
   setTotalDiamonds: React.Dispatch<React.SetStateAction<number>>;
+  dates: {
+    formattedDate: string;
+    day: string;
+  }[];
 }) {
   const claimableRewards = rewards.filter(
     (reward) => reward.diamonds && reward.diamonds <= totalDiamonds
@@ -83,6 +88,7 @@ export function claimReward({
   const newHistory = [
     ...todaysHistory,
     {
+      date: dates[0].formattedDate,
       type: "reward",
       title: claimedReward[0].title,
       cover: claimedReward[0].cover,
@@ -101,12 +107,24 @@ export function claimReward({
 }
 
 // --------------------------------------------------------------------Create Dates
-export function createDates(x: number) {
-  return Array.from({ length: x }, (_, i) => {
+
+export function createDates(
+  startIndex: number,
+  count: number,
+  direction: "forward" | "backward" = "forward"
+) {
+  return Array.from({ length: count }, (_, i) => {
     const date = new Date();
-    date.setDate(date.getDate() + i);
+
+    // Depending on the direction, move forward or backward
+    if (direction === "backward") {
+      date.setDate(date.getDate() - (startIndex + i)); // Go backwards
+    } else {
+      date.setDate(date.getDate() + (startIndex + i)); // Go forwards
+    }
+
     const formattedDate = formatDate(date);
-    const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
-    return { formattedDate, dayName };
+    const day = date.toLocaleDateString("en-US", { weekday: "long" });
+    return { formattedDate, day };
   });
 }

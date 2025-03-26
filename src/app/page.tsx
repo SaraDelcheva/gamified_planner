@@ -44,7 +44,7 @@ export default function Home() {
     [key: string]: boolean;
   }>({});
 
-  const dates = createDates(1);
+  const dates = createDates(0, 1);
 
   // ---------- Data Fetching ----------
   useEffect(() => {
@@ -123,7 +123,11 @@ export default function Home() {
 
     const newHistory = [
       ...todaysHistory,
-      { type: "goal", title: completedGoal.title },
+      {
+        date: dates[0].formattedDate,
+        type: "goal",
+        title: completedGoal.title,
+      },
     ];
     setTodaysHistory(newHistory);
 
@@ -190,17 +194,18 @@ export default function Home() {
       setTodaysHistory,
       setRewards,
       setTotalDiamonds,
+      dates,
     });
   }
 
   return (
     <div className={styles.page}>
-      {dates.map(({ formattedDate, dayName }) => (
+      {dates.map(({ formattedDate, day }) => (
         <GoalsForToday
           key={formattedDate}
           {...{
             // From GoalsForTodayI
-            title: dayName,
+            title: day,
             goals,
             completeGoal,
             totalDiamonds,
