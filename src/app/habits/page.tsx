@@ -6,6 +6,11 @@ import RenderHabitDates from "../components/renderHabitDates/RenderHabitDates";
 import { HabitI, TodaysHistoryI } from "../helpers/interfaces";
 import { formatDate, createDates } from "../helpers/functions";
 
+interface UpdatedData {
+  habits?: { title: string }[];
+  todaysHistory?: TodaysHistoryI[];
+}
+
 export default function Habits() {
   const [dates, setDates] = useState<{ formattedDate: string; day: string }[]>(
     []
@@ -16,213 +21,162 @@ export default function Habits() {
   const [loading, setLoading] = useState<boolean>(false);
   const [todaysHistory, setTodaysHistory] = useState<TodaysHistoryI[]>([]);
 
-  // Fetch all data once
+  // Fetch initial data
   useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("/api/data");
-      const data = await res.json();
-      setHabits(Array.isArray(data.habits) ? data.habits : []);
-      setTodaysHistory(data.todaysHistory ? data.todaysHistory : []);
-    }
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/data");
+        const data = await res.json();
+        setHabits(Array.isArray(data.habits) ? data.habits : []);
+        setTodaysHistory(data.todaysHistory ?? []);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      }
+    };
 
     fetchData();
   }, []);
 
-  // Save all updated data at once
-  async function saveData(
-    updatedData: Partial<{
-      habits: { title: string }[];
-      todaysHistory: TodaysHistoryI[];
-    }>
-  ) {
-    const res = await fetch("/api/data");
-    const data = await res.json();
+  // Save data handler
+  const saveData = async (updatedData: UpdatedData) => {
+    try {
+      const res = await fetch("/api/data");
+      const data = await res.json();
+      const newData = { ...data, ...updatedData };
 
-    const newData = { ...data, ...updatedData };
+      await fetch("/api/data", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data: newData }),
+      });
+    } catch (error) {
+      console.error("Failed to save data:", error);
+    }
+  };
 
-    await fetch("/api/data", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ data: newData }),
-    });
-  }
-
-  //check consecutive dates
-  function getConsecutiveDates(habitDates: { date: string }[]) {
+  // Calculate consecutive dates
+  const getConsecutiveDates = (habitDates: { date: string }[]) => {
     const completedDates = habitDates.map(
       (habitDate) => new Date(habitDate.date)
     );
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
     let consecutiveCount = 1;
     let maxConsecutiveCount = 1;
     let latestStreak = 0;
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    if (completedDates[0].getTime() === today.getTime()) {
+    // Calculate latest streak
+    if (completedDates[0]?.getTime() === today.getTime()) {
       latestStreak = 1;
       let prevDate = today.getTime();
 
       for (let i = 1; i < completedDates.length; i++) {
         const currentDate = completedDates[i];
-
         if (prevDate - currentDate.getTime() === 24 * 60 * 60 * 1000) {
           latestStreak++;
           prevDate = currentDate.getTime();
-        } else {
-          break;
-        }
+        } else break;
       }
     }
 
-    // Calculate the max streak (the longest streak)
+    // Calculate max streak
     for (let i = 1; i < completedDates.length; i++) {
-      const currentDate = completedDates[i - 1];
-      const previousDate = completedDates[i];
-
       const dayDifference =
-        (currentDate.getTime() - previousDate.getTime()) / (1000 * 3600 * 24);
-      if (dayDifference === 1) {
-        consecutiveCount++;
-      } else {
-        consecutiveCount = 1;
-      }
+        (completedDates[i - 1].getTime() - completedDates[i].getTime()) /
+        (1000 * 3600 * 24);
+      consecutiveCount = dayDifference === 1 ? consecutiveCount + 1 : 1;
       maxConsecutiveCount = Math.max(maxConsecutiveCount, consecutiveCount);
     }
 
     return { maxConsecutiveCount, latestStreak };
-  }
+  };
 
-  //Complete Habit
-  function completeHabit(
+  // Handle habit completion
+  const completeHabit = (
     index: number | null,
     title: string,
     event: React.MouseEvent
-  ) {
+  ) => {
     if (index === null) return;
 
     const clickedDate = event.currentTarget.id.replace(/"/g, "");
     const formattedDate = formatDate(new Date());
-
     let updatedTodaysHistory = [...todaysHistory];
 
     const updatedHabits = habits.map((habit) => {
-      if (habit.title === title) {
-        const existingDateIndex = habit.dates.findIndex(
-          (date) => date === clickedDate
-        );
+      if (habit.title !== title) return habit;
 
-        if (existingDateIndex !== -1) {
-          // Removing the date
-          const updatedDates = habit.dates.filter(
-            (date) => date !== clickedDate
+      const existingDateIndex = habit.dates.findIndex(
+        (date) => date === clickedDate
+      );
+      const isRemoving = existingDateIndex !== -1;
+
+      const updatedDates = isRemoving
+        ? habit.dates.filter((date) => date !== clickedDate)
+        : [...habit.dates, clickedDate].sort(
+            (a, b) => new Date(b).getTime() - new Date(a).getTime()
           );
 
-          const updatedDatesObjects = updatedDates.map((date) => ({ date }));
-          const maxStreak =
-            getConsecutiveDates(updatedDatesObjects).maxConsecutiveCount;
-          const latestStreak =
-            getConsecutiveDates(updatedDatesObjects).latestStreak;
+      const { maxConsecutiveCount: maxStreak, latestStreak } =
+        getConsecutiveDates(updatedDates.map((date) => ({ date })));
 
-          if (clickedDate === formattedDate) {
-            updatedTodaysHistory = updatedTodaysHistory.filter(
-              (historyItem) =>
-                !(
-                  historyItem.date === clickedDate &&
-                  historyItem.title === title
-                )
-            );
-          }
-
-          return {
-            ...habit,
-            latestStreak,
-            maxStreak,
-            dates: updatedDates,
-          };
-        } else {
-          // Adding the date
-          const updatedDates = [...habit.dates, clickedDate].sort((a, b) => {
-            return new Date(b).getTime() - new Date(a).getTime();
-          });
-
-          const updatedDatesObjects = updatedDates.map((date) => ({ date }));
-          const maxStreak =
-            getConsecutiveDates(updatedDatesObjects).maxConsecutiveCount;
-          const latestStreak =
-            getConsecutiveDates(updatedDatesObjects).latestStreak;
-
-          if (clickedDate === formattedDate) {
-            // Ensure no duplicates in today's history
-            updatedTodaysHistory = [
+      if (clickedDate === formattedDate) {
+        updatedTodaysHistory = isRemoving
+          ? updatedTodaysHistory.filter(
+              (item) => !(item.date === clickedDate && item.title === title)
+            )
+          : [
               ...updatedTodaysHistory.filter(
-                (historyItem) =>
-                  !(
-                    historyItem.date === clickedDate &&
-                    historyItem.title === title
-                  )
+                (item) => !(item.date === clickedDate && item.title === title)
               ),
               { date: clickedDate, type: "habit", title },
             ];
-          }
-
-          return {
-            ...habit,
-            latestStreak,
-            maxStreak,
-            dates: updatedDates,
-          };
-        }
       }
 
-      return habit;
+      return {
+        ...habit,
+        latestStreak,
+        maxStreak,
+        dates: updatedDates,
+      };
     });
 
     setHabits(updatedHabits);
     setTodaysHistory(updatedTodaysHistory);
+    saveData({ habits: updatedHabits, todaysHistory: updatedTodaysHistory });
+  };
 
-    saveData({
-      habits: updatedHabits,
-      todaysHistory: updatedTodaysHistory,
-    });
-  }
-
-  // Load initial 17 dates
+  // Load initial dates
   useEffect(() => {
     setDates(createDates(0, 17, "backward"));
   }, []);
 
-  // Function to handle scroll
+  // Handle infinite scroll
   useEffect(() => {
     const handleScroll = () => {
       if (loading) return;
 
-      const bottom =
+      const isBottom =
         document.documentElement.scrollHeight ===
         document.documentElement.scrollTop + window.innerHeight;
 
-      if (bottom) {
+      if (isBottom) {
         setLoading(true);
-
-        // Load next 3 dates
         setDates((prevDates) => [
           ...prevDates,
           ...createDates(prevDates.length, 3, "backward"),
         ]);
-
         setLoading(false);
       }
     };
-    window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [loading]);
 
-  //add New Habit
-  function addNewHabit() {
+  // Add new habit
+  const addNewHabit = () => {
     if (!habitName.trim()) return;
 
     const updatedHabits = [
@@ -234,15 +188,14 @@ export default function Habits() {
         dates: [],
       },
     ];
+
     setHabits(updatedHabits);
     saveData({ habits: updatedHabits });
     setHabitName("");
-  }
+  };
 
-  // cancel Add Habit
-  function cancelAddHabit() {
-    setIsExpanded(false);
-  }
+  // Cancel adding habit
+  const cancelAddHabit = () => setIsExpanded(false);
 
   return (
     <div className={styles.habits}>
@@ -256,7 +209,6 @@ export default function Habits() {
               className={`${styles.date} ${index === 0 ? styles.today : ""}`}
             >
               <p className={styles.dateText}>{date.formattedDate}</p>
-              <p className={styles.dayText}>{date.day}</p>
             </div>
           ))}
         </div>
@@ -267,8 +219,8 @@ export default function Habits() {
               <div className={styles.habitCard} key={index}>
                 <div className={styles.habitName}>
                   {habit.title}
-                  <p>Max streak: {habit.maxStreak}</p>
                   <p>Latest streak: {habit.latestStreak}</p>
+                  <p>Max streak: {habit.maxStreak}</p>
                 </div>
                 <div className={styles.habitDates}>
                   <RenderHabitDates

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { HabitI } from "@/app/helpers/interfaces";
 import styles from "./RenderHabitDates.module.css";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaTimes } from "react-icons/fa";
 
 interface RenderHabitDatesI {
   habit: HabitI;
@@ -36,7 +36,7 @@ export default function RenderHabitDates({
         onMouseLeave={() => setHoveredIndex(null)}
         onClick={(e) => completeHabit(index, habit.title, e)}
       >
-        {hoveredIndex === index && <FaCheck />}
+        {hoveredIndex === index && (isComplete ? <FaTimes /> : <FaCheck />)}
       </div>
     );
   });

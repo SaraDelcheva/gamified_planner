@@ -68,3 +68,12 @@
   border-radius: 50;
   border: 1px solid white;
 }
+
+.wishlistInfo {
+  padding: 20px 10px;
+}
+
+.wishlistInfoSpan {
+  display: block;
+  font-weight: 600;
+}

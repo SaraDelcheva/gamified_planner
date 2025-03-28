@@ -104,6 +104,7 @@ export interface RewardCardI {
   claimReward: (e: React.MouseEvent<HTMLButtonElement>) => void;
   id: string;
   handleIsWishListed: (e: React.MouseEvent<HTMLDivElement>) => void;
+  isWishListed: boolean;
 }
 
 export interface SaveDataFunctionI {

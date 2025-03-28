@@ -1,6 +1,7 @@
 import { TodaysHistoryI, RewardI } from "@/app/helpers/interfaces";
 import styles from "./PersonalInfo.module.css";
 import RewardCard from "../rewards/rewardCard/RewardCard";
+import { IoDiamondOutline } from "react-icons/io5";
 
 interface PersonalInfoProps {
   todaysHistory: TodaysHistoryI[];
@@ -18,6 +19,10 @@ export default function PersonalInfo({
   handleIsWishListed,
 }: PersonalInfoProps) {
   const wishlistedRewards = rewards.filter((reward) => reward.isWishListed);
+  const totalWishListPrice = wishlistedRewards.reduce(
+    (total, reward) => total + (reward.diamonds ?? 0),
+    0
+  );
   return (
     <div className={styles.personalInfo}>
       <div className={styles.personalInfoContainer}>
@@ -75,9 +80,17 @@ export default function PersonalInfo({
               claimReward={claimReward}
               id={reward.id}
               handleIsWishListed={handleIsWishListed}
+              isWishListed={reward.isWishListed}
             />
           </div>
         ))}
+        <div className={styles.wishlistInfo}>
+          You need{" "}
+          <span className={styles.wishlistInfoSpan}>
+            {totalWishListPrice} <IoDiamondOutline />
+          </span>{" "}
+          to claim all your wishlisted rewards.
+        </div>
       </div>
     </div>
   );

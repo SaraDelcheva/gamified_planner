@@ -9,7 +9,7 @@ export default function Rewards(props: RewardsI) {
   return (
     <div className={styles.rewards}>
       <div className="header">
-        <h1 className="headerH1">Rewards</h1>
+        <h1 className="headerH1">Rewards Shop</h1>
       </div>
       <div className={styles.rewardsContainer}>
         {props.rewards.map((reward) => (
@@ -22,6 +22,7 @@ export default function Rewards(props: RewardsI) {
             claimReward={props.claimReward}
             id={reward.id}
             handleIsWishListed={props.handleIsWishListed}
+            isWishListed={reward.isWishListed}
           />
         ))}
         <AddNewReward

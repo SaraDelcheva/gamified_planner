@@ -1,5 +1,5 @@
 "use client";
-import { use, useState } from "react";
+import { useState } from "react";
 import styles from "./RewardCard.module.css";
 import { IoDiamondOutline } from "react-icons/io5";
 import { RewardCardI } from "@/app/helpers/interfaces";
@@ -7,7 +7,7 @@ import { AiFillHeart } from "react-icons/ai";
 
 export default function RewardCard(props: RewardCardI) {
   const [isHovered, setIsHovered] = useState(false);
-  const [isWishListed, setIsWishListed] = useState(false);
+  // const [isWishListed, setIsWishListed] = useState(false);
   const isClaimable = props.diamonds <= props.totalDiamonds;
 
   return (
@@ -24,10 +24,11 @@ export default function RewardCard(props: RewardCardI) {
         <div
           onClick={(e: React.MouseEvent<HTMLDivElement>) => {
             props.handleIsWishListed(e);
-            setIsWishListed(!isWishListed);
           }}
         >
-          <AiFillHeart style={{ color: isWishListed ? "red" : "white" }} />
+          <AiFillHeart
+            style={{ color: props.isWishListed ? "red" : "white" }}
+          />
         </div>
       </div>
       <div

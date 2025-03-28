@@ -15,6 +15,14 @@
       "rewardName": "",
       "isCustom": false,
       "date": "Mar 29, 2025"
+    },
+    {
+      "title": "asd",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Mar 28, 2025"
     }
   ],
   "rewards": [
@@ -31,35 +39,42 @@
       "isWishListed": true,
       "cover": "coffee.png",
       "id": "70401dc1-c7cd-4e92-8153-5c679c2f1247"
+    },
+    {
+      "title": "asdsad",
+      "diamonds": 20,
+      "isWishListed": true,
+      "cover": "reward.png",
+      "id": "7c9ef746-08db-412a-83cd-9ed9a6e4d5c2"
+    },
+    {
+      "title": "ww",
+      "diamonds": 1000,
+      "isWishListed": false,
+      "cover": "reward.png",
+      "id": "fc978631-de95-4d24-8960-c58ddfe16bc7"
     }
   ],
   "habits": [
     {
       "title": "Work on this",
-      "latestStreak": 3,
-      "maxStreak": 3,
+      "latestStreak": 4,
+      "maxStreak": 4,
       "dates": [
+        "Mar 28, 2025",
         "Mar 27, 2025",
         "Mar 26, 2025",
-        "Mar 25, 2025",
-        "Mar 23, 2025",
-        "Mar 22, 2025",
-        "Mar 21, 2025",
-        "Mar 15, 2025",
-        "Mar 11, 2025"
+        "Mar 25, 2025"
       ]
     },
     {
       "title": "cxx",
-      "latestStreak": 1,
+      "latestStreak": 0,
       "maxStreak": 1,
-      "dates": [
-        "Mar 27, 2025",
-        "Mar 25, 2025"
-      ]
+      "dates": []
     }
   ],
-  "totalDiamonds": 15,
+  "totalDiamonds": 45,
   "todaysHistory": [
     {
       "date": "Mar 27, 2025",
@@ -86,6 +101,16 @@
       "type": "reward",
       "title": "asd",
       "cover": "reward.png"
+    },
+    {
+      "date": "Mar 28, 2025",
+      "type": "goal",
+      "title": "dasdas"
+    },
+    {
+      "date": "Mar 28, 2025",
+      "type": "habit",
+      "title": "Work on this"
     }
   ]
 }
