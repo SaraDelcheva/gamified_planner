@@ -2,15 +2,6 @@
   z-index: 99;
 }
 
-.plusIcon {
-  font-size: 20px;
-  margin-right: 10px;
-}
-
-.customRewardTitle {
-  /* background-color: rgba(255, 255, 255, 0.1); */
-}
-
 .customRewardTitle::placeholder {
   color: white;
 }

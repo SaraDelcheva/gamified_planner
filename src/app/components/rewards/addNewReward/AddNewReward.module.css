@@ -15,7 +15,7 @@
 
 .addNewRewardInput {
   max-width: 100px;
-  font-size: 15px;
+  font-size: 1rem;
 }
 
 .addNewRewardDropdown {
@@ -44,7 +44,7 @@
   align-items: center;
   justify-content: center;
   gap: 3px;
-  font-size: 15px;
+  font-size: 1rem;
   position: absolute;
   bottom: -20px;
   right: -50px;

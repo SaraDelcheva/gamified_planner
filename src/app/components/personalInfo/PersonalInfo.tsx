@@ -1,11 +1,23 @@
-import { TodaysHistoryI } from "@/app/helpers/interfaces";
+import { TodaysHistoryI, RewardI } from "@/app/helpers/interfaces";
 import styles from "./PersonalInfo.module.css";
+import RewardCard from "../rewards/rewardCard/RewardCard";
 
 interface PersonalInfoProps {
   todaysHistory: TodaysHistoryI[];
+  rewards: RewardI[];
+  totalDiamonds: number;
+  claimReward: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleIsWishListed: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-export default function PersonalInfo({ todaysHistory }: PersonalInfoProps) {
+export default function PersonalInfo({
+  todaysHistory,
+  rewards,
+  totalDiamonds,
+  claimReward,
+  handleIsWishListed,
+}: PersonalInfoProps) {
+  const wishlistedRewards = rewards.filter((reward) => reward.isWishListed);
   return (
     <div className={styles.personalInfo}>
       <div className={styles.personalInfoContainer}>
@@ -52,6 +64,20 @@ export default function PersonalInfo({ todaysHistory }: PersonalInfoProps) {
       </div>
       <div className={styles.wishlist}>
         <div className="header">Wishlist</div>
+        {wishlistedRewards.map((reward) => (
+          <div key={reward.id} className={styles.wishlistItem}>
+            <RewardCard
+              key={reward.id}
+              rewardName={reward.title}
+              diamonds={reward.diamonds ?? 0}
+              cover={reward.cover}
+              totalDiamonds={totalDiamonds}
+              claimReward={claimReward}
+              id={reward.id}
+              handleIsWishListed={handleIsWishListed}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

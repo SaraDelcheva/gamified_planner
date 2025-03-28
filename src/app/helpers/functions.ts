@@ -104,6 +104,7 @@ export function claimReward({
     totalDiamonds: newTotalDiamonds,
     todaysHistory: newHistory,
   });
+  console.log("balls");
 }
 
 // --------------------------------------------------------------------Create Dates

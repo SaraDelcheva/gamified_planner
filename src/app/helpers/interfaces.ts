@@ -30,6 +30,7 @@ export interface HabitI {
 export interface RewardI {
   title: string;
   diamonds: number | null;
+  isWishListed: boolean;
   cover: string;
   id: string;
 }
@@ -81,6 +82,7 @@ export interface RewardsI {
   setCoverName: React.Dispatch<React.SetStateAction<string>>;
   isModalOpen: boolean;
   setIsModalOpen: (isModalOpen: boolean) => void;
+  handleIsWishListed: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 export interface AddNewRewardI {
   addNewReward: () => void;
@@ -101,6 +103,7 @@ export interface RewardCardI {
   totalDiamonds: number;
   claimReward: (e: React.MouseEvent<HTMLButtonElement>) => void;
   id: string;
+  handleIsWishListed: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export interface SaveDataFunctionI {

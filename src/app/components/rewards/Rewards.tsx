@@ -21,6 +21,7 @@ export default function Rewards(props: RewardsI) {
             totalDiamonds={props.totalDiamonds}
             claimReward={props.claimReward}
             id={reward.id}
+            handleIsWishListed={props.handleIsWishListed}
           />
         ))}
         <AddNewReward

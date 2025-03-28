@@ -1,177 +1,91 @@
 {
   "goals": [
     {
-      "title": "jh",
-      "diamonds": 30,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "date": "Mar 24, 2025"
-    },
-    {
-      "title": "dsd",
-      "diamonds": 5,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "date": "Mar 24, 2025"
-    },
-    {
-      "title": "q",
-      "diamonds": 5,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "date": "Mar 25, 2025"
-    },
-    {
-      "title": "ds",
-      "diamonds": 5,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "date": ""
-    },
-    {
-      "title": "rewrwe",
-      "diamonds": 5,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "date": ""
-    },
-    {
-      "title": "lala",
-      "diamonds": 5,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "date": "Mar 29, 2025"
-    },
-    {
-      "title": "asdsd",
-      "diamonds": 5,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "date": ""
-    },
-    {
-      "title": "adssad",
-      "diamonds": 5,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "date": "Mar 13, 2025"
-    },
-    {
-      "title": "dasdsad",
+      "title": "cvcv",
       "diamonds": 10,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "date": "Mar 08, 2025"
-    },
-    {
-      "title": "dasdsd",
-      "diamonds": 10,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "date": "Mar 21, 2025"
-    },
-    {
-      "title": "sss",
-      "diamonds": 10,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "date": "Mar 28, 2025"
-    },
-    {
-      "title": "dee",
-      "diamonds": 5,
       "coverName": "",
       "rewardName": "",
       "isCustom": false,
       "date": "Mar 27, 2025"
     },
     {
-      "title": "dasdsa",
+      "title": "dfdf",
       "diamonds": 10,
       "coverName": "",
       "rewardName": "",
       "isCustom": false,
-      "date": "Mar 14, 2025"
+      "date": "Mar 29, 2025"
     }
   ],
   "rewards": [
     {
-      "title": "NOTHING",
-      "diamonds": 50,
+      "title": "sddd",
+      "diamonds": 200,
+      "isWishListed": true,
       "cover": "reward.png",
-      "id": "7a3d2f36-f657-41c0-aaeb-4cce0f0b5174"
+      "id": "cfab25b6-7ce6-421c-8cac-e51941577791"
+    },
+    {
+      "title": "cxzc",
+      "diamonds": 30,
+      "isWishListed": true,
+      "cover": "coffee.png",
+      "id": "70401dc1-c7cd-4e92-8153-5c679c2f1247"
     }
   ],
   "habits": [
     {
       "title": "Work on this",
-      "latestStreak": 2,
+      "latestStreak": 3,
       "maxStreak": 3,
       "dates": [
+        "Mar 27, 2025",
         "Mar 26, 2025",
         "Mar 25, 2025",
         "Mar 23, 2025",
         "Mar 22, 2025",
         "Mar 21, 2025",
-        "Mar 15, 2025"
+        "Mar 15, 2025",
+        "Mar 11, 2025"
       ]
     },
     {
-      "title": "sadsad",
-      "latestStreak": 6,
-      "maxStreak": 6,
-      "dates": [
-        "Mar 26, 2025",
-        "Mar 25, 2025",
-        "Mar 24, 2025",
-        "Mar 23, 2025",
-        "Mar 22, 2025",
-        "Mar 21, 2025",
-        "Mar 19, 2025",
-        "Mar 17, 2025",
-        "Mar 16, 2025",
-        "Mar 15, 2025"
-      ]
-    },
-    {
-      "title": "dasd",
+      "title": "cxx",
       "latestStreak": 1,
       "maxStreak": 1,
       "dates": [
-        "Mar 26, 2025",
-        "Mar 23, 2025",
-        "Mar 21, 2025",
-        "Mar 19, 2025"
+        "Mar 27, 2025",
+        "Mar 25, 2025"
       ]
     }
   ],
-  "totalDiamonds": 7685,
+  "totalDiamonds": 15,
   "todaysHistory": [
     {
-      "date": "Mar 26, 2025",
+      "date": "Mar 27, 2025",
+      "type": "goal",
+      "title": "blee"
+    },
+    {
+      "date": "Mar 27, 2025",
+      "type": "goal",
+      "title": "ssghjagjhs"
+    },
+    {
+      "date": "Mar 27, 2025",
       "type": "habit",
+      "title": "cxx"
+    },
+    {
+      "date": "Mar 27, 2025",
+      "type": "goal",
       "title": "dasd"
     },
     {
-      "date": "Mar 26, 2025",
-      "type": "habit",
-      "title": "Work on this"
-    },
-    {
-      "date": "Mar 26, 2025",
-      "type": "habit",
-      "title": "sadsad"
+      "date": "Mar 27, 2025",
+      "type": "reward",
+      "title": "asd",
+      "cover": "reward.png"
     }
   ]
 }

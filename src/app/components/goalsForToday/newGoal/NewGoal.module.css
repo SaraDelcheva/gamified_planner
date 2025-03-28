@@ -23,7 +23,7 @@
 }
 
 .newGoalP {
-  font-size: 25px;
+  font-size: 1.5rem;
   margin-left: 30px;
 }
 
@@ -37,7 +37,7 @@
   align-items: center;
   justify-content: center;
   gap: 3px;
-  font-size: 25px;
+  font-size: 1.5rem;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -71,7 +71,7 @@
 }
 
 .customRewardDescriptionP {
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 .customRewardName {

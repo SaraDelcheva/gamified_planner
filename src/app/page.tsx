@@ -173,6 +173,7 @@ export default function Home() {
       {
         title: rewardName,
         diamonds: rewardPrice,
+        isWishListed: false,
         cover: coverName,
         id: uuidv4(),
       },
@@ -196,6 +197,19 @@ export default function Home() {
       setTotalDiamonds,
       dates,
     });
+  }
+
+  //handle is wishlisted
+  function handleIsWishListed(e: React.MouseEvent<HTMLDivElement>) {
+    const rewardId = e.currentTarget.parentElement?.parentElement?.id;
+    const updatedRewards = rewards.map((reward) =>
+      reward.id === rewardId
+        ? { ...reward, isWishListed: !reward.isWishListed }
+        : reward
+    );
+
+    setRewards(updatedRewards);
+    saveData({ rewards: updatedRewards });
   }
 
   return (
@@ -257,9 +271,16 @@ export default function Home() {
           claimReward: handleClaimReward,
           coverName,
           setCoverName,
+          handleIsWishListed,
         }}
       />
-      <PersonalInfo todaysHistory={todaysHistory} />
+      <PersonalInfo
+        todaysHistory={todaysHistory}
+        rewards={rewards}
+        totalDiamonds={totalDiamonds}
+        claimReward={handleClaimReward}
+        handleIsWishListed={handleIsWishListed}
+      />
     </div>
   );
 }
