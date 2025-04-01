@@ -1,0 +1,14 @@
+.wishlistInfo {
+  padding: 20px 10px;
+}
+
+.wishlistInfoSpan {
+  display: block;
+  font-weight: 600;
+}
+
+.wishlist {
+  width: 150px;
+  border-left: 2px solid #8c5a3f2b;
+  background-color: #3d3d3d;
+}

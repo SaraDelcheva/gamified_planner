@@ -267,6 +267,7 @@ export default function Home() {
               e.target.value.trim() === "" ? null : Number(e.target.value)
             );
           },
+
           addNewReward,
           claimReward: handleClaimReward,
           coverName,
@@ -276,10 +277,7 @@ export default function Home() {
       />
       <PersonalInfo
         todaysHistory={todaysHistory}
-        rewards={rewards}
         totalDiamonds={totalDiamonds}
-        claimReward={handleClaimReward}
-        handleIsWishListed={handleIsWishListed}
       />
     </div>
   );

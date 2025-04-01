@@ -23,6 +23,38 @@
       "rewardName": "",
       "isCustom": false,
       "date": "Mar 28, 2025"
+    },
+    {
+      "title": "dsdsd",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Apr 01, 2025"
+    },
+    {
+      "title": "sadsda",
+      "diamonds": 30,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Apr 01, 2025"
+    },
+    {
+      "title": "asdsad",
+      "diamonds": 20,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Apr 01, 2025"
+    },
+    {
+      "title": "sadsd",
+      "diamonds": 30,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Apr 01, 2025"
     }
   ],
   "rewards": [
@@ -32,20 +64,6 @@
       "isWishListed": true,
       "cover": "reward.png",
       "id": "cfab25b6-7ce6-421c-8cac-e51941577791"
-    },
-    {
-      "title": "cxzc",
-      "diamonds": 30,
-      "isWishListed": true,
-      "cover": "coffee.png",
-      "id": "70401dc1-c7cd-4e92-8153-5c679c2f1247"
-    },
-    {
-      "title": "asdsad",
-      "diamonds": 20,
-      "isWishListed": true,
-      "cover": "reward.png",
-      "id": "7c9ef746-08db-412a-83cd-9ed9a6e4d5c2"
     },
     {
       "title": "ww",
@@ -74,7 +92,7 @@
       "dates": []
     }
   ],
-  "totalDiamonds": 45,
+  "totalDiamonds": 205,
   "todaysHistory": [
     {
       "date": "Mar 27, 2025",
@@ -111,6 +129,80 @@
       "date": "Mar 28, 2025",
       "type": "habit",
       "title": "Work on this"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "reward",
+      "title": "asdsad",
+      "cover": "reward.png"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "goal",
+      "title": "sdsadasd"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "reward",
+      "title": "cxzc",
+      "cover": "coffee.png"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "goal",
+      "title": "dasdsa"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "reward",
+      "title": "jhbhb",
+      "cover": "reward.png"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "reward",
+      "title": "dsadsad",
+      "cover": "reward.png"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "goal",
+      "title": "sss"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "goal",
+      "title": "dsadsad"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "goal",
+      "title": "ss"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "goal",
+      "title": "sdsad"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "goal",
+      "title": "sadsad"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "goal",
+      "title": "sad"
+    },
+    {
+      "date": "Apr 01, 2025",
+      "type": "goal",
+      "title": "asdsa"
     }
   ]
 }

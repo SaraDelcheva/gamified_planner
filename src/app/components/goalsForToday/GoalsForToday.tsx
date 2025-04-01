@@ -6,9 +6,7 @@ import { GoalsForTodayI } from "../../helpers/interfaces";
 export default function GoalsForToday(props: GoalsForTodayI) {
   return (
     <div className={styles.goalsForToday} id={props.goalDate}>
-      <div className="header">
-        <h1 className="headerH1">{props.title}</h1>
-      </div>
+      <div className="header">{props.title}</div>
       <div className={styles.dailyGoalsContainer}>
         <AddGoal
           addNewGoal={props.addNewGoal}

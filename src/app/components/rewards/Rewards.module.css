@@ -1,16 +1,41 @@
 .rewards {
   border-bottom: none;
-  flex-basis: 40%;
-  position: relative;
-  margin-right: 20px;
+  top: 15px;
+  right: 15px;
+  height: calc(100% - 30px);
+  width: 0;
+  position: absolute;
+  background-color: #3d3d3d;
+  overflow: hidden;
+  transition: width 0.5s ease-in-out;
 }
+
+.rewards.open {
+  width: calc(50% - 50px);
+}
+
 .rewardsContainer {
   border-left: rgba(140, 90, 63, 0.17) 2px solid;
-  border-right: rgba(140, 90, 63, 0.17) 2px solid;
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
   height: calc(100% - 50px);
   gap: 80px;
   align-content: flex-start;
+}
+
+.shop {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  font-size: 1.2rem;
+  background-image: url("../../../../public/images/shop.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 80px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
 }

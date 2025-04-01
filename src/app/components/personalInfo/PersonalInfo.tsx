@@ -1,34 +1,25 @@
-import { TodaysHistoryI, RewardI } from "@/app/helpers/interfaces";
+import { TodaysHistoryI } from "@/app/helpers/interfaces";
 import styles from "./PersonalInfo.module.css";
-import RewardCard from "../rewards/rewardCard/RewardCard";
+
 import { IoDiamondOutline } from "react-icons/io5";
 
 interface PersonalInfoProps {
   todaysHistory: TodaysHistoryI[];
-  rewards: RewardI[];
   totalDiamonds: number;
-  claimReward: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  handleIsWishListed: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export default function PersonalInfo({
   todaysHistory,
-  rewards,
   totalDiamonds,
-  claimReward,
-  handleIsWishListed,
 }: PersonalInfoProps) {
-  const wishlistedRewards = rewards.filter((reward) => reward.isWishListed);
-  const totalWishListPrice = wishlistedRewards.reduce(
-    (total, reward) => total + (reward.diamonds ?? 0),
-    0
-  );
   return (
     <div className={styles.personalInfo}>
       <div className={styles.personalInfoContainer}>
         <div className={styles.personalStatus}>
           <div className={styles.avatar}></div>
-          <div className={styles.personalStatusDetails}></div>
+          <div className={styles.personalStatusDetails}>
+            <IoDiamondOutline /> {totalDiamonds}
+          </div>
         </div>
         <div className={styles.todaysHistory}>
           <div className={styles.todaysHistoryHeader}>
@@ -65,31 +56,6 @@ export default function PersonalInfo({
               </div>
             ))}
           </div>
-        </div>
-      </div>
-      <div className={styles.wishlist}>
-        <div className="header">Wishlist</div>
-        {wishlistedRewards.map((reward) => (
-          <div key={reward.id} className={styles.wishlistItem}>
-            <RewardCard
-              key={reward.id}
-              rewardName={reward.title}
-              diamonds={reward.diamonds ?? 0}
-              cover={reward.cover}
-              totalDiamonds={totalDiamonds}
-              claimReward={claimReward}
-              id={reward.id}
-              handleIsWishListed={handleIsWishListed}
-              isWishListed={reward.isWishListed}
-            />
-          </div>
-        ))}
-        <div className={styles.wishlistInfo}>
-          You need{" "}
-          <span className={styles.wishlistInfoSpan}>
-            {totalWishListPrice} <IoDiamondOutline />
-          </span>{" "}
-          to claim all your wishlisted rewards.
         </div>
       </div>
     </div>

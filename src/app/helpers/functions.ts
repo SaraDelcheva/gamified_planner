@@ -83,6 +83,7 @@ export function claimReward({
   const updatedRewards = rewards.filter(
     (reward) => reward.id !== claimedReward[0].id
   );
+
   const newTotalDiamonds = totalDiamonds - claimedReward[0].diamonds!;
 
   const newHistory = [
@@ -104,7 +105,6 @@ export function claimReward({
     totalDiamonds: newTotalDiamonds,
     todaysHistory: newHistory,
   });
-  console.log("balls");
 }
 
 // --------------------------------------------------------------------Create Dates
