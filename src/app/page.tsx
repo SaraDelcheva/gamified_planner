@@ -1,17 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
 import styles from "./page.module.css";
 
 import GoalsForToday from "./components/goalsForToday/GoalsForToday";
 import PersonalInfo from "./components/personalInfo/PersonalInfo";
 
-import Rewards from "./components/rewards/Rewards";
-import { RewardI, GoalI, TodaysHistoryI } from "./helpers/interfaces";
+import { GoalI, TodaysHistoryI } from "./helpers/interfaces";
 import {
   formatDate,
   saveData,
-  claimReward,
   toggleCalendar,
   createDates,
 } from "./helpers/functions";
@@ -33,12 +30,6 @@ export default function Home() {
   const [customRewardName, setCustomRewardName] = useState("");
   const [isCustom, setIsCustom] = useState(false);
 
-  const [rewards, setRewards] = useState<RewardI[]>([]);
-  const [rewardName, setRewardName] = useState<string>("");
-  const [rewardPrice, setRewardPrice] = useState<number | null>(null);
-  const [coverName, setCoverName] = useState<string>("reward.png");
-
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
   const [isCalendarOpen, setIsCalendarOpen] = useState<{
     [key: string]: boolean;
@@ -54,7 +45,6 @@ export default function Home() {
 
       setTotalDiamonds(data.totalDiamonds || 0);
       setGoals(Array.isArray(data.goals) ? data.goals : []);
-      setRewards(Array.isArray(data.rewards) ? data.rewards : []);
       setTodaysHistory(data.todaysHistory ? data.todaysHistory : []);
 
       const today = new Date();
@@ -163,55 +153,6 @@ export default function Home() {
     setNewGoalDate(formatDate(value));
   }
 
-  // ---------- Handlers for Reward Management ----------
-  //Add a New Reward
-  function addNewReward() {
-    if (rewardPrice === null || !rewardName.trim()) return;
-
-    const updatedRewards = [
-      ...rewards,
-      {
-        title: rewardName,
-        diamonds: rewardPrice,
-        isWishListed: false,
-        cover: coverName,
-        id: uuidv4(),
-      },
-    ];
-    setRewards(updatedRewards);
-    saveData({ rewards: updatedRewards });
-    setCoverName("reward.png");
-    setRewardName("");
-    setRewardPrice(null);
-  }
-
-  //Claim Reward
-  function handleClaimReward(e: React.MouseEvent<HTMLButtonElement>) {
-    claimReward({
-      e,
-      rewards,
-      totalDiamonds,
-      todaysHistory,
-      setTodaysHistory,
-      setRewards,
-      setTotalDiamonds,
-      dates,
-    });
-  }
-
-  //handle is wishlisted
-  function handleIsWishListed(e: React.MouseEvent<HTMLDivElement>) {
-    const rewardId = e.currentTarget.parentElement?.parentElement?.id;
-    const updatedRewards = rewards.map((reward) =>
-      reward.id === rewardId
-        ? { ...reward, isWishListed: !reward.isWishListed }
-        : reward
-    );
-
-    setRewards(updatedRewards);
-    saveData({ rewards: updatedRewards });
-  }
-
   return (
     <div className={styles.page}>
       {dates.map(({ formattedDate, day }) => (
@@ -252,29 +193,7 @@ export default function Home() {
           }}
         />
       ))}
-      <Rewards
-        {...{
-          totalDiamonds,
-          rewards,
-          rewardName,
-          rewardPrice,
-          isModalOpen,
-          setIsModalOpen,
-          InputChange: (e) => setRewardName(e.target.value),
-          DiamondChange: (e) => {
-            e.preventDefault();
-            setRewardPrice(
-              e.target.value.trim() === "" ? null : Number(e.target.value)
-            );
-          },
 
-          addNewReward,
-          claimReward: handleClaimReward,
-          coverName,
-          setCoverName,
-          handleIsWishListed,
-        }}
-      />
       <PersonalInfo
         todaysHistory={todaysHistory}
         totalDiamonds={totalDiamonds}

@@ -46,6 +46,7 @@ export default function Wishlist({
         </span>{" "}
         to claim all your wishlisted rewards.
       </div>
+      {totalDiamonds}
     </div>
   );
 }
