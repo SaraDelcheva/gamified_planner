@@ -5,29 +5,42 @@
   height: calc(100% - 30px);
   width: 0;
   position: absolute;
-  background-color: #3d3d3d;
+  background-color: #292929;
   overflow: hidden;
   transition: width 0.5s ease-in-out;
 }
 
 .rewards.open {
-  width: calc(50% - 50px);
+  width: calc(50vw - 10px);
 }
 
 .rewardsContainer {
-  border-left: rgba(140, 90, 63, 0.17) 2px solid;
-  padding: 20px;
   display: flex;
+  padding: 20px;
   flex-wrap: wrap;
   height: calc(100% - 50px);
   gap: 80px;
   align-content: flex-start;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  transition-delay: 0.5s;
+}
+
+.rewards.open .rewardsContainer {
+  opacity: 1;
+  transition-delay: 0.5s;
+}
+
+.rewards:not(.open) .rewardsContainer {
+  opacity: 0;
+  transition-delay: 0s;
+  transition-duration: 0.1s;
 }
 
 .shop {
   position: absolute;
-  bottom: 15px;
-  right: 20px;
+  bottom: 30px;
+  right: 40px;
   font-size: 1.2rem;
   background-image: url("../../../../public/images/shop.svg");
   background-size: cover;

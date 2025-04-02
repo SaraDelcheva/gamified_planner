@@ -1,5 +1,4 @@
 .page {
-  width: calc(100% - 250px);
+  width: calc(100% - 300px);
   display: flex;
-  gap: 20px;
 }

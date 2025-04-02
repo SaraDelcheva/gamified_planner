@@ -3,11 +3,12 @@ import { useState } from "react";
 import styles from "./Rewards.module.css";
 import RewardCard from "./rewardCard/RewardCard";
 import AddNewReward from "./addNewReward/AddNewReward";
-
 import { RewardsI } from "@/app/helpers/interfaces";
+import { useDiamonds } from "@/app/context/DiamondsContext";
 
-export default function Rewards(props: RewardsI) {
+export default function Rewards(props: Omit<RewardsI, "totalDiamonds">) {
   const [isShopOpen, setIsShopOpen] = useState(false);
+  const { totalDiamonds } = useDiamonds();
 
   return (
     <>
@@ -27,7 +28,7 @@ export default function Rewards(props: RewardsI) {
               rewardName={reward.title}
               diamonds={reward.diamonds ?? 0}
               cover={reward.cover}
-              totalDiamonds={props.totalDiamonds}
+              totalDiamonds={totalDiamonds}
               claimReward={props.claimReward}
               id={reward.id}
               handleIsWishListed={props.handleIsWishListed}

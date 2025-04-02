@@ -12,6 +12,11 @@
   background-size: cover;
 }
 
+.rewardCardP {
+  word-wrap: break-word;
+  padding-bottom: 5px;
+}
+
 .newBtn,
 .claimBtn {
   color: #ffffff;

@@ -11,10 +11,10 @@ export default function RewardCard(props: RewardCardI) {
   const isClaimable = props.diamonds <= props.totalDiamonds;
 
   return (
-    <div className={styles.rewardCard} id={props.id}>
-      <p className={styles.rewardCardP}>{props.rewardName}</p>
+    <div className={`${styles.rewardCard} rewardCard`} id={props.id}>
+      <p className={`${styles.rewardCardP} rewardCardP`}>{props.rewardName}</p>
       <div
-        className={styles.rewardCardImg}
+        className={`${styles.rewardCardImg} rewardCardImg`}
         style={{
           backgroundImage: `url('/images/${
             props.cover ? props.cover : "reward.png"
@@ -22,22 +22,25 @@ export default function RewardCard(props: RewardCardI) {
         }}
       >
         <div
+          className="wishlistToggle"
           onClick={(e: React.MouseEvent<HTMLDivElement>) => {
             props.handleIsWishListed(e);
           }}
         >
           <AiFillHeart
+            className="wishlistIcon"
             style={{ color: props.isWishListed ? "red" : "white" }}
           />
         </div>
       </div>
       <div
+        className="buttonContainer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         {isHovered && isClaimable ? (
           <button
-            className={`${styles.claimBtn} boxShadow`}
+            className={`${styles.claimBtn} claimBtn boxShadow`}
             disabled={!isClaimable}
             onClick={props.claimReward}
           >
@@ -45,10 +48,10 @@ export default function RewardCard(props: RewardCardI) {
           </button>
         ) : (
           <button
-            className={`${styles.newBtn} boxShadow`}
+            className={`${styles.newBtn} newBtn boxShadow`}
             disabled={!isClaimable}
           >
-            {props.diamonds} <IoDiamondOutline />
+            {props.diamonds} <IoDiamondOutline className="diamondIcon" />
           </button>
         )}
       </div>

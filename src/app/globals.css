@@ -1,13 +1,13 @@
 :root {
-  --background: #ffffff;
+  --background: #fffae8;
   --foreground: #171717;
   font-size: 16px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #3d3d3d;
-    --foreground: #ffffff;
+    --background: #302d2a;
+    --foreground: #fffae8;
   }
 }
 
@@ -28,12 +28,14 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scrollbar-color: #3d3d3d #7a9b81;
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  scrollbar-width: thin;
 }
 
 a {
@@ -68,22 +70,35 @@ input[type="number"] {
   }
 }
 
-.boxShadow {
+/* .boxShadow {
   box-shadow: -4px 4px 8px 0px rgba(0, 0, 0, 0.25);
-}
+} */
 
 .header {
-  background-color: #ffc301;
+  background-color: #fff3cc;
   line-height: 50px;
+  height: 50px;
   color: #3d3d3d;
-
-  justify-content: center;
-  display: flex;
+  width: 100%;
+  text-align: center;
   font-family: var(--font-inter), sans-serif;
   font-size: 1.5rem;
 }
 
-/* calendar  */
+/*-------------------------------------------- Special selectors */
+
+.wishlistItems .rewardCard {
+  border-radius: 10px;
+  width: 90px;
+  overflow: hidden;
+}
+
+.wishlistItems .newBtn,
+.wishlistItems .claimBtn {
+  bottom: 0;
+}
+
+/*-------------------------------------------- calendar  */
 
 .react-calendar {
   margin-top: 15px;

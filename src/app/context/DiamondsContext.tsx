@@ -1,9 +1,10 @@
 "use client";
-import { createContext, useContext, useState, useEffect } from "react";
+
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface DiamondsContextType {
   totalDiamonds: number;
-  setTotalDiamonds: (diamonds: number) => void;
+  setTotalDiamonds: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const DiamondsContext = createContext<DiamondsContextType | undefined>(
@@ -31,7 +32,7 @@ export function DiamondsProvider({ children }: { children: React.ReactNode }) {
 
 export function useDiamonds() {
   const context = useContext(DiamondsContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error("useDiamonds must be used within a DiamondsProvider");
   }
   return context;

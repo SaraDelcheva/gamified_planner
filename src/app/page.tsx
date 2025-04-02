@@ -1,157 +1,37 @@
 "use client";
-import { useState, useEffect } from "react";
 import styles from "./page.module.css";
-
 import GoalsForToday from "./components/goalsForToday/GoalsForToday";
 import PersonalInfo from "./components/personalInfo/PersonalInfo";
-
-import { GoalI, TodaysHistoryI } from "./helpers/interfaces";
-import {
-  formatDate,
-  saveData,
-  toggleCalendar,
-  createDates,
-} from "./helpers/functions";
+import { useGoalManager } from "./hooks/useGoalManager";
 
 export default function Home() {
-  // ---------- State Initialization ----------
-  const [totalDiamonds, setTotalDiamonds] = useState<number>(0);
-  const [todaysHistory, setTodaysHistory] = useState<TodaysHistoryI[]>([]);
-
-  const [goals, setGoals] = useState<GoalI[]>([]);
-
-  const [goalName, setGoalName] = useState<string>("");
-  const [difficulty, setDifficulty] = useState<number>(0);
-
-  const [goalDate, setGoalDate] = useState("");
-  const [newGoalDate, setNewGoalDate] = useState("");
-
-  const [customCoverName, setCustomCoverName] = useState("reward.png");
-  const [customRewardName, setCustomRewardName] = useState("");
-  const [isCustom, setIsCustom] = useState(false);
-
-  const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
-  const [isCalendarOpen, setIsCalendarOpen] = useState<{
-    [key: string]: boolean;
-  }>({});
-
-  const dates = createDates(0, 1);
-
-  // ---------- Data Fetching ----------
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("/api/data");
-      const data = await res.json();
-
-      setTotalDiamonds(data.totalDiamonds || 0);
-      setGoals(Array.isArray(data.goals) ? data.goals : []);
-      setTodaysHistory(data.todaysHistory ? data.todaysHistory : []);
-
-      const today = new Date();
-      const formattedDate = formatDate(today);
-      setGoalDate(formattedDate);
-    }
-
-    fetchData();
-  }, []);
-
-  // ---------- Handlers for Goal Management ----------
-  // Add new goal
-  function addNewGoal(formattedDate: string) {
-    if (
-      (difficulty === 0 && !isCustom) ||
-      !goalName.trim() ||
-      (!customRewardName && isCustom)
-    )
-      return;
-
-    const updatedGoals = [
-      ...goals,
-      {
-        title: goalName,
-        diamonds: isCustom ? 0 : difficulty,
-        coverName: isCustom ? customCoverName : "",
-        rewardName: isCustom ? customRewardName : "",
-        isCustom: isCustom,
-        date: newGoalDate ? newGoalDate : formattedDate,
-      },
-    ];
-    setGoals(updatedGoals);
-    saveData({ goals: updatedGoals });
-
-    // Reset inputs
-    setGoalName("");
-    setCustomCoverName("reward.png");
-    setCustomRewardName("");
-    setExpanded((prev) => ({ ...prev, [formattedDate]: false }));
-    setDifficulty(0);
-    setIsCustom(false);
-    setIsCalendarOpen((prev) => ({ ...prev, [formattedDate]: false }));
-    setNewGoalDate("");
-  }
-
-  // Cancel adding a goal
-  function cancelAddGoal(containerDate: string) {
-    setGoalName("");
-    setCustomCoverName("reward.png");
-    setCustomRewardName("");
-    setDifficulty(0);
-    setIsCustom(false);
-    setExpanded((prev) => ({ ...prev, [containerDate]: false }));
-    setIsCalendarOpen((prev) => ({ ...prev, [containerDate]: false }));
-    setNewGoalDate("");
-  }
-
-  // Complete a goal
-  function completeGoal(goalTitle: string) {
-    const completedGoal = goals.find((goal) => goal.title === goalTitle);
-    if (!completedGoal) return;
-
-    const updatedGoals = goals.filter((goal) => goal.title !== goalTitle);
-    setGoals(updatedGoals);
-    setTotalDiamonds((prev) => prev + completedGoal.diamonds);
-
-    const newHistory = [
-      ...todaysHistory,
-      {
-        date: dates[0].formattedDate,
-        type: "goal",
-        title: completedGoal.title,
-      },
-    ];
-    setTodaysHistory(newHistory);
-
-    saveData({
-      goals: updatedGoals,
-      totalDiamonds: totalDiamonds + completedGoal.diamonds,
-      todaysHistory: newHistory,
-    });
-  }
-
-  // Toggle expanded state
-  function toggleExpanded(date: string) {
-    setNewGoalDate("");
-    setExpanded((prev) => {
-      const newExpanded = { [date]: !prev[date] };
-      Object.keys(prev).forEach((key) => {
-        if (key !== date) newExpanded[key] = false;
-      });
-      return newExpanded;
-    });
-
-    setIsCalendarOpen((prev) => {
-      const newCalendar = { ...prev };
-      Object.keys(prev).forEach((key) => {
-        if (key !== date) newCalendar[key] = !newCalendar[key];
-      });
-      return newCalendar;
-    });
-  }
-
-  // Handle date click
-  function onClickDay(value: Date) {
-    setNewGoalDate(formatDate(value));
-  }
+  const {
+    todaysHistory,
+    goals,
+    goalName,
+    difficulty,
+    goalDate,
+    newGoalDate,
+    customCoverName,
+    customRewardName,
+    isCustom,
+    expanded,
+    isCalendarOpen,
+    dates,
+    totalDiamonds,
+    setGoalName,
+    setDifficulty,
+    setCustomCoverName,
+    setCustomRewardName,
+    setIsCustom,
+    setGoalDate,
+    addNewGoal,
+    cancelAddGoal,
+    completeGoal,
+    toggleExpanded,
+    toggleCalendar,
+    onClickDay,
+  } = useGoalManager({ daysToShow: 1 });
 
   return (
     <div className={styles.page}>
@@ -161,7 +41,7 @@ export default function Home() {
           {...{
             // From GoalsForTodayI
             title: day,
-            goals,
+            goals: goals.filter((goal) => goal.date === formattedDate),
             completeGoal,
             totalDiamonds,
             customRewardName,
@@ -173,7 +53,7 @@ export default function Home() {
             isCustom,
             customCoverName,
             newGoalDate,
-            goalDate: goalDate ? goalDate : formattedDate,
+            goalDate: goalDate || formattedDate,
 
             addNewGoal: () => addNewGoal(formattedDate),
             cancelAddGoal: () => cancelAddGoal(formattedDate),
@@ -184,8 +64,7 @@ export default function Home() {
             setCustomCoverName,
             setCustomRewardName,
             setExpanded: () => toggleExpanded(formattedDate),
-            setIsCalendarOpen: () =>
-              toggleCalendar(setIsCalendarOpen, formattedDate),
+            setIsCalendarOpen: () => toggleCalendar(formattedDate),
 
             expanded: expanded[formattedDate] || false,
             isCalendarOpen: isCalendarOpen[formattedDate] || false,
@@ -193,10 +72,11 @@ export default function Home() {
           }}
         />
       ))}
-
       <PersonalInfo
-        todaysHistory={todaysHistory}
-        totalDiamonds={totalDiamonds}
+        {...{
+          todaysHistory,
+          totalDiamonds,
+        }}
       />
     </div>
   );

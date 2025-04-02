@@ -9,6 +9,7 @@ import { saveData, createDates } from "./helpers/functions";
 import { v4 as uuidv4 } from "uuid";
 import "./globals.css";
 import Wishlist from "./components/wishlist/Wishlist";
+import { DiamondsProvider, useDiamonds } from "./context/DiamondsContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -17,9 +18,9 @@ const inter = Inter({
 });
 
 const karla = Karla({
-  variable: "--font-karla", // Custom variable name for the font
+  variable: "--font-karla",
   subsets: ["latin"],
-  weight: ["400", "700"], // You can add other weights you need here
+  weight: ["400", "700"],
 });
 
 const geistSans = Geist({
@@ -32,14 +33,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// ----------------------------------------------------------------------
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const [totalDiamonds, setTotalDiamonds] = useState<number>(0);
+function RewardContent() {
+  const { totalDiamonds, setTotalDiamonds } = useDiamonds();
   const [rewards, setRewards] = useState<RewardI[]>([]);
   const [rewardName, setRewardName] = useState<string>("");
   const [rewardPrice, setRewardPrice] = useState<number | null>(null);
@@ -54,7 +49,6 @@ export default function RootLayout({
       const res = await fetch("/api/data");
       const data = await res.json();
 
-      setTotalDiamonds(data.totalDiamonds || 0);
       setRewards(Array.isArray(data.rewards) ? data.rewards : []);
       setTodaysHistory(data.todaysHistory ? data.todaysHistory : []);
     }
@@ -64,7 +58,6 @@ export default function RootLayout({
 
   // ---------- Handlers for Reward Management ----------
   //Add a New Reward
-
   function addNewReward() {
     if (rewardPrice === null || !rewardName.trim()) return;
 
@@ -137,37 +130,48 @@ export default function RootLayout({
   }
 
   return (
+    <>
+      <Wishlist {...{ rewards, claimReward, handleIsWishListed }} />
+      <Rewards
+        {...{
+          rewards,
+          rewardName,
+          rewardPrice,
+          isModalOpen,
+          setIsModalOpen,
+          InputChange: (e) => setRewardName(e.target.value),
+          DiamondChange: (e) => {
+            e.preventDefault();
+            setRewardPrice(
+              e.target.value.trim() === "" ? null : Number(e.target.value)
+            );
+          },
+          addNewReward,
+          claimReward,
+          coverName,
+          setCoverName,
+          handleIsWishListed,
+        }}
+      />
+    </>
+  );
+}
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${karla.variable}`}
       >
-        <LeftMenu />
-        {children}
-        <Wishlist
-          {...{ rewards, claimReward, handleIsWishListed, totalDiamonds }}
-        />
-        <Rewards
-          {...{
-            totalDiamonds,
-            rewards,
-            rewardName,
-            rewardPrice,
-            isModalOpen,
-            setIsModalOpen,
-            InputChange: (e) => setRewardName(e.target.value),
-            DiamondChange: (e) => {
-              e.preventDefault();
-              setRewardPrice(
-                e.target.value.trim() === "" ? null : Number(e.target.value)
-              );
-            },
-            addNewReward,
-            claimReward,
-            coverName,
-            setCoverName,
-            handleIsWishListed,
-          }}
-        />
+        <DiamondsProvider>
+          <LeftMenu />
+          {children}
+          <RewardContent />
+        </DiamondsProvider>
       </body>
     </html>
   );

@@ -7,8 +7,14 @@
   font-weight: 600;
 }
 
+.wishlistItems {
+  margin-top: 15px;
+}
+
 .wishlist {
   width: 150px;
-  border-left: 2px solid #8c5a3f2b;
   background-color: #3d3d3d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

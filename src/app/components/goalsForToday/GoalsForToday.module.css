@@ -2,12 +2,14 @@
   flex-basis: 50%;
   overflow: hidden;
   font-family: var(--font-karla), sans-serif;
+  scrollbar-color: #7a9b81 #3d3d3d;
+  background-color: #3d3d3d;
 }
 
 .dailyGoalsContainer {
   overflow-y: auto;
   height: calc(100% - 50px);
   padding: 15px;
-  border-left: rgba(140, 90, 63, 0.17) 2px solid;
-  border-right: rgba(140, 90, 63, 0.17) 2px solid;
+  /* border-left: rgba(140, 90, 63, 0.17) 2px solid; */
+  /* border-right: rgba(140, 90, 63, 0.17) 2px solid; */
 }
