@@ -12,7 +12,18 @@ export default function CoverModal({
   setCoverName: React.Dispatch<React.SetStateAction<string>>;
   setIsModalOpen: (isModalOpen: boolean) => void;
 }) {
-  const imageNames: string[] = ["reward.png", "book.png", "coffee.png"];
+  const imageNames: string[] = [
+    "book",
+    "coffee",
+    "food",
+    "icecream",
+    "meditate",
+    "movie",
+    "reward",
+    "sleep",
+    "videogames",
+    "workout",
+  ];
   const [tempCoverName, setTempCoverName] = useState<string>(coverName);
   return (
     <div className={styles.modalContainer}>
@@ -28,7 +39,9 @@ export default function CoverModal({
               className={`${styles.modalImage} ${
                 tempCoverName === imageName ? styles.selected : ""
               }`}
-              style={{ backgroundImage: `url(/images/${imageName})` }}
+              style={{
+                backgroundImage: `url(/images/rewards/${imageName}.svg)`,
+              }}
             ></div>
           ))}
         </div>

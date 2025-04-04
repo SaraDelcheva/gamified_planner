@@ -40,9 +40,9 @@ export default function AddNewReward(props: AddNewRewardI) {
               onClick={() => setIsModalOpen(true)}
               className={styles.rewardCardImg}
               style={{
-                backgroundImage: `url('/images/${
-                  props.coverName || "reward.png"
-                }')`,
+                backgroundImage: `url('/images/rewards/${
+                  props.coverName || "reward"
+                }.svg')`,
               }}
             >
               <div
@@ -56,7 +56,7 @@ export default function AddNewReward(props: AddNewRewardI) {
                   }}
                   onCancel={() => {
                     setExpanded(!expanded);
-                    props.setCoverName("reward.png");
+                    props.setCoverName("reward");
                   }}
                 />
               </div>

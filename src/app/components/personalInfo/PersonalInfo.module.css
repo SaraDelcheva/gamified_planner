@@ -1,13 +1,15 @@
 .personalInfo {
   flex-basis: 50%;
-  /* display: flex; */
+  padding: 20px;
 }
 
 .personalInfoContainer {
-  max-height: calc(100% - 50px);
-  overflow-y: scroll;
+  border-radius: 12px;
+  height: calc(100%);
+  max-height: calc(100%);
   width: 100%;
-  background-color: #7a9b81;
+  background-color: #222728;
+  overflow-y: scroll;
 }
 
 .personalStatus {
@@ -79,9 +81,10 @@
   height: 35px;
   width: 35px;
   background-position: center;
-  background-size: cover;
+  background-size: 25px 25px;
   background-repeat: no-repeat;
   border-radius: 50;
+  background-color: #222728;
 }
 
 .claimedRewardCover {
@@ -90,10 +93,10 @@
 
 .claimedGoalCover {
   border: 1px solid white;
-  background-image: url("../../../../public/images/diamond.svg");
+  /* background-image: url("../../../../public/images/diamond.svg"); */
 }
 
 .claimedHabitCover {
   border: 1px solid white;
-  background-image: url("../../../../public/images/chaincover.svg");
+  /* background-image: url("../../../../public/images/chaincover.svg"); */
 }

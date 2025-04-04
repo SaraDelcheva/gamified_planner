@@ -38,19 +38,21 @@ export default function NewGoal({
         {isGoalHovered ? (
           <button
             onClick={() => completeGoal(goalTitle)}
-            className={`${styles.newBtn} boxShadow`}
+            className={`${styles.newBtn} ${styles.completeBtn}`}
           >
             <FaCheck />
           </button>
         ) : isCustom ? (
           <button
-            className={`${styles.newBtn} boxShadow`}
-            style={{ backgroundImage: `url("/images/${customCoverName}")` }}
+            className={`${styles.newBtn} ${styles.customBtn}`}
+            style={{
+              backgroundImage: `url("/images/rewards/${customCoverName}.svg")`,
+            }}
             onMouseEnter={() => setIsGoalHovered(true)}
             onMouseLeave={() => setIsGoalHovered(false)}
           ></button>
         ) : (
-          <button className={`${styles.newBtn} boxShadow`}>
+          <button className={`${styles.newBtn} ${styles.diamondBtn}`}>
             {diamonds} <IoDiamondOutline />
           </button>
         )}

@@ -39,7 +39,7 @@ function RewardContent() {
   const [rewardName, setRewardName] = useState<string>("");
   const [rewardPrice, setRewardPrice] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [coverName, setCoverName] = useState<string>("reward.png");
+  const [coverName, setCoverName] = useState<string>("reward");
   const [todaysHistory, setTodaysHistory] = useState<TodaysHistoryI[]>([]);
   const dates = createDates(0, 1);
 
@@ -73,7 +73,7 @@ function RewardContent() {
     ];
     setRewards(updatedRewards);
     saveData({ rewards: updatedRewards });
-    setCoverName("reward.png");
+    setCoverName("reward");
     setRewardName("");
     setRewardPrice(null);
   }

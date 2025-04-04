@@ -6,13 +6,19 @@
   background-color: transparent;
   margin-left: 5px;
   font-size: 1.5rem;
-  background-color: rgb(255, 255, 255, 0.2);
   border-radius: 5px;
-  padding: 4px;
+  padding: 5px 15px;
   line-height: 0;
+}
+
+.cancelBtn {
+  background-color: transparent;
+}
+.addBtn {
+  background-color: rgb(255, 255, 255, 0.2);
 }
 
 .cancelBtn:hover,
 .addBtn:hover {
-  background-color: rgba(252, 235, 82, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }

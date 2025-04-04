@@ -23,7 +23,7 @@ export default function Wishlist({
   // );
   return (
     <div className={styles.wishlist}>
-      <div className="header">Wishlist</div>
+      <div className={styles.wishlistTitle}>WISHLIST</div>
       <div className={`${styles.wishlistItems} wishlistItems`}>
         {wishlistedRewards.map((reward) => (
           <RewardCard

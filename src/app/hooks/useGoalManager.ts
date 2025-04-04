@@ -17,7 +17,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
   const [difficulty, setDifficulty] = useState<number>(0);
   const [goalDate, setGoalDate] = useState("");
   const [newGoalDate, setNewGoalDate] = useState("");
-  const [customCoverName, setCustomCoverName] = useState("reward.png");
+  const [customCoverName, setCustomCoverName] = useState("reward");
   const [customRewardName, setCustomRewardName] = useState("");
   const [isCustom, setIsCustom] = useState(false);
   const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
@@ -70,7 +70,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
 
     // Reset inputs
     setGoalName("");
-    setCustomCoverName("reward.png");
+    setCustomCoverName("reward");
     setCustomRewardName("");
     setDifficulty(0);
     setIsCustom(false);
@@ -82,7 +82,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
   // Cancel adding a goal
   function cancelAddGoal(containerDate: string) {
     setGoalName("");
-    setCustomCoverName("reward.png");
+    setCustomCoverName("reward");
     setCustomRewardName("");
     setDifficulty(0);
     setIsCustom(false);

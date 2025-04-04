@@ -14,8 +14,8 @@ export default function PersonalInfo({
 }: PersonalInfoProps) {
   return (
     <div className={styles.personalInfo}>
-      <div className="header">SuperPantsVerified</div>
       <div className={styles.personalInfoContainer}>
+        <div className="header">SuperPantsVerified</div>
         <div className={styles.personalStatus}>
           <div className={styles.avatar}></div>
           <div className={styles.personalStatusDetails}>
@@ -46,7 +46,7 @@ export default function PersonalInfo({
                     <div
                       className={styles.claimedRewardCover}
                       style={{
-                        backgroundImage: `url('/images/${item.cover}')`,
+                        backgroundImage: `url('/images/rewards/${item.cover}')`,
                       }}
                     ></div>
                     <div>Claimed reward: {item.title} </div>

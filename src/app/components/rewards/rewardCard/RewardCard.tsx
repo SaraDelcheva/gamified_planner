@@ -12,48 +12,55 @@ export default function RewardCard(props: RewardCardI) {
 
   return (
     <div className={`${styles.rewardCard} rewardCard`} id={props.id}>
-      <p className={`${styles.rewardCardP} rewardCardP`}>{props.rewardName}</p>
-      <div
-        className={`${styles.rewardCardImg} rewardCardImg`}
-        style={{
-          backgroundImage: `url('/images/${
-            props.cover ? props.cover : "reward.png"
-          }')`,
-        }}
-      >
+      <div className={styles.rewardCardTitle}>
         <div
-          className="wishlistToggle"
+          className={styles.wishlistToggle}
           onClick={(e: React.MouseEvent<HTMLDivElement>) => {
             props.handleIsWishListed(e);
           }}
         >
           <AiFillHeart
-            className="wishlistIcon"
+            className={styles.wishlistIcon}
             style={{ color: props.isWishListed ? "red" : "white" }}
           />
         </div>
+        <p className={`${styles.rewardCardP} rewardCardP`}>
+          {props.rewardName}
+        </p>
       </div>
       <div
-        className="buttonContainer"
+        className={styles.rewardCardInner}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {isHovered && isClaimable ? (
-          <button
-            className={`${styles.claimBtn} claimBtn boxShadow`}
-            disabled={!isClaimable}
-            onClick={props.claimReward}
-          >
-            Claim
-          </button>
-        ) : (
-          <button
-            className={`${styles.newBtn} newBtn boxShadow`}
-            disabled={!isClaimable}
-          >
-            {props.diamonds} <IoDiamondOutline className="diamondIcon" />
-          </button>
-        )}
+        <div
+          className={`${styles.rewardCardImg} rewardCardImg`}
+          style={{
+            backgroundImage: `url('/images/rewards/${
+              props.cover ? props.cover : "reward"
+            }.svg')`,
+          }}
+        ></div>
+        <div className={styles.rewardCardInfo}>
+          <div className="buttonContainer">
+            {isHovered && isClaimable ? (
+              <button
+                className={`${styles.claimBtn} claimBtn boxShadow`}
+                disabled={!isClaimable}
+                onClick={props.claimReward}
+              >
+                Claim
+              </button>
+            ) : (
+              <button
+                className={`${styles.newBtn} newBtn boxShadow`}
+                disabled={!isClaimable}
+              >
+                {props.diamonds} <IoDiamondOutline className="diamondIcon" />
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,11 +1,13 @@
 .addGoal {
   max-height: 55px;
-  border-radius: 25px;
-  background-color: transparent;
+  transition: max-height 0.3s ease-in-out, transform 0.3s ease,
+    box-shadow 0.3s ease;
+  border-radius: 10px;
+  background-color: #2a3132;
   cursor: pointer;
-  color: #363636;
+  color: #f5f5f5;
   margin-bottom: 15px;
-  transition: max-height 0.3s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
@@ -13,140 +15,219 @@
   max-height: 100vh;
 }
 
-.expandedContent {
-  padding: 15px;
-  margin-top: 5px;
-  background-color: #7a9b81;
-  color: #ffffff;
-  border-radius: 2px 2px 25px 25px;
-  position: relative;
+.addGoal:not(.expanded) .addGoalHeader:hover {
+  background-color: #3a4a4d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.addGoal.expanded .expandedContent {
-  background-color: #7a9b81;
-  position: static;
-}
-
-.addGoalInput::placeholder {
-  color: #363636;
+.addGoal:not(.expanded) .addGoalHeader:hover .addBtn {
+  background-color: #6b8e9c; /* Brighter, more contrasting color */
+  color: #ffffff; /* Brighter white for better contrast */
+  transition: background-color 0.3s ease;
 }
 
 .addGoalHeader {
-  background-color: #88563a;
   height: 55px;
-  border-radius: 25px;
+  border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  padding: 0 10px;
+  transition: border-radius 0.3s ease, background-color 0.3s ease,
+    transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .addGoal.expanded .addGoalHeader {
-  border-radius: 25px 25px 25px 2px;
+  border-radius: 10px 10px 0 0;
 }
 
-.addGoalHeader:hover {
-  background-color: #966040;
-  color: #3d3d3d;
-}
-
-.addGoalP,
-.addGoalInput {
-  font-size: 1.5rem;
-  margin-left: 30px;
+.addGoalP {
+  font-size: 1.2rem;
+  margin-left: 15px;
+  font-weight: 500;
+  color: #f5f5f5;
+  opacity: 1;
+  transition: opacity 0.2s ease;
 }
 
 .addGoalInput {
   background-color: transparent;
-  color: #363636;
+  color: #f5f5f5;
   width: 80%;
+  font-size: 1.2rem;
+  margin-left: 15px;
+  border: none;
+  outline: none;
+  transition: opacity 0.2s ease;
+}
+
+.addGoalInput::placeholder {
+  color: #b0b0b0;
 }
 
 .addBtn {
-  height: 100%;
-  background-color: #7c482b;
-  border-radius: 25px;
-  width: 70px;
+  height: 40px;
+  border-radius: 8px;
+  width: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
-  color: #363636;
+  font-size: 1.5rem;
+  background-color: #4a6670;
+  color: #f5f5f5;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Remove the scale effect on the button itself */
+.addBtn:hover {
+  transform: none;
 }
 
 .newBtn,
 .customBtn {
-  height: 100%;
-  flex-shrink: 0;
-  color: #ffffff;
-  border-radius: 25px;
-  width: 70px;
+  height: 40px;
+  border-radius: 8px;
+  width: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 3px;
-  font-size: 1.5rem;
-}
-
-.newBtn {
-  background-color: #7a9b81;
-}
-.customBtn {
+  font-size: 1.2rem;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  z-index: 98;
+  border: none;
+  color: #f5f5f5;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.addGoalHeader:hover .addBtn {
-  transform: scale(1.1);
+.newBtn {
+  background-color: #4a6670;
 }
 
-.difficultyContainer {
+.customBtn {
+  background-color: #4a6670;
+}
+
+.newBtn:hover,
+.customBtn:hover {
+  transform: scale(1.05);
+}
+
+.expandedContent {
+  padding: 15px;
+  background-color: #3a4a4d;
+  color: #f5f5f5;
+  border-radius: 0 0 10px 10px;
+  position: relative;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.addGoal:not(.expanded) .expandedContent {
+  opacity: 0;
+}
+
+.date {
+  margin-bottom: 15px;
+  cursor: pointer;
+  padding: 8px;
+  background-color: #2a3132;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.buttons {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
 }
+
 .addCustomRewardBtn {
   background-color: transparent;
   width: 100%;
   text-align: left;
   display: flex;
   align-items: center;
-  padding: 10px 2px;
-  border-radius: 2px;
-  margin: 10px 0;
+  padding: 10px;
+  border-radius: 4px;
+  color: #f5f5f5;
+  border: none;
+  transition: background 0.2s ease;
 }
 
 .addCustomRewardBtn:hover {
   background: linear-gradient(
     to right,
-    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.1),
     rgba(255, 255, 255, 0)
   );
-  transform: translate(1.1);
-}
-
-.buttons {
-  display: flex;
-  align-items: center;
 }
 
 .selected {
   background: linear-gradient(
     to right,
-    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.1),
     rgba(255, 255, 255, 0)
   );
 }
 
-.addCancelContainer {
-  margin-top: 20px;
+.plusIcon {
+  margin-right: 10px;
+}
+
+.difficultyContainer {
   display: flex;
-  justify-content: right;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 15px;
 }
 
 .calendarContainer {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin: 15px 0;
+  background-color: #2a3132;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.addCancelContainer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+.coverOverlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-size: 1.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.coverOverlay:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.customRewardTitle {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  background-color: #2a3132;
+  color: white;
+  font-size: 1rem;
   margin-bottom: 15px;
+}
+
+.customRewardTitle::placeholder {
+  color: #b0b0b0;
 }

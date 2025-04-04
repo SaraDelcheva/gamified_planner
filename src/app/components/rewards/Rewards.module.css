@@ -39,8 +39,8 @@
 
 .shop {
   position: absolute;
-  bottom: 30px;
-  right: 40px;
+  bottom: 35px;
+  right: 35px;
   font-size: 1.2rem;
   background-image: url("../../../../public/images/shop.svg");
   background-size: cover;

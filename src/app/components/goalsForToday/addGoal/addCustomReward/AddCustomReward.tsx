@@ -30,8 +30,10 @@ export default function AddCustomReward({
         className={styles.customCoverImg}
         style={
           customCoverName
-            ? { backgroundImage: `url("./images/${customCoverName}")` }
-            : { backgroundImage: `url("./images/reward.png")` }
+            ? {
+                backgroundImage: `url("./images/rewards/${customCoverName}")`,
+              }
+            : { backgroundImage: `url("./images/rewards/reward.svg")` }
         }
       >
         <button

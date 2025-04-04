@@ -2,13 +2,16 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { IoDiamondOutline } from "react-icons/io5";
 import styles from "./AddGoal.module.css";
 import GoalDifficulty from "./goalDifficulty/GoalDifficulty";
-import AddCustomReward from "./addCustomReward/AddCustomReward";
 import AddOrCancelBtn from "./addOrCancelBtn/AddOrCancelBtn";
 import { AddGoalI } from "@/app/helpers/interfaces";
 import { BiPlus } from "react-icons/bi";
 import Calendar from "react-calendar";
+import { useState } from "react";
+import CoverModal from "@/app/components/coverModal/CoverModal";
 
 export default function AddGoal(props: AddGoalI) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   function easy(diamonds: number) {
     props.setDifficulty(diamonds);
   }
@@ -35,7 +38,6 @@ export default function AddGoal(props: AddGoalI) {
             className={`${styles.addBtn} boxShadow`}
             onClick={() => {
               props.setExpanded(!props.expanded);
-              console.log(props.goalDate, "yeah");
             }}
           >
             <AiOutlinePlus />
@@ -46,10 +48,17 @@ export default function AddGoal(props: AddGoalI) {
             className={`${styles.customBtn} boxShadow`}
             style={
               props.customCoverName
-                ? { backgroundImage: `url("/images/${props.customCoverName}")` }
-                : { backgroundImage: `url("/images/reward.png")` }
+                ? {
+                    backgroundImage: `url("/images/rewards/${props.customCoverName}.svg")`,
+                  }
+                : { backgroundImage: `url("/images/rewards/reward.svg")` }
             }
-          ></button>
+            onClick={() => setIsModalOpen(true)}
+          >
+            <div className={styles.coverOverlay}>
+              <AiOutlinePlus />
+            </div>
+          </button>
         )}
         {props.expanded && !props.isCustom && props.difficulty !== 0 && (
           <button className={`${styles.newBtn} boxShadow`}>
@@ -108,11 +117,16 @@ export default function AddGoal(props: AddGoalI) {
             />
           </div>
         ) : (
-          <AddCustomReward
-            customCoverName={props.customCoverName}
-            setCustomCoverName={props.setCustomCoverName}
-            setCustomRewardName={props.setCustomRewardName}
-          />
+          <div className={styles.addCustomReward}>
+            <div className={styles.expandedContent}>
+              <input
+                type="text"
+                onChange={(e) => props.setCustomRewardName(e.target.value)}
+                className={styles.customRewardTitle}
+                placeholder="Reward title"
+              />
+            </div>
+          </div>
         )}
         {props.isCalendarOpen && (
           <div className={styles.calendarContainer}>
@@ -129,6 +143,14 @@ export default function AddGoal(props: AddGoalI) {
           />
         </div>
       </div>
+
+      {isModalOpen && (
+        <CoverModal
+          coverName={props.customCoverName}
+          setCoverName={props.setCustomCoverName}
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
     </div>
   );
 }
