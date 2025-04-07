@@ -1,6 +1,5 @@
 .goalsForToday {
-  width: calc(100% - 150px);
-  padding: 20px;
+  width: 100%;
 }
 
 .goalsContainer {

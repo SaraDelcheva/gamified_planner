@@ -1,4 +1,9 @@
 .page {
-  width: calc(100% - 300px);
   display: flex;
+  height: 100%;
+  gap: 20px;
+}
+
+.dailyGoals {
+  width: 50%;
 }

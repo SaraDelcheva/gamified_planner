@@ -1,0 +1,100 @@
+.journalContainer {
+  height: calc(100vh - 40px);
+  display: flex;
+  background-color: #222728;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  overflow-y: scroll;
+  border-radius: 12px;
+}
+
+.addNewNoteP {
+  display: flex;
+  width: 200px;
+  padding-left: 10px;
+}
+
+.addNewNoteP:hover {
+  transform: scale(1.1);
+}
+
+.addNewNote {
+  cursor: pointer;
+  width: 30%;
+  height: 100px;
+  border-radius: 4px;
+}
+
+.addNewNoteInner {
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.144);
+  height: calc(100% - 50px);
+}
+
+.addNewNote.expanded {
+  height: 100%;
+}
+
+.noteTitle {
+  padding-bottom: 15px;
+  width: 100%;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.144);
+  margin-bottom: 15px;
+}
+
+.textarea {
+  width: 100%;
+  height: calc(100% - 40px);
+  box-sizing: border-box;
+  background-color: transparent;
+  font-size: 16px;
+  resize: none;
+  border: none;
+}
+
+.textarea:focus-visible {
+  outline: none;
+}
+
+.buttons {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  height: 50px;
+}
+
+.notesContainer {
+  scrollbar-color: #4a6670 #2a3132;
+  padding: 0 20px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 70%;
+}
+
+.column {
+  width: calc(25% - 20px);
+}
+
+.note {
+  padding: 10px;
+  margin-bottom: 10px;
+  min-height: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.144);
+  padding: 20px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.noteP {
+  display: -webkit-box;
+  -webkit-line-clamp: 15;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+}

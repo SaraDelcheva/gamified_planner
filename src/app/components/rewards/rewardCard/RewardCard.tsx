@@ -11,7 +11,10 @@ export default function RewardCard(props: RewardCardI) {
   const isClaimable = props.diamonds <= props.totalDiamonds;
 
   return (
-    <div className={`${styles.rewardCard} rewardCard`} id={props.id}>
+    <div
+      className={`${styles.rewardCard} rewardCard`}
+      data-reward-id={props.id}
+    >
       <div className={styles.rewardCardTitle}>
         <div
           className={styles.wishlistToggle}

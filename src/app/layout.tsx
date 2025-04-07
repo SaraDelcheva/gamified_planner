@@ -87,8 +87,13 @@ function RewardContent() {
 
     const button = e.target as HTMLButtonElement;
     const claimedReward = rewards.filter(
-      (reward) => reward.id === button.parentElement?.parentElement?.id
+      (reward) =>
+        reward.id ===
+        button.parentElement?.parentElement?.parentElement?.parentElement?.getAttribute(
+          "data-reward-id"
+        )
     );
+
     const updatedRewards = rewards.filter(
       (reward) => reward.id !== claimedReward[0].id
     );
@@ -118,7 +123,10 @@ function RewardContent() {
 
   //handle is wishlisted
   function handleIsWishListed(e: React.MouseEvent<HTMLDivElement>) {
-    const rewardId = e.currentTarget.parentElement?.parentElement?.id;
+    const rewardId =
+      e.currentTarget.parentElement?.parentElement?.parentElement?.parentElement?.getAttribute(
+        "data-reward-id"
+      );
     const updatedRewards = rewards.map((reward) =>
       reward.id === rewardId
         ? { ...reward, isWishListed: !reward.isWishListed }
@@ -169,7 +177,7 @@ export default function RootLayout({
       >
         <DiamondsProvider>
           <LeftMenu />
-          {children}
+          <div className="mainContent">{children}</div>
           <RewardContent />
         </DiamondsProvider>
       </body>

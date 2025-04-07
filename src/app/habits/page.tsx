@@ -199,7 +199,6 @@ export default function Habits() {
 
   return (
     <div className={styles.habits}>
-      <div className={styles.padding}></div>
       <div className={styles.habitsContainer}>
         <div className={styles.dates}>
           {dates.map((date, index) => (

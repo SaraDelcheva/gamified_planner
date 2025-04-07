@@ -7,6 +7,11 @@ export interface GoalI {
   date: string;
 }
 
+export interface NoteI {
+  title?: string;
+  content: string;
+}
+
 export interface TodaysHistoryI {
   date: string;
   type: string;

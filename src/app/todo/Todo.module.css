@@ -2,6 +2,7 @@
   display: flex;
   width: 100%;
 }
-.todoDaily {
-  flex-basis: 14%;
+
+.dailyGoals {
+  width: calc(100% / 7);
 }

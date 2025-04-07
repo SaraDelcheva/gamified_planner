@@ -1,17 +1,20 @@
 .rewards {
   border-bottom: none;
-  top: 15px;
-  right: 15px;
-  height: calc(100% - 30px);
+  top: 20px;
+  right: 150px;
+  height: calc(100% - 40px);
   width: 0;
   position: absolute;
-  background-color: #292929;
+  background-color: rgb(50, 56, 57);
   overflow: hidden;
   transition: width 0.5s ease-in-out;
+  z-index: 15;
+  box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.3);
+  border-radius: 12px 0 0 12px;
 }
 
 .rewards.open {
-  width: calc(50vw - 10px);
+  width: calc(50vw - 170px);
 }
 
 .rewardsContainer {
@@ -50,5 +53,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
+  z-index: 16;
+}
+
+.header {
+  line-height: 50px;
+  height: 50px;
+  color: #ffffff;
+  width: 100%;
+  font-family: karla;
+  font-size: 1.5rem;
+  padding-left: 20px;
+  white-space: nowrap;
 }

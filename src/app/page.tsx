@@ -35,43 +35,45 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-      {dates.map(({ formattedDate, day }) => (
-        <GoalsForToday
-          key={formattedDate}
-          {...{
-            // From GoalsForTodayI
-            title: day,
-            goals: goals.filter((goal) => goal.date === formattedDate),
-            completeGoal,
-            totalDiamonds,
-            customRewardName,
-            setGoalDate,
+      <div className={styles.dailyGoals}>
+        {dates.map(({ formattedDate, day }) => (
+          <GoalsForToday
+            key={formattedDate}
+            {...{
+              // From GoalsForTodayI
+              title: day,
+              goals: goals.filter((goal) => goal.date === formattedDate),
+              completeGoal,
+              totalDiamonds,
+              customRewardName,
+              setGoalDate,
 
-            // From AddGoalI
-            goalName,
-            difficulty,
-            isCustom,
-            customCoverName,
-            newGoalDate,
-            goalDate: goalDate || formattedDate,
+              // From AddGoalI
+              goalName,
+              difficulty,
+              isCustom,
+              customCoverName,
+              newGoalDate,
+              goalDate: goalDate || formattedDate,
 
-            addNewGoal: () => addNewGoal(formattedDate),
-            cancelAddGoal: () => cancelAddGoal(formattedDate),
+              addNewGoal: () => addNewGoal(formattedDate),
+              cancelAddGoal: () => cancelAddGoal(formattedDate),
 
-            setGoalName,
-            setDifficulty,
-            setIsCustom,
-            setCustomCoverName,
-            setCustomRewardName,
-            setExpanded: () => toggleExpanded(formattedDate),
-            setIsCalendarOpen: () => toggleCalendar(formattedDate),
+              setGoalName,
+              setDifficulty,
+              setIsCustom,
+              setCustomCoverName,
+              setCustomRewardName,
+              setExpanded: () => toggleExpanded(formattedDate),
+              setIsCalendarOpen: () => toggleCalendar(formattedDate),
 
-            expanded: expanded[formattedDate] || false,
-            isCalendarOpen: isCalendarOpen[formattedDate] || false,
-            onClickDay,
-          }}
-        />
-      ))}
+              expanded: expanded[formattedDate] || false,
+              isCalendarOpen: isCalendarOpen[formattedDate] || false,
+              onClickDay,
+            }}
+          />
+        ))}
+      </div>
       <PersonalInfo
         {...{
           todaysHistory,

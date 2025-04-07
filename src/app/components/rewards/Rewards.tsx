@@ -20,7 +20,7 @@ export default function Rewards(props: Omit<RewardsI, "totalDiamonds">) {
       ></div>
 
       <div className={`${styles.rewards} ${isShopOpen && styles.open}`}>
-        <div className="header">Rewards Shop</div>
+        <div className={styles.header}>Rewards Shop</div>
         <div className={styles.rewardsContainer}>
           {props.rewards.map((reward) => (
             <RewardCard

@@ -63,6 +63,14 @@
       "rewardName": "",
       "isCustom": false,
       "date": "Apr 04, 2025"
+    },
+    {
+      "title": "asdsad",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Apr 07, 2025"
     }
   ],
   "rewards": [
@@ -88,26 +96,21 @@
       "id": "9e7451ca-f842-4475-b1e7-df7d91a77450"
     },
     {
-      "title": "sds",
-      "diamonds": 50,
-      "isWishListed": true,
-      "cover": "workout",
-      "id": "e317a2bf-c9c4-4a3d-a970-ccd311c70d4a"
-    },
-    {
-      "title": "bla blalba balb alb al",
+      "title": "dsad",
       "diamonds": 20,
       "isWishListed": false,
       "cover": "reward",
-      "id": "3fb3d7ee-6ebc-41da-9d48-4a5913dff87c"
+      "id": "17afc40b-1d16-42e4-bc5d-4df55e6d4294"
     }
   ],
   "habits": [
     {
       "title": "Work on this",
-      "latestStreak": 1,
+      "latestStreak": 2,
       "maxStreak": 4,
       "dates": [
+        "Apr 07, 2025",
+        "Apr 06, 2025",
         "Apr 04, 2025",
         "Apr 02, 2025",
         "Apr 01, 2025",
@@ -130,7 +133,7 @@
       "dates": []
     }
   ],
-  "totalDiamonds": 555,
+  "totalDiamonds": 485,
   "todaysHistory": [
     {
       "date": "Mar 27, 2025",
@@ -324,6 +327,73 @@
       "date": "Apr 04, 2025",
       "type": "goal",
       "title": "sadsad"
+    },
+    {
+      "date": "Apr 07, 2025",
+      "type": "reward",
+      "title": "sds",
+      "cover": "workout"
+    },
+    {
+      "date": "Apr 07, 2025",
+      "type": "reward",
+      "title": "bla blalba balb alb al",
+      "cover": "reward"
+    },
+    {
+      "date": "Apr 07, 2025",
+      "type": "habit",
+      "title": "Work on this"
+    }
+  ],
+  "notes": [
+    {
+      "content": "asddas",
+      "title": ""
+    },
+    {
+      "content": "asdasd",
+      "title": "sdaasd"
+    },
+    {
+      "content": "jakhdj jkehr jekrhe jrhejk \njahfjka\nhjkwsehjkewh\nhwjerhjwekr\njwerhjwker\n",
+      "title": "sadasdasdsadsadasd"
+    },
+    {
+      "content": "asdaerfwrewtt\nert\nre\ntre\nt\nret\nert",
+      "title": "sadasdasdsadsadasd"
+    },
+    {
+      "content": "erwrwerwer",
+      "title": "sadasdasdsadsawdasd"
+    },
+    {
+      "content": "qeweqe",
+      "title": "wqeeqwe"
+    },
+    {
+      "content": "dasdasdasd",
+      "title": "HEyaaa"
+    },
+    {
+      "content": "ssdfsdfsdfsdfew\nDSFDS\nSFDDSF\n",
+      "title": ""
+    },
+    {
+      "content": "asdasd\nads\nsad\nasd\nasd ewrwr\nwerwer\nwer\nwerwre\n",
+      "title": "dasd"
+    },
+    {
+      "content": "asdsdsd",
+      "title": "dasd"
+    },
+    {
+      "content": "Jalapneo",
+      "title": "spicy note"
+    },
+    {
+      "content": "jhaha\n",
+      "title": "lmao"
     }
   ]
 }
