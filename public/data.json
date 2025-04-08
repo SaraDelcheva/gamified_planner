@@ -106,9 +106,10 @@
   "habits": [
     {
       "title": "Work on this",
-      "latestStreak": 2,
+      "latestStreak": 3,
       "maxStreak": 4,
       "dates": [
+        "Apr 08, 2025",
         "Apr 07, 2025",
         "Apr 06, 2025",
         "Apr 04, 2025",
@@ -344,56 +345,44 @@
       "date": "Apr 07, 2025",
       "type": "habit",
       "title": "Work on this"
+    },
+    {
+      "date": "Apr 08, 2025",
+      "type": "habit",
+      "title": "Work on this"
     }
   ],
   "notes": [
     {
-      "content": "asddas",
-      "title": ""
+      "content": "- [x] edit notes *\n- [x] Do to list\n- [x] open notes *\n- [x] notess visibility none while edited *\n- [ ] reminders\n- [ ] move notes around\n- [ ] ordered and unordered lists",
+      "title": "asdsadas",
+      "id": "1efde290-63f4-44c5-88dc-bcbb60057403",
+      "type": "checklist"
     },
     {
-      "content": "asdasd",
-      "title": "sdaasd"
+      "content": "asdfdsdfgsdgsf",
+      "title": "2222",
+      "id": "d325384e-e939-473a-b5b0-160bdffd18da"
     },
     {
-      "content": "jakhdj jkehr jekrhe jrhejk \njahfjka\nhjkwsehjkewh\nhwjerhjwekr\njwerhjwker\n",
-      "title": "sadasdasdsadsadasd"
+      "content": "sdfdsf",
+      "title": "sdfsdfsdf",
+      "id": "fc1aac90-b16d-45c6-bd4f-00fc0ede1c2f"
     },
     {
-      "content": "asdaerfwrewtt\nert\nre\ntre\nt\nret\nert",
-      "title": "sadasdasdsadsadasd"
+      "content": "sdfsdf",
+      "title": "sdf",
+      "id": "eb1482a2-c743-46b4-bcea-075ec9a34691"
     },
     {
-      "content": "erwrwerwer",
-      "title": "sadasdasdsadsawdasd"
+      "content": "sdfsdf",
+      "title": "sdfds",
+      "id": "82f0c776-d7f2-480e-8b35-f19a08a81677"
     },
     {
-      "content": "qeweqe",
-      "title": "wqeeqwe"
-    },
-    {
-      "content": "dasdasdasd",
-      "title": "HEyaaa"
-    },
-    {
-      "content": "ssdfsdfsdfsdfew\nDSFDS\nSFDDSF\n",
-      "title": ""
-    },
-    {
-      "content": "asdasd\nads\nsad\nasd\nasd ewrwr\nwerwer\nwer\nwerwre\n",
-      "title": "dasd"
-    },
-    {
-      "content": "asdsdsd",
-      "title": "dasd"
-    },
-    {
-      "content": "Jalapneo",
-      "title": "spicy note"
-    },
-    {
-      "content": "jhaha\n",
-      "title": "lmao"
+      "content": "sdfsdfsdf",
+      "title": "sdfs",
+      "id": "d1dd8c7a-c78e-48ce-9e94-34d381f4dc78"
     }
   ]
 }

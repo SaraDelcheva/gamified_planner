@@ -10,6 +10,8 @@ export interface GoalI {
 export interface NoteI {
   title?: string;
   content: string;
+  id: string;
+  type: "text" | "checklist";
 }
 
 export interface TodaysHistoryI {
