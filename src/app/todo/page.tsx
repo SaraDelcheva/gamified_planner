@@ -6,6 +6,7 @@ import { useGoalManager } from "../hooks/useGoalManager";
 export default function Todo() {
   const {
     goals,
+    notes,
     goalName,
     difficulty,
     newGoalDate,
@@ -42,6 +43,7 @@ export default function Todo() {
               totalDiamonds,
               customRewardName,
               setGoalDate: () => {}, // Empty function since we don't need it anymore
+              notes,
 
               // From AddGoalI
               goalName,

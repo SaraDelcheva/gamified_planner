@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { GoalI, TodaysHistoryI } from "../helpers/interfaces";
+import { GoalI, TodaysHistoryI, NoteI } from "../helpers/interfaces";
 import { formatDate, saveData, createDates } from "../helpers/functions";
 import { useDiamonds } from "../context/DiamondsContext";
 
@@ -13,9 +13,11 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
   const { totalDiamonds, setTotalDiamonds } = useDiamonds();
   const [todaysHistory, setTodaysHistory] = useState<TodaysHistoryI[]>([]);
   const [goals, setGoals] = useState<GoalI[]>([]);
+  const [notes, setNotes] = useState<NoteI[]>([]);
   const [goalName, setGoalName] = useState<string>("");
   const [difficulty, setDifficulty] = useState<number>(0);
   const [goalDate, setGoalDate] = useState("");
+
   const [newGoalDate, setNewGoalDate] = useState("");
   const [customCoverName, setCustomCoverName] = useState("reward");
   const [customRewardName, setCustomRewardName] = useState("");
@@ -35,6 +37,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
 
       setGoals(Array.isArray(data.goals) ? data.goals : []);
       setTodaysHistory(data.todaysHistory ? data.todaysHistory : []);
+      setNotes(data.notes ? data.notes : []);
 
       const today = new Date();
       const formattedDate = formatDate(today);
@@ -150,6 +153,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     // State
     todaysHistory,
     goals,
+    notes,
     goalName,
     difficulty,
     goalDate,

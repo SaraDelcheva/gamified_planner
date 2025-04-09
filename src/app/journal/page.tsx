@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { formatDate } from "../helpers/functions";
 import styles from "./Journal.module.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import { NoteI } from "../helpers/interfaces";
@@ -10,8 +11,10 @@ import {
   MdOutlineEdit,
   MdOutlineCheckBox,
 } from "react-icons/md";
-import { LuNotepadText, LuCheck } from "react-icons/lu";
+import { LuNotepadText, LuCheck, LuAlarmClockCheck } from "react-icons/lu";
+import { BiBellPlus, BiBellMinus } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
+import Calendar from "react-calendar";
 
 type ChecklistItem = { label: string; checked: boolean };
 
@@ -28,6 +31,8 @@ export default function Journal() {
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const checklistInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [isReminder, setIsReminder] = useState<boolean>(false);
+  const [reminderDate, setReminderDate] = useState<string>("");
 
   useEffect(() => {
     if (isNoteExpanded && textareaRef.current && noteType === "text") {
@@ -87,10 +92,11 @@ export default function Journal() {
     setNoteTitle(editedNote.title || "");
     setNoteType(editedNote.type);
     if (editedNote.type === "text") {
-      setNoteContent(editedNote.content);
+      setNoteContent(editedNote.content || "");
     } else {
       // checklist
-      const items = editedNote.content.split("\n").map((line) => {
+      const noteContent = editedNote.content || "";
+      const items = noteContent.split("\n").map((line) => {
         const checked = line.startsWith("- [x]");
         const label = line.replace(/^- \[[ x]\] /, "");
         return { label, checked };
@@ -110,21 +116,7 @@ export default function Journal() {
   }
 
   function saveNote() {
-    if (
-      noteType === "checklist" &&
-      checklistItems.every((item) => item.label === "")
-    ) {
-      // Don't save empty checklists
-      cancelNote();
-      return;
-    }
-
-    if (
-      noteType === "text" &&
-      noteContent.trim() === "" &&
-      noteTitle.trim() === ""
-    ) {
-      // Don't save empty text notes
+    if (!noteContent.trim() && !noteTitle.trim()) {
       cancelNote();
       return;
     }
@@ -145,7 +137,13 @@ export default function Journal() {
     if (editingNoteId) {
       updatedNotes = notes.map((note) =>
         note.id === editingNoteId
-          ? { ...note, content, title: noteTitle, type: noteType }
+          ? {
+              ...note,
+              content,
+              ...(reminderDate ? { reminder: reminderDate } : {}),
+              title: noteTitle,
+              type: noteType,
+            }
           : note
       );
     } else {
@@ -264,6 +262,41 @@ export default function Journal() {
     };
   };
 
+  // Checklist or plain text
+  function checklistToggle() {
+    if (noteType === "text") {
+      // Initialize checklist with one empty item
+      const lines = noteContent
+        .split("\n")
+        .filter((line) => line.trim() !== "")
+        .map((line) => ({ label: line, checked: false }));
+
+      // Add empty item at the end
+      lines.push({ label: "", checked: false });
+
+      setChecklistItems(lines);
+      setNoteContent("");
+      setNoteType("checklist");
+    } else {
+      // Convert to plain text, filter out the last empty item
+      const nonEmptyItems = checklistItems.filter(
+        (item) => item.label.trim() !== ""
+      );
+
+      const plainText = nonEmptyItems.map((item) => item.label).join("\n");
+
+      setNoteContent(plainText);
+      setChecklistItems([{ label: "", checked: false }]);
+      setNoteType("text");
+    }
+  }
+
+  // function
+  function addReminder(value: Date) {
+    setReminderDate(formatDate(value));
+    setIsReminder(false);
+  }
+
   const isEmptyItem = (item: ChecklistItem) =>
     item.label === "" && !item.checked;
 
@@ -289,7 +322,7 @@ export default function Journal() {
                   )}
                   {note.type === "checklist" ? (
                     <ul className={styles.checklist}>
-                      {note.content.split("\n").map((line, i) => {
+                      {(note.content || "").split("\n").map((line, i) => {
                         const isChecked = line.startsWith("- [x]");
                         const label = line.replace(/^- \[[ x]\] /, "");
                         return (
@@ -307,17 +340,25 @@ export default function Journal() {
                       })}
                     </ul>
                   ) : (
-                    <p className={styles.noteP}>{note.content}</p>
+                    <p className={styles.noteP}>{note.content || ""}</p>
                   )}
                   <div className={styles.noteButtons}>
-                    <MdOutlineEdit className={styles.edit} />
-                    <MdOutlineDeleteForever
-                      className={styles.delete}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        deleteNote(note.id);
-                      }}
-                    />
+                    {note.reminder && (
+                      <div className={styles.buttonsLeft}>
+                        <LuAlarmClockCheck />
+                        <p className={styles.reminderP}>{note.reminder}</p>
+                      </div>
+                    )}
+                    <div className={styles.buttonsRight}>
+                      <MdOutlineEdit className={styles.edit} />
+                      <MdOutlineDeleteForever
+                        className={styles.delete}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteNote(note.id);
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               ))}
@@ -393,50 +434,49 @@ export default function Journal() {
               </div>
 
               <div className={styles.buttons}>
-                <button
-                  className={styles.button}
-                  onClick={() => {
-                    if (noteType === "text") {
-                      // Initialize checklist with one empty item
-                      const lines = noteContent
-                        .split("\n")
-                        .filter((line) => line.trim() !== "")
-                        .map((line) => ({ label: line, checked: false }));
-
-                      // Add empty item at the end
-                      lines.push({ label: "", checked: false });
-
-                      setChecklistItems(lines);
-                      setNoteContent("");
-                      setNoteType("checklist");
-                    } else {
-                      // Convert to plain text, filter out the last empty item
-                      const nonEmptyItems = checklistItems.filter(
-                        (item) => item.label.trim() !== ""
-                      );
-
-                      const plainText = nonEmptyItems
-                        .map((item) => item.label)
-                        .join("\n");
-
-                      setNoteContent(plainText);
-                      setChecklistItems([{ label: "", checked: false }]);
-                      setNoteType("text");
-                    }
-                  }}
-                >
-                  {noteType === "checklist" ? (
-                    <LuNotepadText />
-                  ) : (
-                    <MdOutlineCheckBox />
+                <div className={styles.remindMeDiv}>
+                  <button className={styles.button}>
+                    {reminderDate ? (
+                      <BiBellMinus onClick={() => setReminderDate("")} />
+                    ) : (
+                      <BiBellPlus onClick={() => setIsReminder(!isReminder)} />
+                    )}
+                  </button>
+                  {reminderDate && (
+                    <p className={styles.reminderDateP}>{reminderDate}</p>
                   )}
-                </button>
-                <button className={styles.button} onClick={cancelNote}>
-                  <RxCross2 />
-                </button>
-                <button className={styles.button} onClick={saveNote}>
-                  <LuCheck />
-                </button>
+                  {isReminder && (
+                    <div className={styles.remindMeOpen}>
+                      <p className={styles.remindMeP}>Remind me on:</p>
+                      <Calendar onClickDay={(value) => addReminder(value)} />
+                    </div>
+                  )}
+                </div>
+                <div className={styles.buttonsRight}>
+                  <button className={styles.button} onClick={checklistToggle}>
+                    {noteType === "checklist" ? (
+                      <LuNotepadText />
+                    ) : (
+                      <MdOutlineCheckBox />
+                    )}
+                  </button>
+                  <button className={styles.button} onClick={cancelNote}>
+                    <RxCross2 />
+                  </button>
+                  <div className={styles.saveNoteDiv}>
+                    <button
+                      className={`${styles.button} ${
+                        !noteContent && !noteTitle && styles.empty
+                      }`}
+                      onClick={saveNote}
+                    >
+                      <LuCheck />
+                      {!noteContent && !noteTitle && (
+                        <p className={styles.saveNoteLabel}>Note is empty!</p>
+                      )}
+                    </button>
+                  </div>
+                </div>
               </div>
             </>
           ) : (

@@ -8,6 +8,7 @@ export default function Home() {
   const {
     todaysHistory,
     goals,
+    notes,
     goalName,
     difficulty,
     goalDate,
@@ -47,6 +48,7 @@ export default function Home() {
               totalDiamonds,
               customRewardName,
               setGoalDate,
+              notes,
 
               // From AddGoalI
               goalName,

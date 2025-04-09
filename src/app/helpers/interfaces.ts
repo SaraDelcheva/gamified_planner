@@ -9,7 +9,8 @@ export interface GoalI {
 
 export interface NoteI {
   title?: string;
-  content: string;
+  content?: string;
+  reminder?: string;
   id: string;
   type: "text" | "checklist";
 }
@@ -74,6 +75,7 @@ export interface GoalsForTodayI extends AddGoalI {
   totalDiamonds: number;
   customRewardName: string;
   setGoalDate: React.Dispatch<React.SetStateAction<string>>;
+  notes: NoteI[];
 }
 
 export interface RewardsI {

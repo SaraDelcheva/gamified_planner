@@ -9,6 +9,30 @@ export default function GoalsForToday(props: GoalsForTodayI) {
       <div className={styles.goalsContainer}>
         <div className={styles.headerSection}>
           <div className={styles.header}>{props.title}</div>
+
+          {props.notes?.length > 0 && (
+            <div className={styles.reminderNotesContainer}>
+              {(() => {
+                const reminders = props.notes.filter(
+                  (note) => note.reminder === props.goalDate
+                );
+
+                if (reminders.length === 0) {
+                  return null;
+                }
+
+                return reminders.map((note, index) => (
+                  <div
+                    key={`reminder-${index}`}
+                    className={styles.reminderNote}
+                  >
+                    <h4>{note.title || ""}</h4>
+                    <p>{note.content || ""}</p>
+                  </div>
+                ));
+              })()}
+            </div>
+          )}
           <AddGoal
             addNewGoal={props.addNewGoal}
             setDifficulty={props.setDifficulty}

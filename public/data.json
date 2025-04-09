@@ -106,9 +106,10 @@
   "habits": [
     {
       "title": "Work on this",
-      "latestStreak": 3,
+      "latestStreak": 4,
       "maxStreak": 4,
       "dates": [
+        "Apr 09, 2025",
         "Apr 08, 2025",
         "Apr 07, 2025",
         "Apr 06, 2025",
@@ -350,39 +351,39 @@
       "date": "Apr 08, 2025",
       "type": "habit",
       "title": "Work on this"
+    },
+    {
+      "date": "Apr 09, 2025",
+      "type": "habit",
+      "title": "Work on this"
+    },
+    {
+      "date": "Apr 09, 2025",
+      "type": "goal",
+      "title": ";'ll';"
     }
   ],
   "notes": [
     {
-      "content": "- [x] edit notes *\n- [x] Do to list\n- [x] open notes *\n- [x] notess visibility none while edited *\n- [ ] reminders\n- [ ] move notes around\n- [ ] ordered and unordered lists",
+      "content": "- [x] edit notes *\n- [x] Do to list\n- [x] open notes *\n- [x] notess visibility none while edited *\n- [x] reminders\n- [ ] move notes around\n- [ ] ordered and unordered lists",
       "title": "asdsadas",
       "id": "1efde290-63f4-44c5-88dc-bcbb60057403",
-      "type": "checklist"
+      "type": "checklist",
+      "reminder": "Apr 17, 2025"
     },
     {
-      "content": "asdfdsdfgsdgsf",
-      "title": "2222",
-      "id": "d325384e-e939-473a-b5b0-160bdffd18da"
+      "content": "bluagh",
+      "title": "ff",
+      "id": "c6d5a391-7c7a-482e-9cd1-be61dab7cea9",
+      "type": "text",
+      "reminder": "Apr 09, 2025"
     },
     {
-      "content": "sdfdsf",
-      "title": "sdfsdfsdf",
-      "id": "fc1aac90-b16d-45c6-bd4f-00fc0ede1c2f"
-    },
-    {
-      "content": "sdfsdf",
-      "title": "sdf",
-      "id": "eb1482a2-c743-46b4-bcea-075ec9a34691"
-    },
-    {
-      "content": "sdfsdf",
-      "title": "sdfds",
-      "id": "82f0c776-d7f2-480e-8b35-f19a08a81677"
-    },
-    {
-      "content": "sdfsdfsdf",
-      "title": "sdfs",
-      "id": "d1dd8c7a-c78e-48ce-9e94-34d381f4dc78"
+      "content": "- [ ] dasd",
+      "title": "asdasd",
+      "id": "7ed23f23-9260-4192-aacf-f3c4fa28fde6",
+      "type": "checklist",
+      "reminder": "Apr 10, 2025"
     }
   ]
 }

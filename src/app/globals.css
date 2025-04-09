@@ -94,9 +94,9 @@ input[type="number"] {
   width: 100%;
   max-width: 100%;
   background: white;
-  border: 1px solid #a0a096;
-  font-family: "Arial", "Helvetica", sans-serif;
+  font-family: Karla;
   line-height: 1.125em;
+  border-radius: 5px;
 }
 
 .react-calendar--doubleView {
@@ -144,6 +144,7 @@ input[type="number"] {
   margin: 0;
   border: 0;
   outline: none;
+  font-family: Karla;
 }
 
 .react-calendar button:enabled:hover {
@@ -173,7 +174,6 @@ input[type="number"] {
 .react-calendar__month-view__weekdays {
   text-align: center;
   text-transform: uppercase;
-  font: inherit;
   font-size: 0.75rem;
   font-weight: bold;
 }
@@ -186,7 +186,6 @@ input[type="number"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  font: inherit;
   font-size: 0.75rem;
   font-weight: bold;
 }
@@ -212,7 +211,6 @@ input[type="number"] {
   padding: 10px 6.6667px;
   background: none;
   text-align: center;
-  font: inherit;
   font-size: 0.833rem;
 }
 
