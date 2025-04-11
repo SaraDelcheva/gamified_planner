@@ -44,7 +44,25 @@ export default function AddNewReward(props: AddNewRewardI) {
                   props.coverName || "reward"
                 }.svg')`,
               }}
-            >
+            ></div>
+            <div className={`${styles.rewardPriceDiv} boxShadow`}>
+              <div className={styles.rewardPrice}>
+                <select
+                  className={styles.addNewRewardDropdown}
+                  value={props.diamonds ?? ""}
+                  onChange={(e) => props.handleInputDiamondChange(e)}
+                >
+                  <option value="" disabled>
+                    ?
+                  </option>
+                  {diamondOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <IoDiamondOutline />
+              </div>
               <div
                 className={styles.addCancelContainer}
                 onClick={(e) => e.stopPropagation()}
@@ -61,23 +79,6 @@ export default function AddNewReward(props: AddNewRewardI) {
                 />
               </div>
             </div>
-            <button className={`${styles.newBtn} boxShadow`}>
-              <select
-                className={styles.addNewRewardDropdown}
-                value={props.diamonds ?? ""}
-                onChange={(e) => props.handleInputDiamondChange(e)}
-              >
-                <option value="" disabled>
-                  ?
-                </option>
-                {diamondOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-              <IoDiamondOutline />
-            </button>
           </div>
         )}
       </div>

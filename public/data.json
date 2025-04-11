@@ -71,27 +71,75 @@
       "rewardName": "",
       "isCustom": false,
       "date": "Apr 07, 2025"
+    },
+    {
+      "title": "Laundry",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Apr 11, 2025"
+    },
+    {
+      "title": "Dishes",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Apr 11, 2025"
+    },
+    {
+      "title": "Clean up bathroom",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Apr 11, 2025"
+    },
+    {
+      "title": "showerki",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Apr 11, 2025"
+    },
+    {
+      "title": "vacuum and mop",
+      "diamonds": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Apr 11, 2025"
+    },
+    {
+      "title": "call parenti",
+      "diamonds": 5,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "date": "Apr 11, 2025"
     }
   ],
   "rewards": [
     {
       "title": "dasd",
       "diamonds": 10,
-      "isWishListed": true,
+      "isWishListed": false,
       "cover": "book",
       "id": "86b4d138-3073-4c46-a125-4a3589a487dc"
     },
     {
       "title": "dasd",
       "diamonds": 30,
-      "isWishListed": true,
+      "isWishListed": false,
       "cover": "reward",
       "id": "929e14e3-2ed7-4804-891b-f8e72d8d0c12"
     },
     {
       "title": "hell yes",
       "diamonds": 30,
-      "isWishListed": true,
+      "isWishListed": false,
       "cover": "videogames",
       "id": "9e7451ca-f842-4475-b1e7-df7d91a77450"
     },
@@ -135,7 +183,7 @@
       "dates": []
     }
   ],
-  "totalDiamonds": 485,
+  "totalDiamonds": 0,
   "todaysHistory": [
     {
       "date": "Mar 27, 2025",
@@ -365,25 +413,11 @@
   ],
   "notes": [
     {
-      "content": "- [x] edit notes *\n- [x] Do to list\n- [x] open notes *\n- [x] notess visibility none while edited *\n- [x] reminders\n- [ ] move notes around\n- [ ] ordered and unordered lists",
+      "content": "- [x] edit notes *\n- [x] Do to list\n- [x] open notes *\n- [x] notess visibility none while edited\n- [x] reminders\n- [x] todays goals should say 'today'\n- [x] checklist items should not scroll horizontally\n- [ ] checklist items should have the option of beign more than 1 line jesus...\n- [ ] save shit when changing page if not sav\n- [ ] move notes around\n- [ ] ordered and unordered lists\n- [ ] group of goals for a single award\n- [ ] sub goals\n- [ ] edit and delete goals\n- [ ] unfinished goals should stay on top (overdue) even if the date has passed\n- [ ] icons for goals?\n- [ ] should not be able to choose goal dates before today\n- [ ] reward shop should close on page change too or on click outside of rewards\n- [ ] routines and wishlists to save\n- [ ] fix add new reward\n- [ ] fix modal cover images for rewards\n- [ ] items in todo list should be moveable up and down\n- [x] notes should be scrollable vertically\n- [ ] goals should also be moveable up and down\n- [ ] checklist dont save without title?\n- [ ] min and max height of saved notes\n- [ ] default note should be plain text on open",
       "title": "asdsadas",
       "id": "1efde290-63f4-44c5-88dc-bcbb60057403",
       "type": "checklist",
-      "reminder": "Apr 17, 2025"
-    },
-    {
-      "content": "bluagh",
-      "title": "ff",
-      "id": "c6d5a391-7c7a-482e-9cd1-be61dab7cea9",
-      "type": "text",
-      "reminder": "Apr 09, 2025"
-    },
-    {
-      "content": "- [ ] dasd",
-      "title": "asdasd",
-      "id": "7ed23f23-9260-4192-aacf-f3c4fa28fde6",
-      "type": "checklist",
-      "reminder": "Apr 10, 2025"
+      "reminder": "Apr 26, 2025"
     }
   ]
 }

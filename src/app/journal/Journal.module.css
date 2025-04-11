@@ -32,6 +32,7 @@
   padding: 20px;
   border: 1px solid rgba(255, 255, 255, 0.144);
   height: calc(100% - 50px);
+  overflow-y: scroll;
 }
 
 .addNewNote.expanded {
@@ -80,19 +81,29 @@
   padding: 10px 15px 40px 15px;
   margin-bottom: 10px;
   min-height: 100px;
+  max-height: 250px;
   border: 1px solid rgba(255, 255, 255, 0.144);
   border-radius: 4px;
   overflow: hidden;
   cursor: pointer;
 }
 
-.noteP {
+.noteP,
+.checklist {
   display: -webkit-box;
-  -webkit-line-clamp: 15;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: pre-wrap;
+  max-height: 150px;
+}
+
+.noteP {
+  -webkit-line-clamp: 6;
+}
+
+.checklist:nth-child(4):nth-child(2) {
+  text-overflow: ellipsis;
 }
 
 .noteButtons {
@@ -147,7 +158,6 @@
 }
 
 .checklist li {
-  display: flex;
   align-items: center;
   width: 100%;
   margin-bottom: 8px;
@@ -167,29 +177,34 @@
 }
 
 .checklistItem {
-  display: flex;
-  align-items: center;
   width: 100%;
+  display: flex;
+  align-items: flex-start;
   margin-bottom: 8px;
 }
 
-.checklistItem input[type="text"] {
-  flex: 1;
+.checklistItem input[type="checkbox"] {
+  margin-right: 10px;
+  align-self: flex-start;
+  height: 24px;
+}
+
+.checklistItem textarea {
   width: 100%;
   background-color: transparent;
   border: none;
-  padding: 5px;
-  margin-left: 8px;
+
   color: white;
+  font-size: 1rem;
   white-space: normal;
   word-break: break-word;
   overflow-wrap: break-word;
-  min-height: 24px;
-  height: auto;
-  font-size: 1rem;
+  line-height: 24px;
+  height: 24px;
+  resize: none;
 }
 
-.checklistItem input[type="text"]:focus {
+.checklistItem textarea:focus {
   outline: none;
 }
 

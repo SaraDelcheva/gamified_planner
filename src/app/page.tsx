@@ -42,7 +42,10 @@ export default function Home() {
             key={formattedDate}
             {...{
               // From GoalsForTodayI
-              title: day,
+              title:
+                formattedDate === dates[0].formattedDate
+                  ? "Goals of Today"
+                  : day,
               goals: goals.filter((goal) => goal.date === formattedDate),
               completeGoal,
               totalDiamonds,

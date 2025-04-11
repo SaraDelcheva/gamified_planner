@@ -37,7 +37,8 @@ export default function Todo() {
           <GoalsForToday
             {...{
               // From GoalsForTodayI
-              title: day,
+              title: formattedDate === dates[0].formattedDate ? "Today" : day,
+
               goals: goals.filter((goal) => goal.date === formattedDate),
               completeGoal,
               totalDiamonds,

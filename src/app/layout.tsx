@@ -124,7 +124,7 @@ function RewardContent() {
   //handle is wishlisted
   function handleIsWishListed(e: React.MouseEvent<HTMLDivElement>) {
     const rewardId =
-      e.currentTarget.parentElement?.parentElement?.parentElement?.parentElement?.getAttribute(
+      e.currentTarget.parentElement?.parentElement?.getAttribute(
         "data-reward-id"
       );
     const updatedRewards = rewards.map((reward) =>
@@ -132,6 +132,7 @@ function RewardContent() {
         ? { ...reward, isWishListed: !reward.isWishListed }
         : reward
     );
+    console.log(e.currentTarget.parentElement?.parentElement);
 
     setRewards(updatedRewards);
     saveData({ rewards: updatedRewards });

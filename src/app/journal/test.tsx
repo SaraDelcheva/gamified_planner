@@ -29,8 +29,7 @@ export default function Journal() {
   const [notes, setNotes] = useState<NoteI[]>([]);
   const [editingNoteId, setEditingNoteId] = useState<string | null>(null);
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const checklistInputRefs = useRef<(HTMLTextAreaElement | null)[]>([]);
+  const textareaRef = useRef<HTMLDivElement>(null);
   const [isReminder, setIsReminder] = useState<boolean>(false);
   const [reminderDate, setReminderDate] = useState<string>("");
 
@@ -49,21 +48,12 @@ export default function Journal() {
     fetchData();
   }, []);
 
-  // Update refs when checklist items change
-  useEffect(() => {
-    checklistInputRefs.current = checklistInputRefs.current.slice(
-      0,
-      checklistItems.length
-    );
-  }, [checklistItems]);
-
   function cancelNote() {
     setNoteContent("");
     setChecklistItems([{ label: "", checked: false }]);
     setNoteTitle("");
     setIsNoteExpanded(false);
     setEditingNoteId(null);
-    setNoteType("text");
   }
 
   const distributeNotes = (notes: NoteI[], columnCount: number) => {
@@ -117,12 +107,7 @@ export default function Journal() {
   }
 
   function saveNote() {
-    const hasContent =
-      noteType === "text"
-        ? noteContent.trim() !== ""
-        : checklistItems.some((item) => item.label.trim() !== "");
-
-    if (!hasContent && !noteTitle.trim()) {
+    if (!noteContent.trim() && !noteTitle.trim()) {
       cancelNote();
       return;
     }
@@ -177,7 +162,7 @@ export default function Journal() {
 
   function handleChecklistKeyDown(
     index: number,
-    event: React.KeyboardEvent<HTMLTextAreaElement>
+    event: React.KeyboardEvent<HTMLDivElement>
   ) {
     const isLastItem = index === checklistItems.length - 1;
 
@@ -194,44 +179,13 @@ export default function Journal() {
             ...checklistItems.slice(index + 1),
           ]);
         }
-
-        setTimeout(() => {
-          if (checklistInputRefs.current[index + 1]) {
-            checklistInputRefs.current[index + 1]?.focus();
-          }
-        }, 0);
       }
     } else if (
       event.key === "Backspace" &&
       checklistItems[index].label === ""
     ) {
-      if (isLastItem) {
-        if (index > 0) {
-          setTimeout(() => {
-            const prevInput = checklistInputRefs.current[index - 1];
-            if (prevInput) {
-              prevInput.focus();
-              const length = prevInput.value.length;
-              prevInput.setSelectionRange(length, length);
-            }
-          }, 0);
-        }
-        return;
-      }
-
       const updatedItems = checklistItems.filter((_, i) => i !== index);
       setChecklistItems(updatedItems);
-
-      if (index > 0) {
-        setTimeout(() => {
-          const prevInput = checklistInputRefs.current[index - 1];
-          if (prevInput) {
-            prevInput.focus();
-            const length = prevInput.value.length;
-            prevInput.setSelectionRange(length, length);
-          }
-        }, 0);
-      }
     }
   }
 
@@ -372,14 +326,18 @@ export default function Journal() {
                 />
 
                 {noteType === "text" ? (
-                  <textarea
+                  <div
                     ref={textareaRef}
                     className={styles.textarea}
-                    name="note"
-                    onChange={(e) => setNoteContent(e.target.value)}
-                    value={noteContent ?? ""}
-                    placeholder="Write your note..."
-                  />
+                    contentEditable="true"
+                    onInput={(e) => {
+                      const target = e.target as HTMLDivElement;
+                      setNoteContent(target.innerText);
+                    }}
+                    suppressContentEditableWarning={true}
+                  >
+                    {noteContent}
+                  </div>
                 ) : (
                   <div className={styles.checklistEditor}>
                     {checklistItems.map((item, i) => (
@@ -394,21 +352,24 @@ export default function Journal() {
                           checked={item.checked}
                           onChange={() => toggleChecklistItem(i)}
                         />
-                        <textarea
-                          value={item.label}
-                          placeholder={isEmptyItem(item) ? "+ Add item" : ""}
-                          onChange={(e) =>
-                            updateChecklistItemLabel(i, e.target.value)
-                          }
-                          onKeyDown={(e) => handleChecklistKeyDown(i, e)}
-                          ref={(el) => {
-                            checklistInputRefs.current[i] = el;
+                        <div
+                          contentEditable="true"
+                          data-ph="+ Add item"
+                          onInput={(e) => {
+                            const target = e.target as HTMLDivElement;
+                            updateChecklistItemLabel(i, target.innerText);
                           }}
-                          className={
-                            isEmptyItem(item) ? styles.addItemInput : ""
+                          onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) =>
+                            handleChecklistKeyDown(i, e)
                           }
+                          className={`${
+                            isEmptyItem(item) ? styles.addItemInput : ""
+                          } ${styles.editable}`}
                           style={getChecklistItemStyle(item.checked)}
-                        />
+                          suppressContentEditableWarning={true}
+                        >
+                          {item.label}
+                        </div>
                       </div>
                     ))}
                   </div>
