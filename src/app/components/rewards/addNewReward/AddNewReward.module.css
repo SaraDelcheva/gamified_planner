@@ -1,8 +1,10 @@
 .addNewReward {
-  flex-basis: 100px;
-  max-width: 100px;
+  flex-basis: 150px;
+  max-width: 150px;
   cursor: pointer;
   position: relative;
+  padding: 10px 5px 10px 10px;
+  /* background-color: rgb(78, 25, 25); */
   height: fit-content;
 }
 .expanded.addNewReward:hover .addNewRewardP {
@@ -11,6 +13,8 @@
 
 .addNewRewardP {
   display: flex;
+  word-wrap: break-word;
+  padding-bottom: 5px;
 }
 
 .addNewRewardInput {
@@ -19,7 +23,7 @@
 }
 
 .addNewRewardDropdown {
-  max-width: 30px;
+  max-width: 55px;
   margin-left: 10px;
   text-align: center;
 }
@@ -38,18 +42,32 @@
 }
 
 .rewardPriceDiv {
+  width: 70%;
 }
 
 .rewardPrice {
   color: #fff;
   display: flex;
-  align-items: center;
-  padding: 5px 15px 5px 5px;
+  justify-content: flex-end;
   gap: 3px;
   font-size: 1rem;
-  clip-path: polygon(0% 0%, 80% 0%, 100% 50%, 80% 100%, 0% 100%);
+  padding-right: 5px;
 }
 
 .addCancelContainer {
   display: flex;
+  width: 100%;
+  margin-top: 10px;
+  justify-content: flex-end;
+}
+
+.button {
+  background-color: #0000;
+  font-size: 1rem;
+  border-radius: 3px;
+  padding: 3px 5px;
+  line-height: 0;
+}
+.button:hover {
+  background-color: rgb(255, 255, 255, 0.2);
 }

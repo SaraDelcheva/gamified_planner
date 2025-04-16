@@ -15,14 +15,99 @@ import { LuNotepadText, LuCheck, LuAlarmClockCheck } from "react-icons/lu";
 import { BiBellPlus, BiBellMinus } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
 import Calendar from "react-calendar";
+import {
+  DndContext,
+  DragEndEvent,
+  useSensors,
+  useSensor,
+  PointerSensor,
+  KeyboardSensor,
+  closestCenter,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { MdDragIndicator } from "react-icons/md";
 
-type ChecklistItem = { label: string; checked: boolean };
+type ChecklistItem = { id: string; label: string; checked: boolean };
+
+// Create a sortable checklist item component
+function SortableChecklistItem({
+  item,
+  index,
+  toggleChecklistItem,
+  updateChecklistItemLabel,
+  handleChecklistKeyDown,
+  getChecklistItemStyle,
+  isEmptyItem,
+  inputRef,
+}: {
+  item: ChecklistItem;
+  index: number;
+  toggleChecklistItem: (index: number) => void;
+  updateChecklistItemLabel: (index: number, label: string) => void;
+  handleChecklistKeyDown: (
+    index: number,
+    event: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => void;
+  getChecklistItemStyle: (isChecked: boolean) => React.CSSProperties;
+  isEmptyItem: (item: ChecklistItem) => boolean;
+  inputRef: React.RefObject<HTMLTextAreaElement | null>;
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: item.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={`${styles.checklistItem} ${
+        isEmptyItem(item) ? styles.addItem : ""
+      }`}
+    >
+      <div className={styles.dragHandle} {...attributes} {...listeners}>
+        <MdDragIndicator size={16} />
+      </div>
+      <input
+        type="checkbox"
+        checked={item.checked}
+        onChange={() => toggleChecklistItem(index)}
+      />
+      <textarea
+        value={item.label}
+        placeholder={isEmptyItem(item) ? "+ Add item" : ""}
+        onChange={(e) => updateChecklistItemLabel(index, e.target.value)}
+        onKeyDown={(e) => handleChecklistKeyDown(index, e)}
+        ref={index === 0 ? inputRef : null}
+        className={isEmptyItem(item) ? styles.addItemInput : ""}
+        style={getChecklistItemStyle(item.checked)}
+      />
+    </div>
+  );
+}
 
 export default function Journal() {
   const [isNoteExpanded, setIsNoteExpanded] = useState<boolean>(false);
   const [noteContent, setNoteContent] = useState<string>("");
   const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>([
-    { label: "", checked: false },
+    { id: uuidv4(), label: "", checked: false },
   ]);
   const [noteTitle, setNoteTitle] = useState<string>("");
   const [noteType, setNoteType] = useState<"text" | "checklist">("text");
@@ -30,13 +115,31 @@ export default function Journal() {
   const [editingNoteId, setEditingNoteId] = useState<string | null>(null);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const checklistInputRefs = useRef<(HTMLTextAreaElement | null)[]>([]);
+  const checklistInputRef = useRef<HTMLTextAreaElement>(null);
   const [isReminder, setIsReminder] = useState<boolean>(false);
   const [reminderDate, setReminderDate] = useState<string>("");
+
+  // Set up drag and drop sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8, // Minimum distance required before activation
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   useEffect(() => {
     if (isNoteExpanded && textareaRef.current && noteType === "text") {
       textareaRef.current.focus();
+    } else if (
+      isNoteExpanded &&
+      checklistInputRef.current &&
+      noteType === "checklist"
+    ) {
+      checklistInputRef.current.focus();
     }
   }, [isNoteExpanded, noteType]);
 
@@ -49,21 +152,14 @@ export default function Journal() {
     fetchData();
   }, []);
 
-  // Update refs when checklist items change
-  useEffect(() => {
-    checklistInputRefs.current = checklistInputRefs.current.slice(
-      0,
-      checklistItems.length
-    );
-  }, [checklistItems]);
-
   function cancelNote() {
     setNoteContent("");
-    setChecklistItems([{ label: "", checked: false }]);
+    setChecklistItems([{ id: uuidv4(), label: "", checked: false }]);
     setNoteTitle("");
     setIsNoteExpanded(false);
     setEditingNoteId(null);
     setNoteType("text");
+    setReminderDate("");
   }
 
   const distributeNotes = (notes: NoteI[], columnCount: number) => {
@@ -100,7 +196,7 @@ export default function Journal() {
       const items = noteContent.split("\n").map((line) => {
         const checked = line.startsWith("- [x]");
         const label = line.replace(/^- \[[ x]\] /, "");
-        return { label, checked };
+        return { id: uuidv4(), label, checked };
       });
 
       // Always ensure there's at least one item (possibly empty)
@@ -108,12 +204,19 @@ export default function Journal() {
         items.length === 0 ||
         (items.length > 0 && items[items.length - 1].label !== "")
       ) {
-        items.push({ label: "", checked: false });
+        items.push({ id: uuidv4(), label: "", checked: false });
       }
 
       setChecklistItems(items);
     }
     setIsNoteExpanded(true);
+
+    // Set reminder if exists
+    if (editedNote.reminder) {
+      setReminderDate(editedNote.reminder);
+    } else {
+      setReminderDate("");
+    }
   }
 
   function saveNote() {
@@ -160,6 +263,7 @@ export default function Journal() {
           title: noteTitle,
           id: uuidv4(),
           type: noteType,
+          ...(reminderDate ? { reminder: reminderDate } : {}),
         },
       ];
     }
@@ -186,20 +290,17 @@ export default function Journal() {
 
       if (checklistItems[index].label.trim() !== "") {
         if (isLastItem) {
-          setChecklistItems([...checklistItems, { label: "", checked: false }]);
+          setChecklistItems([
+            ...checklistItems,
+            { id: uuidv4(), label: "", checked: false },
+          ]);
         } else {
           setChecklistItems([
             ...checklistItems.slice(0, index + 1),
-            { label: "", checked: false },
+            { id: uuidv4(), label: "", checked: false },
             ...checklistItems.slice(index + 1),
           ]);
         }
-
-        setTimeout(() => {
-          if (checklistInputRefs.current[index + 1]) {
-            checklistInputRefs.current[index + 1]?.focus();
-          }
-        }, 0);
       }
     } else if (
       event.key === "Backspace" &&
@@ -207,31 +308,13 @@ export default function Journal() {
     ) {
       if (isLastItem) {
         if (index > 0) {
-          setTimeout(() => {
-            const prevInput = checklistInputRefs.current[index - 1];
-            if (prevInput) {
-              prevInput.focus();
-              const length = prevInput.value.length;
-              prevInput.setSelectionRange(length, length);
-            }
-          }, 0);
+          return;
         }
         return;
       }
 
       const updatedItems = checklistItems.filter((_, i) => i !== index);
       setChecklistItems(updatedItems);
-
-      if (index > 0) {
-        setTimeout(() => {
-          const prevInput = checklistInputRefs.current[index - 1];
-          if (prevInput) {
-            prevInput.focus();
-            const length = prevInput.value.length;
-            prevInput.setSelectionRange(length, length);
-          }
-        }, 0);
-      }
     }
   }
 
@@ -257,10 +340,10 @@ export default function Journal() {
       const lines = noteContent
         .split("\n")
         .filter((line) => line.trim() !== "")
-        .map((line) => ({ label: line, checked: false }));
+        .map((line) => ({ id: uuidv4(), label: line, checked: false }));
 
       // Add empty item at the end
-      lines.push({ label: "", checked: false });
+      lines.push({ id: uuidv4(), label: "", checked: false });
 
       setChecklistItems(lines);
       setNoteContent("");
@@ -274,9 +357,21 @@ export default function Journal() {
       const plainText = nonEmptyItems.map((item) => item.label).join("\n");
 
       setNoteContent(plainText);
-      setChecklistItems([{ label: "", checked: false }]);
+      setChecklistItems([{ id: uuidv4(), label: "", checked: false }]);
       setNoteType("text");
     }
+  }
+
+  // Handle drag end event for checklist items
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = checklistItems.findIndex((item) => item.id === active.id);
+    const newIndex = checklistItems.findIndex((item) => item.id === over.id);
+
+    setChecklistItems(arrayMove(checklistItems, oldIndex, newIndex));
   }
 
   // function
@@ -382,35 +477,30 @@ export default function Journal() {
                   />
                 ) : (
                   <div className={styles.checklistEditor}>
-                    {checklistItems.map((item, i) => (
-                      <div
-                        key={i}
-                        className={`${styles.checklistItem} ${
-                          isEmptyItem(item) ? styles.addItem : ""
-                        }`}
+                    <DndContext
+                      sensors={sensors}
+                      collisionDetection={closestCenter}
+                      onDragEnd={handleDragEnd}
+                    >
+                      <SortableContext
+                        items={checklistItems.map((item) => item.id)}
+                        strategy={verticalListSortingStrategy}
                       >
-                        <input
-                          type="checkbox"
-                          checked={item.checked}
-                          onChange={() => toggleChecklistItem(i)}
-                        />
-                        <textarea
-                          value={item.label}
-                          placeholder={isEmptyItem(item) ? "+ Add item" : ""}
-                          onChange={(e) =>
-                            updateChecklistItemLabel(i, e.target.value)
-                          }
-                          onKeyDown={(e) => handleChecklistKeyDown(i, e)}
-                          ref={(el) => {
-                            checklistInputRefs.current[i] = el;
-                          }}
-                          className={
-                            isEmptyItem(item) ? styles.addItemInput : ""
-                          }
-                          style={getChecklistItemStyle(item.checked)}
-                        />
-                      </div>
-                    ))}
+                        {checklistItems.map((item, i) => (
+                          <SortableChecklistItem
+                            key={item.id}
+                            item={item}
+                            index={i}
+                            toggleChecklistItem={toggleChecklistItem}
+                            updateChecklistItemLabel={updateChecklistItemLabel}
+                            handleChecklistKeyDown={handleChecklistKeyDown}
+                            getChecklistItemStyle={getChecklistItemStyle}
+                            isEmptyItem={isEmptyItem}
+                            inputRef={checklistInputRef}
+                          />
+                        ))}
+                      </SortableContext>
+                    </DndContext>
                   </div>
                 )}
               </div>
@@ -448,14 +538,19 @@ export default function Journal() {
                   <div className={styles.saveNoteDiv}>
                     <button
                       className={`${styles.button} ${
-                        !noteContent && !noteTitle && styles.empty
+                        !noteContent &&
+                        !noteTitle &&
+                        checklistItems.every((item) => !item.label.trim()) &&
+                        styles.empty
                       }`}
                       onClick={saveNote}
                     >
                       <LuCheck />
-                      {!noteContent && !noteTitle && (
-                        <p className={styles.saveNoteLabel}>Note is empty!</p>
-                      )}
+                      {!noteContent &&
+                        !noteTitle &&
+                        checklistItems.every((item) => !item.label.trim()) && (
+                          <p className={styles.saveNoteLabel}>Note is empty!</p>
+                        )}
                     </button>
                   </div>
                 </div>

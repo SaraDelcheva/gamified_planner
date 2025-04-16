@@ -66,12 +66,16 @@ export interface AddGoalI {
   isCalendarOpen: boolean;
 
   onClickDay: (value: Date) => void;
+  isEditing: boolean;
+  editingGoalId: string | null;
 }
 
 export interface GoalsForTodayI extends AddGoalI {
   title: string;
   goals: GoalI[];
   completeGoal: (goalTitle: string) => void;
+  deleteGoal: (goalTitle: string) => void;
+  editGoal: (goalTitle: string) => void;
   totalDiamonds: number;
   customRewardName: string;
   setGoalDate: React.Dispatch<React.SetStateAction<string>>;

@@ -6,7 +6,6 @@ import { useGoalManager } from "./hooks/useGoalManager";
 
 export default function Home() {
   const {
-    todaysHistory,
     goals,
     notes,
     goalName,
@@ -29,9 +28,13 @@ export default function Home() {
     addNewGoal,
     cancelAddGoal,
     completeGoal,
+    deleteGoal,
+    editGoal,
     toggleExpanded,
     toggleCalendar,
     onClickDay,
+    isEditing,
+    editingGoalId,
   } = useGoalManager({ daysToShow: 1 });
 
   return (
@@ -47,11 +50,15 @@ export default function Home() {
                   ? "Goals of Today"
                   : day,
               goals: goals.filter((goal) => goal.date === formattedDate),
+              deleteGoal,
+              editGoal,
               completeGoal,
               totalDiamonds,
               customRewardName,
               setGoalDate,
               notes,
+              isEditing,
+              editingGoalId,
 
               // From AddGoalI
               goalName,
@@ -79,12 +86,7 @@ export default function Home() {
           />
         ))}
       </div>
-      <PersonalInfo
-        {...{
-          todaysHistory,
-          totalDiamonds,
-        }}
-      />
+      <PersonalInfo />
     </div>
   );
 }

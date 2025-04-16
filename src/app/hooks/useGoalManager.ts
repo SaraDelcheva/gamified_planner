@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { GoalI, TodaysHistoryI, NoteI } from "../helpers/interfaces";
+import { GoalI, NoteI } from "../helpers/interfaces";
 import { formatDate, saveData, createDates } from "../helpers/functions";
 import { useDiamonds } from "../context/DiamondsContext";
 
@@ -10,8 +10,8 @@ interface UseGoalManagerProps {
 }
 
 export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
-  const { totalDiamonds, setTotalDiamonds } = useDiamonds();
-  const [todaysHistory, setTodaysHistory] = useState<TodaysHistoryI[]>([]);
+  const { totalDiamonds, setTotalDiamonds, todaysHistory, setTodaysHistory } =
+    useDiamonds();
   const [goals, setGoals] = useState<GoalI[]>([]);
   const [notes, setNotes] = useState<NoteI[]>([]);
   const [goalName, setGoalName] = useState<string>("");
@@ -27,6 +27,10 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     [key: string]: boolean;
   }>({});
 
+  // New state to track editing mode
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingGoalId, setEditingGoalId] = useState<string | null>(null);
+
   const dates = createDates(0, daysToShow);
 
   // ---------- Data Fetching ----------
@@ -36,7 +40,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
       const data = await res.json();
 
       setGoals(Array.isArray(data.goals) ? data.goals : []);
-      setTodaysHistory(data.todaysHistory ? data.todaysHistory : []);
+
       setNotes(data.notes ? data.notes : []);
 
       const today = new Date();
@@ -48,7 +52,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
   }, []);
 
   // ---------- Handlers for Goal Management ----------
-  // Add new goal
+  // Add new goal or update existing goal
   function addNewGoal(formattedDate: string) {
     if (
       (difficulty === 0 && !isCustom) ||
@@ -57,33 +61,51 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     )
       return;
 
-    const updatedGoals = [
-      ...goals,
-      {
-        title: goalName,
-        diamonds: isCustom ? 0 : difficulty,
-        coverName: isCustom ? customCoverName : "",
-        rewardName: isCustom ? customRewardName : "",
-        isCustom,
-        date: newGoalDate || formattedDate,
-      },
-    ];
+    let updatedGoals;
+
+    if (isEditing && editingGoalId) {
+      // Update existing goal
+      updatedGoals = goals.map((goal) =>
+        goal.title === editingGoalId
+          ? {
+              title: goalName,
+              diamonds: isCustom ? 0 : difficulty,
+              coverName: isCustom ? customCoverName : "",
+              rewardName: isCustom ? customRewardName : "",
+              isCustom,
+              date: newGoalDate || formattedDate,
+            }
+          : goal
+      );
+    } else {
+      // Add new goal
+      updatedGoals = [
+        ...goals,
+        {
+          title: goalName,
+          diamonds: isCustom ? 0 : difficulty,
+          coverName: isCustom ? customCoverName : "",
+          rewardName: isCustom ? customRewardName : "",
+          isCustom,
+          date: newGoalDate || formattedDate,
+        },
+      ];
+    }
+
     setGoals(updatedGoals);
     saveData({ goals: updatedGoals });
 
-    // Reset inputs
-    setGoalName("");
-    setCustomCoverName("reward");
-    setCustomRewardName("");
-    setDifficulty(0);
-    setIsCustom(false);
-    setExpanded((prev) => ({ ...prev, [formattedDate]: false }));
-    setIsCalendarOpen((prev) => ({ ...prev, [formattedDate]: false }));
-    setNewGoalDate("");
+    // Reset inputs and editing state
+    resetForm(formattedDate);
   }
 
-  // Cancel adding a goal
+  // Cancel adding/editing a goal
   function cancelAddGoal(containerDate: string) {
+    resetForm(containerDate);
+  }
+
+  // Helper function to reset form state
+  function resetForm(containerDate: string) {
     setGoalName("");
     setCustomCoverName("reward");
     setCustomRewardName("");
@@ -92,6 +114,8 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setExpanded((prev) => ({ ...prev, [containerDate]: false }));
     setIsCalendarOpen((prev) => ({ ...prev, [containerDate]: false }));
     setNewGoalDate("");
+    setIsEditing(false);
+    setEditingGoalId(null);
   }
 
   // Complete a goal
@@ -120,8 +144,49 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     });
   }
 
+  // Delete goal
+  function deleteGoal(goalTitle: string) {
+    if (!confirm("Are you sure you want to delete this goal permanently?"))
+      return;
+    const completedGoal = goals.find((goal) => goal.title === goalTitle);
+    if (!completedGoal) return;
+
+    const updatedGoals = goals.filter((goal) => goal.title !== goalTitle);
+    setGoals(updatedGoals);
+    setTotalDiamonds((prev) => prev + completedGoal.diamonds);
+
+    saveData({
+      goals: updatedGoals,
+      totalDiamonds: totalDiamonds + completedGoal.diamonds,
+    });
+  }
+
+  // Start editing a goal
+  function editGoal(goalTitle: string) {
+    const goalToEdit = goals.find((goal) => goal.title === goalTitle);
+    if (!goalToEdit) return;
+
+    // Set form fields with goal data
+    setGoalName(goalToEdit.title);
+    setDifficulty(goalToEdit.diamonds);
+    setIsCustom(goalToEdit.isCustom);
+    setCustomCoverName(goalToEdit.coverName || "reward");
+    setCustomRewardName(goalToEdit.rewardName || "");
+    setNewGoalDate(goalToEdit.date);
+
+    // Set editing state
+    setIsEditing(true);
+    setEditingGoalId(goalTitle);
+
+    // Expand the form for the day of the goal
+    setExpanded((prev) => ({ ...prev, [goalToEdit.date]: true }));
+  }
+
   // Toggle expanded state
   function toggleExpanded(date: string) {
+    // If we're currently editing, don't collapse the form
+    if (isEditing) return;
+
     setNewGoalDate("");
     setExpanded((prev) => {
       const newExpanded = { [date]: !prev[date] };
@@ -165,6 +230,8 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     isCalendarOpen,
     dates,
     totalDiamonds,
+    isEditing,
+    editingGoalId,
 
     // Setters
     setGoalName,
@@ -178,6 +245,8 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     addNewGoal,
     cancelAddGoal,
     completeGoal,
+    deleteGoal,
+    editGoal,
     toggleExpanded,
     toggleCalendar,
     onClickDay,

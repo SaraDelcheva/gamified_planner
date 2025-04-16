@@ -1,17 +1,11 @@
-import { TodaysHistoryI } from "@/app/helpers/interfaces";
 import styles from "./PersonalInfo.module.css";
+import { useDiamonds } from "../../context/DiamondsContext";
 
 import { IoDiamondOutline } from "react-icons/io5";
 
-interface PersonalInfoProps {
-  todaysHistory: TodaysHistoryI[];
-  totalDiamonds: number;
-}
+export default function PersonalInfo() {
+  const { totalDiamonds, todaysHistory } = useDiamonds();
 
-export default function PersonalInfo({
-  todaysHistory,
-  totalDiamonds,
-}: PersonalInfoProps) {
   return (
     <div className={styles.personalInfo}>
       <div className={styles.personalInfoContainer}>
@@ -31,37 +25,38 @@ export default function PersonalInfo({
             TODAY&apos;S HISTORY:
           </div>
           <div className={styles.todaysHistoryContainer}>
-            {todaysHistory.map((item, index) => (
-              <div key={index} className={styles.historyItem}>
-                {item.type === "goal" && (
-                  <div
-                    className={`${styles.goal}  boxShadow ${styles.historyItem}`}
-                  >
-                    <div className={styles.claimedGoalCover}></div>
-                    <div>Completed goal: {item.title}</div>
-                  </div>
-                )}
-                {item.type === "reward" && (
-                  <div className={`${styles.reward} ${styles.historyItem}`}>
+            {todaysHistory.length !== 0 &&
+              todaysHistory.map((item, index) => (
+                <div key={index} className={styles.historyItem}>
+                  {item.type === "goal" && (
                     <div
-                      className={styles.claimedRewardCover}
-                      style={{
-                        backgroundImage: `url('/images/rewards/${item.cover}')`,
-                      }}
-                    ></div>
-                    <div>Claimed reward: {item.title} </div>
-                  </div>
-                )}
-                {item.type === "habit" && (
-                  <div
-                    className={`${styles.goal}  boxShadow ${styles.historyItem}`}
-                  >
-                    <div className={styles.claimedHabitCover}></div>
-                    <div>Completed habit: {item.title}</div>
-                  </div>
-                )}
-              </div>
-            ))}
+                      className={`${styles.goal}  boxShadow ${styles.historyItem}`}
+                    >
+                      <div className={styles.claimedGoalCover}></div>
+                      <div>Completed goal: {item.title}</div>
+                    </div>
+                  )}
+                  {item.type === "reward" && (
+                    <div className={`${styles.reward} ${styles.historyItem}`}>
+                      <div
+                        className={styles.claimedRewardCover}
+                        style={{
+                          backgroundImage: `url('/images/rewards/${item.cover}')`,
+                        }}
+                      ></div>
+                      <div>Claimed reward: {item.title} </div>
+                    </div>
+                  )}
+                  {item.type === "habit" && (
+                    <div
+                      className={`${styles.goal}  boxShadow ${styles.historyItem}`}
+                    >
+                      <div className={styles.claimedHabitCover}></div>
+                      <div>Completed habit: {item.title}</div>
+                    </div>
+                  )}
+                </div>
+              ))}
           </div>
         </div>
       </div>

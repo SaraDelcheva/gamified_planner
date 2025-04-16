@@ -301,3 +301,23 @@
 .reminderP {
   font-size: 0.8rem;
 }
+
+.dragHandle {
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.checklistItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.checklistItem:hover .dragHandle {
+  opacity: 1;
+}

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Geist, Geist_Mono, Inter, Karla } from "next/font/google";
 import LeftMenu from "./components/leftMenu/LeftMenu";
 import Rewards from "./components/rewards/Rewards";
-import { RewardI, TodaysHistoryI } from "./helpers/interfaces";
+import { RewardI } from "./helpers/interfaces";
 import { saveData, createDates } from "./helpers/functions";
 import { v4 as uuidv4 } from "uuid";
 import "./globals.css";
@@ -34,13 +34,13 @@ const geistMono = Geist_Mono({
 });
 
 function RewardContent() {
-  const { totalDiamonds, setTotalDiamonds } = useDiamonds();
+  const { totalDiamonds, setTotalDiamonds, todaysHistory, setTodaysHistory } =
+    useDiamonds();
   const [rewards, setRewards] = useState<RewardI[]>([]);
   const [rewardName, setRewardName] = useState<string>("");
   const [rewardPrice, setRewardPrice] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [coverName, setCoverName] = useState<string>("reward");
-  const [todaysHistory, setTodaysHistory] = useState<TodaysHistoryI[]>([]);
   const dates = createDates(0, 1);
 
   // ---------- Data Fetching ----------
@@ -50,7 +50,6 @@ function RewardContent() {
       const data = await res.json();
 
       setRewards(Array.isArray(data.rewards) ? data.rewards : []);
-      setTodaysHistory(data.todaysHistory ? data.todaysHistory : []);
     }
 
     fetchData();

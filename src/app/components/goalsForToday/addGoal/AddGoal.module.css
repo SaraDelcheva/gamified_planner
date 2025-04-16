@@ -96,7 +96,7 @@
   justify-content: center;
   gap: 3px;
   font-size: 1.2rem;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   z-index: 98;

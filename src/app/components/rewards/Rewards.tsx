@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./Rewards.module.css";
 import RewardCard from "./rewardCard/RewardCard";
 import AddNewReward from "./addNewReward/AddNewReward";
@@ -9,6 +9,27 @@ import { useDiamonds } from "@/app/context/DiamondsContext";
 export default function Rewards(props: Omit<RewardsI, "totalDiamonds">) {
   const [isShopOpen, setIsShopOpen] = useState(false);
   const { totalDiamonds } = useDiamonds();
+  const rewardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        rewardsRef.current &&
+        !rewardsRef.current.contains(event.target as Node) &&
+        isShopOpen
+      ) {
+        setIsShopOpen(false);
+      }
+    }
+
+    if (isShopOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isShopOpen]);
 
   return (
     <>
@@ -19,7 +40,10 @@ export default function Rewards(props: Omit<RewardsI, "totalDiamonds">) {
         }}
       ></div>
 
-      <div className={`${styles.rewards} ${isShopOpen && styles.open}`}>
+      <div
+        ref={rewardsRef}
+        className={`${styles.rewards} ${isShopOpen && styles.open}`}
+      >
         <div className={styles.header}>Rewards Shop</div>
         <div className={styles.rewardsContainer}>
           {props.rewards.map((reward) => (

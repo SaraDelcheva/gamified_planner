@@ -25,9 +25,13 @@ export default function Todo() {
     addNewGoal,
     cancelAddGoal,
     completeGoal,
+    deleteGoal,
+    editGoal,
     toggleExpanded,
     toggleCalendar,
     onClickDay,
+    isEditing,
+    editingGoalId,
   } = useGoalManager({ daysToShow: 7 });
 
   return (
@@ -41,6 +45,8 @@ export default function Todo() {
 
               goals: goals.filter((goal) => goal.date === formattedDate),
               completeGoal,
+              deleteGoal,
+              editGoal,
               totalDiamonds,
               customRewardName,
               setGoalDate: () => {}, // Empty function since we don't need it anymore
@@ -68,6 +74,8 @@ export default function Todo() {
               expanded: expanded[formattedDate] || false,
               isCalendarOpen: isCalendarOpen[formattedDate] || false,
               onClickDay,
+              isEditing,
+              editingGoalId,
             }}
           />
         </div>

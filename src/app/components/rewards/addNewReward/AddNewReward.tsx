@@ -3,8 +3,9 @@ import { useState } from "react";
 import styles from "./AddNewReward.module.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import { IoDiamondOutline } from "react-icons/io5";
+import { AiOutlineClose } from "react-icons/ai";
+import { FaPlay } from "react-icons/fa";
 import { AddNewRewardI } from "@/app/helpers/interfaces";
-import AddOrCancelBtn from "../../goalsForToday/addGoal/addOrCancelBtn/AddOrCancelBtn";
 import CoverModal from "../../coverModal/CoverModal";
 
 export default function AddNewReward(props: AddNewRewardI) {
@@ -53,7 +54,7 @@ export default function AddNewReward(props: AddNewRewardI) {
                   onChange={(e) => props.handleInputDiamondChange(e)}
                 >
                   <option value="" disabled>
-                    ?
+                    Price:
                   </option>
                   {diamondOptions.map((option) => (
                     <option key={option} value={option}>
@@ -67,16 +68,24 @@ export default function AddNewReward(props: AddNewRewardI) {
                 className={styles.addCancelContainer}
                 onClick={(e) => e.stopPropagation()}
               >
-                <AddOrCancelBtn
-                  onAdd={() => {
-                    props.addNewReward();
-                    setExpanded(!expanded);
-                  }}
-                  onCancel={() => {
+                <button
+                  className={styles.button}
+                  onClick={() => {
                     setExpanded(!expanded);
                     props.setCoverName("reward");
                   }}
-                />
+                >
+                  <AiOutlineClose />
+                </button>
+                <button
+                  className={styles.button}
+                  onClick={() => {
+                    props.addNewReward();
+                    setExpanded(!expanded);
+                  }}
+                >
+                  <FaPlay />
+                </button>
               </div>
             </div>
           </div>

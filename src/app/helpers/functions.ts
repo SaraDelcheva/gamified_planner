@@ -71,3 +71,16 @@ export function createDates(
     return { formattedDate, day };
   });
 }
+
+// --------------------------------------------------------------------Update Todays History Dates
+export function cleanTodaysHistory(
+  todaysHistory: TodaysHistoryI[]
+): TodaysHistoryI[] {
+  if (!Array.isArray(todaysHistory)) return [];
+
+  const today = formatDate(new Date());
+
+  const filtered = todaysHistory.filter((item) => item.date === today);
+
+  return filtered;
+}

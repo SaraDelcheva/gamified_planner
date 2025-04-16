@@ -35,6 +35,8 @@ export default function GoalsForToday(props: GoalsForTodayI) {
           )}
           <AddGoal
             addNewGoal={props.addNewGoal}
+            isEditing={props.isEditing}
+            editingGoalId={props.editingGoalId}
             setDifficulty={props.setDifficulty}
             difficulty={props.difficulty}
             goalName={props.goalName}
@@ -66,6 +68,8 @@ export default function GoalsForToday(props: GoalsForTodayI) {
                   diamonds={goal.diamonds}
                   isCustom={goal.isCustom}
                   completeGoal={props.completeGoal}
+                  deleteGoal={props.deleteGoal}
+                  editGoal={props.editGoal}
                   customCoverName={goal.coverName}
                   customRewardName={goal.rewardName}
                 />

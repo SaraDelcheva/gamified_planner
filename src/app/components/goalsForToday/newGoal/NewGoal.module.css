@@ -1,4 +1,9 @@
+.newGoalContainer {
+  padding-left: 20px;
+}
+
 .newGoal {
+  position: relative;
   height: 55px;
   transition: all 0.3s ease-in-out;
   border-radius: 10px;
@@ -41,7 +46,7 @@
   justify-content: center;
   gap: 3px;
   font-size: 1.2rem;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   z-index: 98;
@@ -104,4 +109,29 @@
   align-items: center;
   font-weight: 500;
   gap: 5px;
+}
+
+.deleteEditContainer {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -20px;
+  z-index: 3;
+  margin: auto;
+  display: none;
+}
+
+.newGoalContainer:hover .deleteEditContainer {
+  display: block;
+}
+
+.delete,
+.edit {
+  opacity: 0.5;
+}
+
+.delete:hover,
+.edit:hover {
+  transform: scale(1.1);
+  opacity: 1;
 }

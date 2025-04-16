@@ -5,7 +5,7 @@ import AddNewHabit from "../components/addNewHabit/AddNewHabit";
 import RenderHabitDates from "../components/renderHabitDates/RenderHabitDates";
 import { HabitI, TodaysHistoryI } from "../helpers/interfaces";
 import { formatDate, createDates } from "../helpers/functions";
-
+import { useDiamonds } from "../context/DiamondsContext";
 interface UpdatedData {
   habits?: { title: string }[];
   todaysHistory?: TodaysHistoryI[];
@@ -19,7 +19,7 @@ export default function Habits() {
   const [habitName, setHabitName] = useState<string>("");
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [todaysHistory, setTodaysHistory] = useState<TodaysHistoryI[]>([]);
+  const { todaysHistory, setTodaysHistory } = useDiamonds();
 
   // Fetch initial data
   useEffect(() => {
@@ -28,7 +28,6 @@ export default function Habits() {
         const res = await fetch("/api/data");
         const data = await res.json();
         setHabits(Array.isArray(data.habits) ? data.habits : []);
-        setTodaysHistory(data.todaysHistory ?? []);
       } catch (error) {
         console.error("Failed to fetch data:", error);
       }

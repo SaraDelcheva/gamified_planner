@@ -1,10 +1,14 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { TodaysHistoryI } from "../helpers/interfaces";
+import { cleanTodaysHistory, saveData } from "../helpers/functions";
 
 interface DiamondsContextType {
   totalDiamonds: number;
   setTotalDiamonds: React.Dispatch<React.SetStateAction<number>>;
+  todaysHistory: TodaysHistoryI[];
+  setTodaysHistory: React.Dispatch<React.SetStateAction<TodaysHistoryI[]>>;
 }
 
 const DiamondsContext = createContext<DiamondsContextType | undefined>(
@@ -13,18 +17,35 @@ const DiamondsContext = createContext<DiamondsContextType | undefined>(
 
 export function DiamondsProvider({ children }: { children: React.ReactNode }) {
   const [totalDiamonds, setTotalDiamonds] = useState<number>(0);
+  const [todaysHistory, setTodaysHistory] = useState<TodaysHistoryI[]>([]);
 
   useEffect(() => {
     async function fetchData() {
       const res = await fetch("/api/data");
       const data = await res.json();
       setTotalDiamonds(data.totalDiamonds || 0);
+      console.log("todays history before", todaysHistory);
+
+      const cleanedHistory = cleanTodaysHistory(data.todaysHistory || []);
+
+      console.log("cleanedHistory:", cleanedHistory);
+      setTodaysHistory(cleanedHistory);
+
+      // Save cleaned history if needed
+      await saveData({ todaysHistory: cleanedHistory });
     }
     fetchData();
   }, []);
 
   return (
-    <DiamondsContext.Provider value={{ totalDiamonds, setTotalDiamonds }}>
+    <DiamondsContext.Provider
+      value={{
+        totalDiamonds,
+        setTotalDiamonds,
+        todaysHistory,
+        setTodaysHistory,
+      }}
+    >
       {children}
     </DiamondsContext.Provider>
   );

@@ -16,13 +16,27 @@ export default function AddGoal(props: AddGoalI) {
     props.setDifficulty(diamonds);
   }
 
+  function tileDisabled({ date, view }: { date: Date; view: string }) {
+    if (view === "month") {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return date < today;
+    }
+    return false;
+  }
+
+  const minDate = new Date();
+  minDate.setHours(0, 0, 0, 0);
+
   return (
     <div
       className={`${styles.addGoal} ${props.expanded ? styles.expanded : ""}`}
     >
       <div className={styles.addGoalHeader}>
         {!props.expanded ? (
-          <p className={styles.addGoalP}>Add A Goal</p>
+          <p className={styles.addGoalP}>
+            {props.isEditing ? "Edit Goal" : "Add New Goal"}
+          </p>
         ) : (
           <input
             className={styles.addGoalInput}
@@ -130,7 +144,16 @@ export default function AddGoal(props: AddGoalI) {
         )}
         {props.isCalendarOpen && (
           <div className={styles.calendarContainer}>
-            <Calendar onClickDay={props.onClickDay} />
+            <Calendar
+              onClickDay={props.onClickDay}
+              tileDisabled={tileDisabled}
+              minDate={minDate}
+              value={
+                props.newGoalDate
+                  ? new Date(props.newGoalDate)
+                  : new Date(props.goalDate)
+              }
+            />
           </div>
         )}
         <div className={styles.addCancelContainer}>
