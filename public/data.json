@@ -1,20 +1,140 @@
 {
-  "goals": [],
+  "totalDiamonds": 10,
+  "totalBlueGems": 40,
+  "totalPinkGems": 10,
+  "totalRedGems": 0,
+  "totalGreenGems": 20,
+  "goals": [
+    {
+      "title": "sd",
+      "price": 0,
+      "coverName": "icecream",
+      "rewardName": "sss",
+      "isCustom": true,
+      "currency": "blue-gem",
+      "date": "Apr 30, 2025"
+    },
+    {
+      "title": "sadsa",
+      "price": 0,
+      "coverName": "sleep",
+      "rewardName": "asdasd",
+      "isCustom": true,
+      "currency": "blue-gem",
+      "date": "Apr 30, 2025"
+    }
+  ],
   "rewards": [
     {
-      "title": "ee",
-      "diamonds": 30,
+      "title": "book",
+      "price": 50,
+      "currency": "green-gem",
       "isWishListed": false,
+      "cover": "book",
+      "id": "custom-reward-1"
+    },
+    {
+      "title": "coffee",
+      "price": 50,
+      "currency": "green-gem",
+      "isWishListed": false,
+      "cover": "coffee",
+      "id": "custom-reward-2",
+      "claimedDate": "Apr 30, 2025"
+    },
+    {
+      "title": "food",
+      "currency": "pink-gem",
+      "price": 50,
+      "isWishListed": false,
+      "cover": "food",
+      "id": "custom-reward-3"
+    },
+    {
+      "title": "icecream",
+      "currency": "green-gem",
+      "price": 50,
+      "isWishListed": false,
+      "cover": "icecream",
+      "id": "custom-reward-4"
+    },
+    {
+      "title": "meditate",
+      "currency": "green-gem",
+      "price": 50,
+      "isWishListed": true,
+      "cover": "meditate",
+      "id": "custom-reward-5"
+    },
+    {
+      "title": "sleep",
+      "currency": "green-gem",
+      "price": 50,
+      "isWishListed": true,
+      "cover": "sleep",
+      "id": "custom-reward-6"
+    },
+    {
+      "title": "movie",
+      "currency": "blue-gem",
+      "price": 50,
+      "isWishListed": false,
+      "cover": "movie",
+      "id": "custom-reward-7",
+      "claimedDate": "Apr 30, 2025"
+    },
+    {
+      "title": "videogames",
+      "currency": "blue-gem",
+      "price": 50,
+      "isWishListed": false,
+      "cover": "videogames",
+      "id": "custom-reward-8",
+      "claimedDate": "Apr 30, 2025"
+    },
+    {
+      "title": "workout",
+      "currency": "blue-gem",
+      "price": 50,
+      "isWishListed": false,
+      "cover": "workout",
+      "id": "custom-reward-9",
+      "claimedDate": "Apr 30, 2025"
+    },
+    {
+      "title": "sadad",
+      "price": 200,
+      "currency": "pink-gem",
       "cover": "reward",
-      "id": "1bbd476c-9f2f-4760-86b1-991e84dc4248"
+      "id": "68672079-eacc-48e9-9de7-4257a6a015e8",
+      "isWishListed": false
+    },
+    {
+      "title": "heh",
+      "price": 10,
+      "currency": "green-gem",
+      "cover": "reward",
+      "id": "a33536d1-d60c-420e-9a4e-ec76cbb74b95",
+      "isWishListed": false
+    },
+    {
+      "title": "sdfsdf",
+      "price": 10,
+      "currency": "green-gem",
+      "cover": "reward",
+      "id": "7f61a37d-fa0e-4bf6-8f62-27cdc987bc2b",
+      "isWishListed": false
     }
   ],
   "habits": [
     {
       "title": "Work on this",
-      "latestStreak": 1,
+      "latestStreak": 3,
       "maxStreak": 6,
       "dates": [
+        "Apr 30, 2025",
+        "Apr 29, 2025",
+        "Apr 28, 2025",
         "Apr 14, 2025",
         "Apr 11, 2025",
         "Apr 10, 2025",
@@ -44,8 +164,77 @@
       "dates": []
     }
   ],
-  "totalDiamonds": 150,
-  "todaysHistory": [],
+  "todaysHistory": [
+    {
+      "date": "Apr 30, 2025",
+      "type": "goal",
+      "title": "ewrwer"
+    },
+    {
+      "date": "Apr 30, 2025",
+      "type": "goal",
+      "title": "werwer"
+    },
+    {
+      "date": "Apr 30, 2025",
+      "type": "reward",
+      "title": "coffee",
+      "cover": "coffee"
+    },
+    {
+      "date": "Apr 30, 2025",
+      "type": "goal",
+      "title": "zxzxzcxz"
+    },
+    {
+      "date": "Apr 30, 2025",
+      "type": "goal",
+      "title": "dasdsa"
+    },
+    {
+      "date": "Apr 30, 2025",
+      "type": "goal",
+      "title": "adasdasd"
+    },
+    {
+      "date": "Apr 30, 2025",
+      "type": "habit",
+      "title": "Work on this"
+    },
+    {
+      "date": "Apr 30, 2025",
+      "type": "goal",
+      "title": "dd"
+    },
+    {
+      "date": "Apr 30, 2025",
+      "type": "reward",
+      "title": "videogames",
+      "cover": "videogames"
+    },
+    {
+      "date": "Apr 30, 2025",
+      "type": "reward",
+      "title": "movie",
+      "cover": "movie"
+    },
+    {
+      "date": "Apr 30, 2025",
+      "type": "reward",
+      "title": "workout",
+      "cover": "workout"
+    },
+    {
+      "date": "Apr 30, 2025",
+      "type": "goal",
+      "title": "dsadasd"
+    },
+    {
+      "date": "Apr 30, 2025",
+      "type": "goal",
+      "title": "yyu"
+    }
+  ],
   "notes": [
     {
       "content": "- [x] edit notes *\n- [x] Do to list\n- [x] open notes *\n- [x] notess visibility none while edited\n- [x] reminders\n- [x] todays goals should say 'today'\n- [x] checklist items should not scroll horizontally\n- [x] notes should be scrollable vertically\n- [x] items in todo list should be moveable up and down\n- [x] default note should be plain text on open\n- [x] fix add new reward\n- [x] fix modal cover images for rewards\n- [x] reward shop should close on page change too or on click outside of rewards\n- [x] checklist dont save without title?\n- [x] edit and delete goals\n- [x] should not be able to choose goal dates before today\n- [x] min and max height of saved notes\n- [x] todays history should be for TODAY\n- [ ] save shit when changing page if not sav\n- [ ] unfinished goals should stay on top (overdue) even if the date has passed\n- [ ] icons for goals?\n- [ ] group of goals for a single award\n- [ ] sub goals\n- [ ] move notes around\n- [ ] routines and wishlists to save\n- [ ] goals should also be moveable up and down\n- [ ] checklist items should have the option of beign more than 1 line jesus...\n- [ ] ordered and unordered lists",

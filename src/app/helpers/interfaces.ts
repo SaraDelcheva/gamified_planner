@@ -1,6 +1,7 @@
 export interface GoalI {
   title: string;
-  diamonds: number;
+  price: number;
+  currency: string;
   coverName: string;
   rewardName: string;
   isCustom: boolean;
@@ -37,19 +38,22 @@ export interface HabitI {
 
 export interface RewardI {
   title: string;
-  diamonds: number | null;
+  price: number | null;
+  currency: string;
   isWishListed: boolean;
   cover: string;
   id: string;
+  claimedDate?: string;
 }
 
 export interface AddGoalI {
   goalName: string | null;
-  difficulty: number | null;
+  difficulty: number;
   isCustom: boolean;
   customCoverName: string;
   newGoalDate: string;
   goalDate: string;
+  currency: string;
 
   addNewGoal: (containerDate: string) => void;
   cancelAddGoal: () => void;
@@ -68,6 +72,8 @@ export interface AddGoalI {
   onClickDay: (value: Date) => void;
   isEditing: boolean;
   editingGoalId: string | null;
+  rewardCurrency: string;
+  handleInputCurrencyChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export interface GoalsForTodayI extends AddGoalI {
@@ -87,8 +93,10 @@ export interface RewardsI {
   rewards: RewardI[];
   rewardName: string;
   rewardPrice: number | null;
+  rewardCurrency: string;
   InputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  DiamondChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  PriceChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  currencyChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   addNewReward: () => void;
   claimReward: (e: React.MouseEvent<HTMLButtonElement>) => void;
   coverName: string;
@@ -96,13 +104,21 @@ export interface RewardsI {
   isModalOpen: boolean;
   setIsModalOpen: (isModalOpen: boolean) => void;
   handleIsWishListed: (e: React.MouseEvent<HTMLDivElement>) => void;
+  currentDate: string;
+  totalBlueGems: number;
+  totalRedGems: number;
+  totalGreenGems: number;
+  totalPinkGems: number;
 }
+
 export interface AddNewRewardI {
   addNewReward: () => void;
-  diamonds: number | null;
+  rewardPrice: number | null;
+  rewardCurrency: string;
   newRewardName: string | null;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleInputDiamondChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleInputPriceChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleInputCurrencyChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   coverName: string;
   setCoverName: React.Dispatch<React.SetStateAction<string>>;
   isModalOpen: boolean;
@@ -111,19 +127,28 @@ export interface AddNewRewardI {
 
 export interface RewardCardI {
   rewardName: string;
-  diamonds: number;
+  price: number;
+  currency: string;
   cover: string;
-  totalDiamonds: number;
+  totalBlueGems: number;
+  totalRedGems: number;
+  totalGreenGems: number;
+  totalPinkGems: number;
   claimReward: (e: React.MouseEvent<HTMLButtonElement>) => void;
   id: string;
   handleIsWishListed: (e: React.MouseEvent<HTMLDivElement>) => void;
   isWishListed: boolean;
+  claimedDate?: string;
+  currentDate: string;
 }
 
 export interface SaveDataFunctionI {
   (
     updatedData: Partial<{
-      totalDiamonds: number;
+      totalBlueGems?: number;
+      totalRedGems?: number;
+      totalGreenGems?: number;
+      totalPinkGems?: number;
       rewards: RewardI[];
       goals: GoalI[];
       todaysHistory: TodaysHistoryI[];

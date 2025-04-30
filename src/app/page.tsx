@@ -35,6 +35,8 @@ export default function Home() {
     onClickDay,
     isEditing,
     editingGoalId,
+    rewardCurrency,
+    handleInputCurrencyChange,
   } = useGoalManager({ daysToShow: 1 });
 
   return (
@@ -59,6 +61,7 @@ export default function Home() {
               notes,
               isEditing,
               editingGoalId,
+              currency: rewardCurrency,
 
               // From AddGoalI
               goalName,
@@ -82,6 +85,8 @@ export default function Home() {
               expanded: expanded[formattedDate] || false,
               isCalendarOpen: isCalendarOpen[formattedDate] || false,
               onClickDay,
+              rewardCurrency,
+              handleInputCurrencyChange,
             }}
           />
         ))}

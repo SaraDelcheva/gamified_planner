@@ -12,7 +12,10 @@ export function formatDate(date: Date) {
 // -------------------------------------------------------------------- Save all updated data at once
 export async function saveData(
   updatedData: Partial<{
-    totalDiamonds: number;
+    totalBlueGems: number;
+    totalRedGems: number;
+    totalGreenGems: number;
+    totalPinkGems: number;
     rewards: RewardI[];
     goals: GoalI[];
     todaysHistory: TodaysHistoryI[];

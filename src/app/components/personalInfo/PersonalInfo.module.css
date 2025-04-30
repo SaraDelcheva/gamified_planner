@@ -19,33 +19,33 @@
 
 .avatar {
   height: 100px;
-  width: 200px;
-  background-image: url("../../../../public/images/avatar.png");
+  width: 100px;
+  background-image: url("../../../../public/images/avatar.svg");
   background-position: left;
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .personalStatusDetails {
+  margin-left: 30px;
   color: #ffffff;
+  height: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+}
+
+.smallText {
+  font-size: 1rem;
+  margin-left: 5px;
 }
 
 .totalDiamonds {
   font-size: 1.57rem;
   display: flex;
   align-items: center;
-}
-
-.treasurebox {
-  height: 100px;
-  width: 100px;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-image: url("../../../../public/images/treasure.png");
+  min-width: 100px;
 }
 
 .todaysHistoryContainer {
@@ -80,22 +80,44 @@
   height: 35px;
   width: 35px;
   background-position: center;
-  background-size: 25px 25px;
+  background-size: 20px 20px;
   background-repeat: no-repeat;
-  border-radius: 50;
-  background-color: #222728;
+  border-radius: 50px;
+  background-color: white;
 }
 
 .claimedRewardCover {
   border: 1px solid white;
+  background-image: url("../../../../public/images/reward-dark.svg");
 }
 
 .claimedGoalCover {
   border: 1px solid white;
-  /* background-image: url("../../../../public/images/diamond.svg"); */
+  background-image: url("../../../../public/images/check.svg");
 }
 
 .claimedHabitCover {
   border: 1px solid white;
-  /* background-image: url("../../../../public/images/chaincover.svg"); */
+  background-image: url("../../../../public/images/chain-dark.svg");
+}
+
+.gemCover {
+  height: 35px;
+  width: 35px;
+  background-position: center;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+}
+
+.blueGem {
+  background-image: url("../../../../public/images/blue-gem.svg");
+}
+.redGem {
+  background-image: url("../../../../public/images/red-gem.svg");
+}
+.greenGem {
+  background-image: url("../../../../public/images/green-gem.svg");
+}
+.pinkGem {
+  background-image: url("../../../../public/images/pink-gem.svg");
 }

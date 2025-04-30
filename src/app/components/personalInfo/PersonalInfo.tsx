@@ -1,10 +1,14 @@
 import styles from "./PersonalInfo.module.css";
 import { useDiamonds } from "../../context/DiamondsContext";
 
-import { IoDiamondOutline } from "react-icons/io5";
-
 export default function PersonalInfo() {
-  const { totalDiamonds, todaysHistory } = useDiamonds();
+  const {
+    todaysHistory,
+    totalBlueGems,
+    totalRedGems,
+    totalGreenGems,
+    totalPinkGems,
+  } = useDiamonds();
 
   return (
     <div className={styles.personalInfo}>
@@ -13,10 +17,25 @@ export default function PersonalInfo() {
         <div className={styles.personalStatus}>
           <div className={styles.avatar}></div>
           <div className={styles.personalStatusDetails}>
-            <div className={styles.treasurebox}></div>
-            <div>Total Diamonds:</div>
             <div className={styles.totalDiamonds}>
-              <IoDiamondOutline /> {totalDiamonds}
+              <div className={styles.totalDiamonds}>
+                <div className={`${styles.gemCover} ${styles.blueGem}`}></div>
+                <span className={styles.smallText}> {totalBlueGems}</span>
+              </div>{" "}
+              <div className={styles.totalDiamonds}>
+                <div className={`${styles.gemCover} ${styles.redGem}`}></div>
+                <span className={styles.smallText}> {totalRedGems}</span>
+              </div>{" "}
+            </div>
+            <div className={styles.totalDiamonds}>
+              <div className={styles.totalDiamonds}>
+                <div className={`${styles.gemCover} ${styles.greenGem}`}></div>
+                <span className={styles.smallText}> {totalGreenGems}</span>
+              </div>{" "}
+              <div className={styles.totalDiamonds}>
+                <div className={`${styles.gemCover} ${styles.pinkGem}`}></div>
+                <span className={styles.smallText}> {totalPinkGems}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -38,12 +57,7 @@ export default function PersonalInfo() {
                   )}
                   {item.type === "reward" && (
                     <div className={`${styles.reward} ${styles.historyItem}`}>
-                      <div
-                        className={styles.claimedRewardCover}
-                        style={{
-                          backgroundImage: `url('/images/rewards/${item.cover}')`,
-                        }}
-                      ></div>
+                      <div className={styles.claimedRewardCover}></div>
                       <div>Claimed reward: {item.title} </div>
                     </div>
                   )}

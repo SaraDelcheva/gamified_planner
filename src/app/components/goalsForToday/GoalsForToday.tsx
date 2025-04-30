@@ -54,6 +54,9 @@ export default function GoalsForToday(props: GoalsForTodayI) {
             goalDate={props.goalDate}
             onClickDay={props.onClickDay}
             newGoalDate={props.newGoalDate}
+            rewardCurrency={props.rewardCurrency}
+            handleInputCurrencyChange={props.handleInputCurrencyChange}
+            currency={props.currency}
           />
         </div>
 
@@ -65,7 +68,8 @@ export default function GoalsForToday(props: GoalsForTodayI) {
                 <NewGoal
                   key={index}
                   goalTitle={goal.title}
-                  diamonds={goal.diamonds}
+                  price={goal.price}
+                  currency={goal.currency}
                   isCustom={goal.isCustom}
                   completeGoal={props.completeGoal}
                   deleteGoal={props.deleteGoal}

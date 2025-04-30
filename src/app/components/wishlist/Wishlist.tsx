@@ -8,15 +8,16 @@ interface WishlistProps {
   rewards: RewardI[];
   claimReward: (e: React.MouseEvent<HTMLButtonElement>) => void;
   handleIsWishListed: (e: React.MouseEvent<HTMLDivElement>) => void;
+  today: string;
 }
 
-export default function Wishlist({
-  rewards,
-  claimReward,
-  handleIsWishListed,
-}: WishlistProps) {
-  const { totalDiamonds } = useDiamonds();
-  const wishlistedRewards = rewards.filter((reward) => reward.isWishListed);
+export default function Wishlist(props: WishlistProps) {
+  const { totalBlueGems, totalRedGems, totalGreenGems, totalPinkGems } =
+    useDiamonds();
+  const wishlistedRewards = props.rewards.filter(
+    (reward) => reward.isWishListed
+  );
+
   // const totalWishListPrice = wishlistedRewards.reduce(
   //   (total, reward) => total + (reward.diamonds ?? 0),
   //   0
@@ -29,13 +30,19 @@ export default function Wishlist({
           <RewardCard
             key={reward.id}
             rewardName={reward.title}
-            diamonds={reward.diamonds ?? 0}
+            price={reward.price ?? 0}
             cover={reward.cover}
-            totalDiamonds={totalDiamonds}
-            claimReward={claimReward}
+            totalBlueGems={totalBlueGems}
+            totalGreenGems={totalGreenGems}
+            totalPinkGems={totalPinkGems}
+            totalRedGems={totalRedGems}
+            claimReward={props.claimReward}
             id={reward.id}
-            handleIsWishListed={handleIsWishListed}
+            handleIsWishListed={props.handleIsWishListed}
             isWishListed={reward.isWishListed}
+            claimedDate={reward.claimedDate}
+            currency={reward.currency}
+            currentDate={props.today}
           />
         ))}
       </div>

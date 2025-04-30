@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import styles from "./NewGoal.module.css";
-import { IoDiamondOutline } from "react-icons/io5";
 import { FaCheck } from "react-icons/fa";
-import { BiDiamond } from "react-icons/bi";
 import { MdDeleteForever, MdOutlineEdit } from "react-icons/md";
 
 export default function NewGoal({
   goalTitle,
-  diamonds,
+  price,
+  currency,
   completeGoal,
   deleteGoal,
   editGoal,
@@ -18,7 +17,8 @@ export default function NewGoal({
   customRewardName,
 }: {
   goalTitle: string;
-  diamonds: number;
+  price: number;
+  currency: string;
   completeGoal: (goalName: string) => void;
   deleteGoal: (goalName: string) => void;
   editGoal: (goalName: string) => void;
@@ -72,7 +72,20 @@ export default function NewGoal({
             ></button>
           ) : (
             <button className={`${styles.newBtn} ${styles.diamondBtn}`}>
-              {diamonds} <IoDiamondOutline />
+              {price}{" "}
+              <div
+                className={styles.gemIcon}
+                style={{
+                  backgroundImage: `url('/images/${
+                    currency || "blue-gem"
+                  }.svg')`,
+                  width: "15px",
+                  height: "15px",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                  marginLeft: "5px",
+                }}
+              ></div>
             </button>
           )}
 
@@ -85,10 +98,22 @@ export default function NewGoal({
               <p className={styles.customRewardDescriptionP}>
                 Receive on completion:
               </p>
-              <p className={styles.customRewardName}>
-                <BiDiamond />
-                {isCustom ? <>{customRewardName}</> : <>{diamonds}</>}
-              </p>
+              <div className={styles.customRewardName}>
+                <div
+                  className={styles.gemIcon}
+                  style={{
+                    backgroundImage: `url('/images/${
+                      currency || "blue-gem"
+                    }.svg')`,
+                    width: "10px",
+                    height: "10px",
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    marginLeft: "5px",
+                  }}
+                ></div>
+                {isCustom ? <>{customRewardName}</> : <>{price}</>}
+              </div>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.rewardCard:hover {
+.rewardCard:hover:not(.rewardCard.noHoverEffect) {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -64,4 +64,43 @@
 
 .wishlistIcon {
   margin-right: 5px;
+}
+
+.claimed {
+  opacity: 0.85;
+  position: relative;
+}
+
+.claimed::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0 20px 20px 0;
+  border-style: solid;
+  border-color: #419b81 transparent;
+}
+
+.claimedBadge {
+  background-color: #4a6670;
+  color: #fff;
+  padding: 5px 0;
+  margin-left: 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.warning {
+  color: rgb(173, 86, 86);
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  font-size: 0.8rem;
+  display: none;
+}
+
+.noHoverEffect:hover .warning {
+  display: block;
 }

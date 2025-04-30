@@ -1,18 +1,27 @@
 "use client";
 import { useState } from "react";
 import styles from "./RewardCard.module.css";
-import { IoDiamondOutline } from "react-icons/io5";
 import { RewardCardI } from "@/app/helpers/interfaces";
 import { AiFillHeart } from "react-icons/ai";
 
 export default function RewardCard(props: RewardCardI) {
   const [isHovered, setIsHovered] = useState(false);
-  // const [isWishListed, setIsWishListed] = useState(false);
-  const isClaimable = props.diamonds <= props.totalDiamonds;
+  const isClaimable =
+    props.currency === "blue-gem"
+      ? props.price <= props.totalBlueGems
+      : props.currency === "pink-gem"
+      ? props.price <= props.totalPinkGems
+      : props.currency === "red-gem"
+      ? props.price <= props.totalRedGems
+      : props.price <= props.totalGreenGems;
+  const wasClaimedToday = props.claimedDate === props.currentDate;
+  const shouldDisableHover = !isClaimable || wasClaimedToday;
 
   return (
     <div
-      className={`${styles.rewardCard} rewardCard`}
+      className={`${styles.rewardCard} ${
+        shouldDisableHover ? styles.noHoverEffect : ""
+      }  rewardCard`}
       data-reward-id={props.id}
     >
       <div className={styles.rewardCardTitle}>
@@ -27,7 +36,7 @@ export default function RewardCard(props: RewardCardI) {
             style={{ color: props.isWishListed ? "red" : "white" }}
           />
         </div>
-        <p className={`${styles.rewardCardP} rewardCardP`}>
+        <p className={`${styles.rewardCardP}  rewardCardP`}>
           {props.rewardName}
         </p>
       </div>
@@ -46,7 +55,9 @@ export default function RewardCard(props: RewardCardI) {
         ></div>
         <div className={styles.rewardCardInfo}>
           <div className="buttonContainer">
-            {isHovered && isClaimable ? (
+            {wasClaimedToday ? (
+              <div className={styles.claimedBadge}>Claimed Today</div>
+            ) : isHovered && isClaimable ? (
               <button
                 className={`${styles.claimBtn} claimBtn boxShadow`}
                 disabled={!isClaimable}
@@ -59,12 +70,26 @@ export default function RewardCard(props: RewardCardI) {
                 className={`${styles.newBtn} newBtn boxShadow`}
                 disabled={!isClaimable}
               >
-                {props.diamonds} <IoDiamondOutline className="diamondIcon" />
+                {props.price}
+                <div
+                  className={styles.gemIcon}
+                  style={{
+                    backgroundImage: `url('/images/${
+                      props.currency || "blue-gem"
+                    }.svg')`,
+                    width: "20px",
+                    height: "20px",
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    marginLeft: "5px",
+                  }}
+                ></div>
               </button>
             )}
           </div>
         </div>
       </div>
+      <p className={styles.warning}>Not enough gems.</p>
     </div>
   );
 }

@@ -2,7 +2,6 @@
 import { useState } from "react";
 import styles from "./AddNewReward.module.css";
 import { AiOutlinePlus } from "react-icons/ai";
-import { IoDiamondOutline } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaPlay } from "react-icons/fa";
 import { AddNewRewardI } from "@/app/helpers/interfaces";
@@ -12,6 +11,7 @@ export default function AddNewReward(props: AddNewRewardI) {
   const [expanded, setExpanded] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const diamondOptions = [5, 10, 20, 30, 50, 100, 200, 500, 1000];
+  const currencyOptions = ["blue-gem", "pink-gem", "green-gem", "red-gem"];
 
   return (
     <>
@@ -50,8 +50,8 @@ export default function AddNewReward(props: AddNewRewardI) {
               <div className={styles.rewardPrice}>
                 <select
                   className={styles.addNewRewardDropdown}
-                  value={props.diamonds ?? ""}
-                  onChange={(e) => props.handleInputDiamondChange(e)}
+                  value={props.rewardPrice ?? ""}
+                  onChange={(e) => props.handleInputPriceChange(e)}
                 >
                   <option value="" disabled>
                     Price:
@@ -62,7 +62,37 @@ export default function AddNewReward(props: AddNewRewardI) {
                     </option>
                   ))}
                 </select>
-                <IoDiamondOutline />
+
+                <select
+                  className={styles.addNewRewardCurrency}
+                  value={props.rewardCurrency || "blue-gem"}
+                  onChange={(e) => props.handleInputCurrencyChange(e)}
+                >
+                  {currencyOptions.map((currency) => (
+                    <option
+                      key={currency}
+                      value={currency}
+                      className={styles.currencyOption}
+                    >
+                      {currency.split("-")[0]}
+                    </option>
+                  ))}
+                </select>
+
+                {/* Show the currently selected gem */}
+                <div
+                  className={styles.selectedGem}
+                  style={{
+                    backgroundImage: `url('/images/${
+                      props.rewardCurrency || "blue-gem"
+                    }.svg')`,
+                    width: "20px",
+                    height: "20px",
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    marginLeft: "5px",
+                  }}
+                ></div>
               </div>
               <div
                 className={styles.addCancelContainer}

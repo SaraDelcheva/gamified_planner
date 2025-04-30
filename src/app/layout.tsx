@@ -34,14 +34,26 @@ const geistMono = Geist_Mono({
 });
 
 function RewardContent() {
-  const { totalDiamonds, setTotalDiamonds, todaysHistory, setTodaysHistory } =
-    useDiamonds();
+  const {
+    todaysHistory,
+    setTodaysHistory,
+    totalBlueGems,
+    setTotalBlueGems,
+    totalGreenGems,
+    setTotalGreenGems,
+    totalPinkGems,
+    setTotalPinkGems,
+    totalRedGems,
+    setTotalRedGems,
+  } = useDiamonds();
   const [rewards, setRewards] = useState<RewardI[]>([]);
   const [rewardName, setRewardName] = useState<string>("");
+  const [rewardCurrency, setRewardCurrency] = useState<string>("blue-gem");
   const [rewardPrice, setRewardPrice] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [coverName, setCoverName] = useState<string>("reward");
   const dates = createDates(0, 1);
+  const today = dates[0].formattedDate;
 
   // ---------- Data Fetching ----------
   useEffect(() => {
@@ -55,6 +67,41 @@ function RewardContent() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    function resetClaimedDates() {
+      const today = dates[0].formattedDate;
+
+      // Check if any rewards have claimed dates from previous days
+      const needsReset = rewards.some(
+        (reward) => reward.claimedDate && reward.claimedDate !== today
+      );
+
+      if (needsReset) {
+        const updatedRewards = rewards.map((reward) => {
+          // If claimed date is not today, reset it
+          if (reward.claimedDate && reward.claimedDate !== today) {
+            return { ...reward, claimedDate: undefined };
+          }
+          return reward;
+        });
+
+        setRewards(updatedRewards);
+        saveData({ rewards: updatedRewards });
+      }
+    }
+
+    resetClaimedDates();
+
+    // const intervalId = setInterval(() => {
+    //   const newDates = createDates(0, 1);
+    //   if (newDates[0].formattedDate !== dates[0].formattedDate) {
+    //     resetClaimedDates();
+    //   }
+    // }, 60000);
+
+    // return () => clearInterval(intervalId);
+  }, [rewards, dates]);
+
   // ---------- Handlers for Reward Management ----------
   //Add a New Reward
   function addNewReward() {
@@ -64,58 +111,111 @@ function RewardContent() {
       ...rewards,
       {
         title: rewardName,
-        diamonds: rewardPrice,
-        isWishListed: false,
+        price: rewardPrice,
+        currency: rewardCurrency,
         cover: coverName,
         id: uuidv4(),
+        isWishListed: false,
       },
     ];
     setRewards(updatedRewards);
     saveData({ rewards: updatedRewards });
     setCoverName("reward");
     setRewardName("");
+    setRewardCurrency("blue-gem");
     setRewardPrice(null);
+  }
+
+  // Check if a reward was claimed today
+  function wasClaimedToday(reward: RewardI): boolean {
+    if (!reward.claimedDate) return false;
+
+    const today = dates[0].formattedDate;
+    return reward.claimedDate === today;
   }
 
   //Claim Reward
   function claimReward(e: React.MouseEvent<HTMLButtonElement>) {
-    const claimableRewards = rewards.filter(
-      (reward) => reward.diamonds && reward.diamonds <= totalDiamonds
-    );
-    if (!claimableRewards.length) return;
-
     const button = e.target as HTMLButtonElement;
-    const claimedReward = rewards.filter(
-      (reward) =>
-        reward.id ===
-        button.parentElement?.parentElement?.parentElement?.parentElement?.getAttribute(
-          "data-reward-id"
-        )
-    );
+    const rewardId =
+      button.parentElement?.parentElement?.parentElement?.parentElement?.getAttribute(
+        "data-reward-id"
+      );
 
-    const updatedRewards = rewards.filter(
-      (reward) => reward.id !== claimedReward[0].id
-    );
+    const claimedReward = rewards.find((reward) => reward.id === rewardId);
+    if (!claimedReward) return;
 
-    const newTotalDiamonds = totalDiamonds - claimedReward[0].diamonds!;
+    if (!claimedReward.price || wasClaimedToday(claimedReward)) {
+      return;
+    }
+
+    // Determine which gem type to deduct from based on the reward's currency
+    let canAfford = false;
+    switch (claimedReward.currency) {
+      case "blue-gem":
+        canAfford = totalBlueGems >= claimedReward.price;
+        break;
+      case "red-gem":
+        canAfford = totalRedGems >= claimedReward.price;
+        break;
+      case "green-gem":
+        canAfford = totalGreenGems >= claimedReward.price;
+        break;
+      case "pink-gem":
+        canAfford = totalPinkGems >= claimedReward.price;
+        break;
+    }
+
+    if (!canAfford) {
+      return;
+    }
+    let newTotalBlueGems = totalBlueGems;
+    let newTotalRedGems = totalRedGems;
+    let newTotalGreenGems = totalGreenGems;
+    let newTotalPinkGems = totalPinkGems;
+
+    switch (claimedReward.currency) {
+      case "blue-gem":
+        newTotalBlueGems = totalBlueGems - claimedReward.price;
+        setTotalBlueGems(newTotalBlueGems);
+        break;
+      case "red-gem":
+        newTotalRedGems = totalRedGems - claimedReward.price;
+        setTotalRedGems(newTotalRedGems);
+        break;
+      case "green-gem":
+        newTotalGreenGems = totalGreenGems - claimedReward.price;
+        setTotalGreenGems(newTotalGreenGems);
+        break;
+      case "pink-gem":
+        newTotalPinkGems = totalPinkGems - claimedReward.price;
+        setTotalPinkGems(newTotalPinkGems);
+        break;
+    }
+
+    const updatedRewards = rewards.map((reward) =>
+      reward.id === rewardId ? { ...reward, claimedDate: today } : reward
+    );
 
     const newHistory = [
       ...todaysHistory,
       {
         date: dates[0].formattedDate,
         type: "reward",
-        title: claimedReward[0].title,
-        cover: claimedReward[0].cover,
+        title: claimedReward.title,
+        cover: claimedReward.cover,
       },
     ];
 
     setTodaysHistory(newHistory);
     setRewards(updatedRewards);
-    setTotalDiamonds(newTotalDiamonds);
 
     saveData({
       rewards: updatedRewards,
-      totalDiamonds: newTotalDiamonds,
+      totalBlueGems: newTotalBlueGems,
+      totalRedGems: newTotalRedGems,
+      totalGreenGems: newTotalGreenGems,
+      totalPinkGems: newTotalPinkGems,
       todaysHistory: newHistory,
     });
   }
@@ -139,26 +239,36 @@ function RewardContent() {
 
   return (
     <>
-      <Wishlist {...{ rewards, claimReward, handleIsWishListed }} />
+      <Wishlist {...{ rewards, claimReward, handleIsWishListed, today }} />
       <Rewards
         {...{
           rewards,
           rewardName,
           rewardPrice,
+          rewardCurrency,
           isModalOpen,
           setIsModalOpen,
           InputChange: (e) => setRewardName(e.target.value),
-          DiamondChange: (e) => {
+          PriceChange: (e) => {
             e.preventDefault();
             setRewardPrice(
               e.target.value.trim() === "" ? null : Number(e.target.value)
             );
+          },
+          currencyChange: (e) => {
+            e.preventDefault();
+            setRewardCurrency(e.target.value.trim() || "blue-gem");
           },
           addNewReward,
           claimReward,
           coverName,
           setCoverName,
           handleIsWishListed,
+          currentDate: today,
+          totalBlueGems,
+          totalRedGems,
+          totalGreenGems,
+          totalPinkGems,
         }}
       />
     </>

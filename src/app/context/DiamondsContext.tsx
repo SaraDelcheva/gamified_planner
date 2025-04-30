@@ -9,6 +9,14 @@ interface DiamondsContextType {
   setTotalDiamonds: React.Dispatch<React.SetStateAction<number>>;
   todaysHistory: TodaysHistoryI[];
   setTodaysHistory: React.Dispatch<React.SetStateAction<TodaysHistoryI[]>>;
+  totalPinkGems: number;
+  setTotalPinkGems: React.Dispatch<React.SetStateAction<number>>;
+  totalRedGems: number;
+  setTotalRedGems: React.Dispatch<React.SetStateAction<number>>;
+  totalBlueGems: number;
+  setTotalBlueGems: React.Dispatch<React.SetStateAction<number>>;
+  totalGreenGems: number;
+  setTotalGreenGems: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const DiamondsContext = createContext<DiamondsContextType | undefined>(
@@ -17,6 +25,10 @@ const DiamondsContext = createContext<DiamondsContextType | undefined>(
 
 export function DiamondsProvider({ children }: { children: React.ReactNode }) {
   const [totalDiamonds, setTotalDiamonds] = useState<number>(0);
+  const [totalBlueGems, setTotalBlueGems] = useState<number>(0);
+  const [totalRedGems, setTotalRedGems] = useState<number>(0);
+  const [totalGreenGems, setTotalGreenGems] = useState<number>(0);
+  const [totalPinkGems, setTotalPinkGems] = useState<number>(0);
   const [todaysHistory, setTodaysHistory] = useState<TodaysHistoryI[]>([]);
 
   useEffect(() => {
@@ -24,6 +36,10 @@ export function DiamondsProvider({ children }: { children: React.ReactNode }) {
       const res = await fetch("/api/data");
       const data = await res.json();
       setTotalDiamonds(data.totalDiamonds || 0);
+      setTotalBlueGems(data.totalBlueGems || 0);
+      setTotalRedGems(data.totalRedGems || 0);
+      setTotalPinkGems(data.totalPinkGems || 0);
+      setTotalGreenGems(data.totalGreenGems || 0);
       console.log("todays history before", todaysHistory);
 
       const cleanedHistory = cleanTodaysHistory(data.todaysHistory || []);
@@ -44,6 +60,14 @@ export function DiamondsProvider({ children }: { children: React.ReactNode }) {
         setTotalDiamonds,
         todaysHistory,
         setTodaysHistory,
+        totalPinkGems,
+        setTotalPinkGems,
+        totalRedGems,
+        setTotalRedGems,
+        totalBlueGems,
+        setTotalBlueGems,
+        totalGreenGems,
+        setTotalGreenGems,
       }}
     >
       {children}

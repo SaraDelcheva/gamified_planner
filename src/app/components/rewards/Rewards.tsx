@@ -8,14 +8,18 @@ import { useDiamonds } from "@/app/context/DiamondsContext";
 
 export default function Rewards(props: Omit<RewardsI, "totalDiamonds">) {
   const [isShopOpen, setIsShopOpen] = useState(false);
-  const { totalDiamonds } = useDiamonds();
+  const { totalBlueGems, totalRedGems, totalGreenGems, totalPinkGems } =
+    useDiamonds();
   const rewardsRef = useRef<HTMLDivElement>(null);
+  const shopBtnRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
         rewardsRef.current &&
         !rewardsRef.current.contains(event.target as Node) &&
+        shopBtnRef.current &&
+        !shopBtnRef.current.contains(event.target as Node) &&
         isShopOpen
       ) {
         setIsShopOpen(false);
@@ -34,6 +38,7 @@ export default function Rewards(props: Omit<RewardsI, "totalDiamonds">) {
   return (
     <>
       <div
+        ref={shopBtnRef}
         className={styles.shop}
         onClick={() => {
           setIsShopOpen(!isShopOpen);
@@ -45,31 +50,41 @@ export default function Rewards(props: Omit<RewardsI, "totalDiamonds">) {
         className={`${styles.rewards} ${isShopOpen && styles.open}`}
       >
         <div className={styles.header}>Rewards Shop</div>
+
         <div className={styles.rewardsContainer}>
-          {props.rewards.map((reward) => (
-            <RewardCard
-              key={reward.id}
-              rewardName={reward.title}
-              diamonds={reward.diamonds ?? 0}
-              cover={reward.cover}
-              totalDiamonds={totalDiamonds}
-              claimReward={props.claimReward}
-              id={reward.id}
-              handleIsWishListed={props.handleIsWishListed}
-              isWishListed={reward.isWishListed}
-            />
-          ))}
           <AddNewReward
-            diamonds={props.rewardPrice}
+            rewardPrice={props.rewardPrice}
+            rewardCurrency={props.rewardCurrency}
+            handleInputCurrencyChange={props.currencyChange}
             newRewardName={props.rewardName}
             addNewReward={props.addNewReward}
             handleInputChange={props.InputChange}
-            handleInputDiamondChange={props.DiamondChange}
+            handleInputPriceChange={props.PriceChange}
             setCoverName={props.setCoverName}
             coverName={props.coverName}
             isModalOpen={props.isModalOpen}
             setIsModalOpen={props.setIsModalOpen}
           />
+
+          {props.rewards.map((reward) => (
+            <RewardCard
+              key={reward.id}
+              rewardName={reward.title}
+              price={reward.price ?? 0}
+              currency={reward.currency}
+              cover={reward.cover}
+              totalBlueGems={totalBlueGems}
+              totalGreenGems={totalGreenGems}
+              totalPinkGems={totalPinkGems}
+              totalRedGems={totalRedGems}
+              claimReward={props.claimReward}
+              id={reward.id}
+              handleIsWishListed={props.handleIsWishListed}
+              isWishListed={reward.isWishListed}
+              claimedDate={reward.claimedDate}
+              currentDate={props.currentDate}
+            />
+          ))}
         </div>
       </div>
     </>

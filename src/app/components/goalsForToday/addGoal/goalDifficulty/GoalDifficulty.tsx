@@ -1,20 +1,34 @@
 import styles from "./GoalDifficulty.module.css";
-import { IoDiamondOutline } from "react-icons/io5";
 
 export default function GoalDifficulty({
   difficultyLevel,
   diamonds,
   easy,
+  currency,
+  selectedDifficulty,
 }: {
   difficultyLevel: string;
   diamonds: number;
   easy: (diamonds: number) => void;
+  currency?: string;
+  selectedDifficulty: number;
 }) {
   return (
-    <div className={styles.difficulty} onClick={() => easy(diamonds)}>
-      <p>{difficultyLevel}</p>
-      <div className={`${styles.diamonds} boxShadow`}>
-        <p className={styles.diamondsP}>{diamonds}</p> <IoDiamondOutline />
+    <div
+      className={`${styles.difficultyOption} ${
+        selectedDifficulty === diamonds ? styles.selectedDifficulty : ""
+      }`}
+      onClick={() => easy(diamonds)}
+    >
+      <p className={styles.diamondsP}>{difficultyLevel}</p>{" "}
+      <div className={`${styles.difficultyBadge} ${styles.boxShadow}`}>
+        <span>{diamonds}</span>
+        <div
+          className={styles.gemIcon}
+          style={{
+            backgroundImage: `url('/images/${currency}.svg')`,
+          }}
+        ></div>
       </div>
     </div>
   );

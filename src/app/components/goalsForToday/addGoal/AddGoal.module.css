@@ -1,66 +1,71 @@
 .addGoal {
-  max-height: 55px;
-  transition: max-height 0.3s ease-in-out, transform 0.3s ease,
-    box-shadow 0.3s ease;
-  border-radius: 10px;
+  max-height: 60px;
+  transition: max-height 0.4s ease-in-out, transform 0.3s ease;
+  border-radius: 12px;
   background-color: #2a3132;
-  cursor: pointer;
   color: #f5f5f5;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 18px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
   overflow: hidden;
+  position: relative;
 }
 
 .addGoal.expanded {
-  max-height: 100vh;
+  max-height: 800px;
 }
 
 .addGoal:not(.expanded) .addGoalHeader:hover {
-  background-color: #3a4a4d;
+  background-color: #344346;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
 }
 
 .addGoal:not(.expanded) .addGoalHeader:hover .addBtn {
-  background-color: #6b8e9c; /* Brighter, more contrasting color */
-  color: #ffffff; /* Brighter white for better contrast */
-  transition: background-color 0.3s ease;
+  background-color: #5d8898;
+  color: #ffffff;
 }
 
 .addGoalHeader {
-  height: 55px;
-  border-radius: 10px;
+  height: 60px;
+  border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  padding: 0 10px;
-  transition: border-radius 0.3s ease, background-color 0.3s ease,
-    transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 0 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .addGoal.expanded .addGoalHeader {
-  border-radius: 10px 10px 0 0;
+  border-radius: 12px 12px 0 0;
+  cursor: default;
 }
 
-.addGoalP {
+.collapsedHeader,
+.expandedHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addGoalTitle {
   font-size: 1.2rem;
-  margin-left: 15px;
   font-weight: 500;
   color: #f5f5f5;
-  opacity: 1;
-  transition: opacity 0.2s ease;
 }
 
 .addGoalInput {
   background-color: transparent;
   color: #f5f5f5;
-  width: 80%;
+  width: 75%;
   font-size: 1.2rem;
-  margin-left: 15px;
   border: none;
+  border-bottom: 1px solid #ffffff4d;
+  padding: 5px 0;
   outline: none;
-  transition: opacity 0.2s ease;
+  transition: border-bottom 0.3s ease;
 }
 
 .addGoalInput::placeholder {
@@ -69,164 +74,250 @@
 
 .addBtn {
   height: 40px;
-  border-radius: 8px;
-  width: 60px;
+  width: 40px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   background-color: #4a6670;
   color: #f5f5f5;
   border: none;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Remove the scale effect on the button itself */
 .addBtn:hover {
-  transform: none;
+  background-color: #5d8898;
+  transform: scale(1.05);
 }
 
-.newBtn,
 .customBtn {
   height: 40px;
-  border-radius: 8px;
-  width: 60px;
+  width: 40px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3px;
-  font-size: 1.2rem;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  z-index: 98;
   border: none;
-  color: #f5f5f5;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease;
 }
 
-.newBtn {
-  background-color: #4a6670;
-}
-
-.customBtn {
-  background-color: #4a6670;
-}
-
-.newBtn:hover,
 .customBtn:hover {
   transform: scale(1.05);
 }
 
-.expandedContent {
-  padding: 15px;
-  background-color: #3a4a4d;
-  color: #f5f5f5;
-  border-radius: 0 0 10px 10px;
-  position: relative;
-  opacity: 1;
-  transition: opacity 0.2s ease;
-}
-
-.addGoal:not(.expanded) .expandedContent {
-  opacity: 0;
-}
-
-.date {
-  margin-bottom: 15px;
-  cursor: pointer;
-  padding: 8px;
-  background-color: #2a3132;
-  border-radius: 6px;
-  display: inline-block;
-}
-
-.buttons {
-  display: flex;
-}
-
-.addCustomRewardBtn {
-  background-color: transparent;
-  width: 100%;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-radius: 4px;
-  color: #f5f5f5;
-  border: none;
-  transition: background 0.2s ease;
-}
-
-.addCustomRewardBtn:hover {
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0)
-  );
-}
-
-.selected {
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0)
-  );
-}
-
-.plusIcon {
-  margin-right: 10px;
-}
-
-.difficultyContainer {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  margin-top: 15px;
-}
-
-.calendarContainer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 15px 0;
-  background-color: #2a3132;
-  border-radius: 6px;
-}
-
-.addCancelContainer {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-}
 .coverOverlay {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(74, 102, 112, 0.6);
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   border-radius: 8px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
 .coverOverlay:hover {
-  background-color: rgba(0, 0, 0, 0.6);
+  /* background-color: rgba(0, 0, 0, 0.7); */
 }
 
-.customRewardTitle {
-  width: 100%;
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: none;
-  background-color: #2a3132;
-  color: white;
-  font-size: 1rem;
+/* Reward badge */
+.rewardBadge {
+  height: 30px;
+  min-width: 50px;
+  padding: 0 12px;
+  border-radius: 15px;
+  background-color: #4a6670;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f5f5f5;
+  font-weight: 500;
+  transition: transform 0.2s ease;
+}
+
+.rewardBadge:hover {
+  transform: scale(1.05);
+}
+
+.gemIcon {
+  width: 14px;
+  height: 14px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 3px;
+}
+
+.addGoalContent {
+  padding: 20px;
+  background-color: #3a4a4d;
+  border-radius: 0 0 12px 12px;
+}
+
+.dateAndCurrency {
+  display: flex;
+  align-items: center;
   margin-bottom: 15px;
+  gap: 10px;
 }
 
-.customRewardTitle::placeholder {
+.dateSelector {
+  padding: 8px 12px;
+  background-color: #2a3132;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex-grow: 1;
+}
+
+.dateSelector:hover {
+  background-color: #344346;
+}
+
+.currencySelector {
+  padding: 8px 12px;
+  background-color: #2a3132;
+  border: none;
+  border-radius: 6px;
+  color: #f5f5f5;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.currencySelector:hover {
+  background-color: #344346;
+}
+
+.rewardTypeToggle {
+  display: flex;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #2a3132;
+}
+
+.toggleButton {
+  background-color: transparent;
+  width: 50%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: #f5f5f5;
+  border: none;
+  transition: background-color 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.toggleButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.toggleButton.active {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.plusIcon {
+  margin-right: 8px;
+}
+
+.difficultyGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.customRewardSection {
+  margin: 15px 0;
+}
+
+.customRewardInput {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2a3132;
+  color: #f5f5f5;
+  font-size: 1rem;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.customRewardInput:focus {
+  background-color: #344346;
+}
+
+.customRewardInput::placeholder {
+  border-bottom: 1px solid #ffffff4d;
   color: #b0b0b0;
+}
+
+/* Calendar */
+.calendarWrapper {
+  margin: 15px 0;
+  padding: 10px;
+  background-color: #2a3132;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Action buttons */
+.actionButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Utility classes */
+.boxShadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .imageGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .difficultyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal {
+    width: 95%;
+    max-width: 400px;
+  }
 }

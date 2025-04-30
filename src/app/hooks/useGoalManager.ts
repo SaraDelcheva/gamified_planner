@@ -10,13 +10,25 @@ interface UseGoalManagerProps {
 }
 
 export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
-  const { totalDiamonds, setTotalDiamonds, todaysHistory, setTodaysHistory } =
-    useDiamonds();
+  const {
+    totalDiamonds,
+    todaysHistory,
+    setTodaysHistory,
+    setTotalBlueGems,
+    setTotalGreenGems,
+    setTotalPinkGems,
+    setTotalRedGems,
+    totalBlueGems,
+    totalGreenGems,
+    totalRedGems,
+    totalPinkGems,
+  } = useDiamonds();
   const [goals, setGoals] = useState<GoalI[]>([]);
   const [notes, setNotes] = useState<NoteI[]>([]);
   const [goalName, setGoalName] = useState<string>("");
   const [difficulty, setDifficulty] = useState<number>(0);
   const [goalDate, setGoalDate] = useState("");
+  const [rewardCurrency, setRewardCurrency] = useState("blue-gem");
 
   const [newGoalDate, setNewGoalDate] = useState("");
   const [customCoverName, setCustomCoverName] = useState("reward");
@@ -51,6 +63,12 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     fetchData();
   }, []);
 
+  // Handle currency change
+  function handleInputCurrencyChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    e.preventDefault();
+    setRewardCurrency(e.target.value.trim() || "blue-gem");
+  }
+
   // ---------- Handlers for Goal Management ----------
   // Add new goal or update existing goal
   function addNewGoal(formattedDate: string) {
@@ -69,10 +87,11 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
         goal.title === editingGoalId
           ? {
               title: goalName,
-              diamonds: isCustom ? 0 : difficulty,
+              price: isCustom ? 0 : difficulty,
               coverName: isCustom ? customCoverName : "",
               rewardName: isCustom ? customRewardName : "",
               isCustom,
+              currency: rewardCurrency,
               date: newGoalDate || formattedDate,
             }
           : goal
@@ -83,10 +102,11 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
         ...goals,
         {
           title: goalName,
-          diamonds: isCustom ? 0 : difficulty,
+          price: isCustom ? 0 : difficulty,
           coverName: isCustom ? customCoverName : "",
           rewardName: isCustom ? customRewardName : "",
           isCustom,
+          currency: rewardCurrency,
           date: newGoalDate || formattedDate,
         },
       ];
@@ -104,12 +124,15 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     resetForm(containerDate);
   }
 
+  //
+
   // Helper function to reset form state
   function resetForm(containerDate: string) {
     setGoalName("");
     setCustomCoverName("reward");
     setCustomRewardName("");
     setDifficulty(0);
+    setRewardCurrency("blue-gem");
     setIsCustom(false);
     setExpanded((prev) => ({ ...prev, [containerDate]: false }));
     setIsCalendarOpen((prev) => ({ ...prev, [containerDate]: false }));
@@ -125,7 +148,6 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
 
     const updatedGoals = goals.filter((goal) => goal.title !== goalTitle);
     setGoals(updatedGoals);
-    setTotalDiamonds((prev) => prev + completedGoal.diamonds);
 
     const newHistory = [
       ...todaysHistory,
@@ -137,9 +159,36 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     ];
     setTodaysHistory(newHistory);
 
+    let newTotalBlueGems = totalBlueGems;
+    let newTotalRedGems = totalRedGems;
+    let newTotalGreenGems = totalGreenGems;
+    let newTotalPinkGems = totalPinkGems;
+
+    // Update the appropriate gem count
+    switch (completedGoal.currency) {
+      case "blue-gem":
+        newTotalBlueGems += completedGoal.price;
+        setTotalBlueGems(newTotalBlueGems);
+        break;
+      case "red-gem":
+        newTotalRedGems += completedGoal.price;
+        setTotalRedGems(newTotalRedGems);
+        break;
+      case "green-gem":
+        newTotalGreenGems += completedGoal.price;
+        setTotalGreenGems(newTotalGreenGems);
+        break;
+      case "pink-gem":
+        newTotalPinkGems += completedGoal.price;
+        setTotalPinkGems(newTotalPinkGems);
+        break;
+    }
     saveData({
       goals: updatedGoals,
-      totalDiamonds: totalDiamonds + completedGoal.diamonds,
+      totalBlueGems: newTotalBlueGems,
+      totalRedGems: newTotalRedGems,
+      totalGreenGems: newTotalGreenGems,
+      totalPinkGems: newTotalPinkGems,
       todaysHistory: newHistory,
     });
   }
@@ -153,11 +202,9 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
 
     const updatedGoals = goals.filter((goal) => goal.title !== goalTitle);
     setGoals(updatedGoals);
-    setTotalDiamonds((prev) => prev + completedGoal.diamonds);
 
     saveData({
       goals: updatedGoals,
-      totalDiamonds: totalDiamonds + completedGoal.diamonds,
     });
   }
 
@@ -168,7 +215,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
 
     // Set form fields with goal data
     setGoalName(goalToEdit.title);
-    setDifficulty(goalToEdit.diamonds);
+    setDifficulty(goalToEdit.price);
     setIsCustom(goalToEdit.isCustom);
     setCustomCoverName(goalToEdit.coverName || "reward");
     setCustomRewardName(goalToEdit.rewardName || "");
@@ -230,8 +277,13 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     isCalendarOpen,
     dates,
     totalDiamonds,
+    totalRedGems,
+    totalBlueGems,
+    totalGreenGems,
+    totalPinkGems,
     isEditing,
     editingGoalId,
+    rewardCurrency,
 
     // Setters
     setGoalName,
@@ -250,5 +302,6 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     toggleExpanded,
     toggleCalendar,
     onClickDay,
+    handleInputCurrencyChange,
   };
 }
