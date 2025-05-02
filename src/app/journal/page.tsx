@@ -160,6 +160,7 @@ export default function Journal() {
     setEditingNoteId(null);
     setNoteType("text");
     setReminderDate("");
+    setIsReminder(false);
   }
 
   const distributeNotes = (notes: NoteI[], columnCount: number) => {
@@ -244,28 +245,42 @@ export default function Journal() {
 
     let updatedNotes;
     if (editingNoteId) {
-      updatedNotes = notes.map((note) =>
-        note.id === editingNoteId
-          ? {
-              ...note,
-              content,
-              ...(reminderDate ? { reminder: reminderDate } : {}),
-              title: noteTitle,
-              type: noteType,
-            }
-          : note
-      );
+      updatedNotes = notes.map((note) => {
+        if (note.id === editingNoteId) {
+          // Create a new note object
+          const updatedNote = {
+            ...note,
+            content,
+            title: noteTitle,
+            type: noteType,
+          };
+
+          // Only add the reminder property if reminderDate is not empty
+          if (reminderDate) {
+            updatedNote.reminder = reminderDate;
+          } else {
+            // Explicitly delete the reminder property if it exists
+            delete updatedNote.reminder;
+          }
+
+          return updatedNote;
+        }
+        return note;
+      });
     } else {
-      updatedNotes = [
-        ...notes,
-        {
-          content,
-          title: noteTitle,
-          id: uuidv4(),
-          type: noteType,
-          ...(reminderDate ? { reminder: reminderDate } : {}),
-        },
-      ];
+      // For new notes, only add reminder if it exists
+      const newNote: NoteI = {
+        content,
+        title: noteTitle,
+        id: uuidv4(),
+        type: noteType,
+      };
+
+      if (reminderDate) {
+        newNote.reminder = reminderDate;
+      }
+
+      updatedNotes = [...notes, newNote];
     }
 
     setNotes(updatedNotes);
@@ -374,9 +389,15 @@ export default function Journal() {
     setChecklistItems(arrayMove(checklistItems, oldIndex, newIndex));
   }
 
-  // function
+  // function to add reminder
   function addReminder(value: Date) {
     setReminderDate(formatDate(value));
+    setIsReminder(false);
+  }
+
+  // function to remove reminder
+  function removeReminder() {
+    setReminderDate("");
     setIsReminder(false);
   }
 
@@ -509,7 +530,7 @@ export default function Journal() {
                 <div className={styles.remindMeDiv}>
                   <button className={styles.button}>
                     {reminderDate ? (
-                      <BiBellMinus onClick={() => setReminderDate("")} />
+                      <BiBellMinus onClick={removeReminder} />
                     ) : (
                       <BiBellPlus onClick={() => setIsReminder(!isReminder)} />
                     )}

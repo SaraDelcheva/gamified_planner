@@ -2,7 +2,7 @@
   "totalDiamonds": 10,
   "totalBlueGems": 40,
   "totalPinkGems": 10,
-  "totalRedGems": 0,
+  "totalRedGems": 40,
   "totalGreenGems": 20,
   "goals": [
     {
@@ -29,7 +29,7 @@
       "title": "book",
       "price": 50,
       "currency": "green-gem",
-      "isWishListed": false,
+      "isWishListed": true,
       "cover": "book",
       "id": "custom-reward-1"
     },
@@ -39,8 +39,7 @@
       "currency": "green-gem",
       "isWishListed": false,
       "cover": "coffee",
-      "id": "custom-reward-2",
-      "claimedDate": "Apr 30, 2025"
+      "id": "custom-reward-2"
     },
     {
       "title": "food",
@@ -54,7 +53,7 @@
       "title": "icecream",
       "currency": "green-gem",
       "price": 50,
-      "isWishListed": false,
+      "isWishListed": true,
       "cover": "icecream",
       "id": "custom-reward-4"
     },
@@ -80,8 +79,7 @@
       "price": 50,
       "isWishListed": false,
       "cover": "movie",
-      "id": "custom-reward-7",
-      "claimedDate": "Apr 30, 2025"
+      "id": "custom-reward-7"
     },
     {
       "title": "videogames",
@@ -89,8 +87,7 @@
       "price": 50,
       "isWishListed": false,
       "cover": "videogames",
-      "id": "custom-reward-8",
-      "claimedDate": "Apr 30, 2025"
+      "id": "custom-reward-8"
     },
     {
       "title": "workout",
@@ -98,8 +95,7 @@
       "price": 50,
       "isWishListed": false,
       "cover": "workout",
-      "id": "custom-reward-9",
-      "claimedDate": "Apr 30, 2025"
+      "id": "custom-reward-9"
     },
     {
       "title": "sadad",
@@ -124,14 +120,33 @@
       "cover": "reward",
       "id": "7f61a37d-fa0e-4bf6-8f62-27cdc987bc2b",
       "isWishListed": false
+    },
+    {
+      "title": "Restaurant",
+      "price": 30,
+      "currency": "green-gem",
+      "cover": "reward",
+      "id": "7cdeb70d-6583-4a71-8356-0d45b3b2cd15",
+      "isWishListed": true,
+      "claimedDate": "May 02, 2025"
+    },
+    {
+      "title": "ghh",
+      "price": 30,
+      "currency": "red-gem",
+      "cover": "reward",
+      "id": "183045e5-2198-447a-99aa-880bdbb15a64",
+      "isWishListed": false,
+      "claimedDate": "May 02, 2025"
     }
   ],
   "habits": [
     {
       "title": "Work on this",
-      "latestStreak": 3,
+      "latestStreak": 1,
       "maxStreak": 6,
       "dates": [
+        "May 02, 2025",
         "Apr 30, 2025",
         "Apr 29, 2025",
         "Apr 28, 2025",
@@ -166,73 +181,41 @@
   ],
   "todaysHistory": [
     {
-      "date": "Apr 30, 2025",
+      "date": "May 02, 2025",
       "type": "goal",
-      "title": "ewrwer"
+      "title": "heh"
     },
     {
-      "date": "Apr 30, 2025",
-      "type": "goal",
-      "title": "werwer"
-    },
-    {
-      "date": "Apr 30, 2025",
+      "date": "May 02, 2025",
       "type": "reward",
-      "title": "coffee",
-      "cover": "coffee"
+      "title": "Restaurant",
+      "cover": "reward"
     },
     {
-      "date": "Apr 30, 2025",
+      "date": "May 02, 2025",
       "type": "goal",
-      "title": "zxzxzcxz"
+      "title": "3 rwer"
     },
     {
-      "date": "Apr 30, 2025",
+      "date": "May 02, 2025",
       "type": "goal",
-      "title": "dasdsa"
+      "title": "fdffdf"
     },
     {
-      "date": "Apr 30, 2025",
+      "date": "May 02, 2025",
       "type": "goal",
-      "title": "adasdasd"
+      "title": "xcccc"
     },
     {
-      "date": "Apr 30, 2025",
+      "date": "May 02, 2025",
+      "type": "reward",
+      "title": "ghh",
+      "cover": "reward"
+    },
+    {
+      "date": "May 02, 2025",
       "type": "habit",
       "title": "Work on this"
-    },
-    {
-      "date": "Apr 30, 2025",
-      "type": "goal",
-      "title": "dd"
-    },
-    {
-      "date": "Apr 30, 2025",
-      "type": "reward",
-      "title": "videogames",
-      "cover": "videogames"
-    },
-    {
-      "date": "Apr 30, 2025",
-      "type": "reward",
-      "title": "movie",
-      "cover": "movie"
-    },
-    {
-      "date": "Apr 30, 2025",
-      "type": "reward",
-      "title": "workout",
-      "cover": "workout"
-    },
-    {
-      "date": "Apr 30, 2025",
-      "type": "goal",
-      "title": "dsadasd"
-    },
-    {
-      "date": "Apr 30, 2025",
-      "type": "goal",
-      "title": "yyu"
     }
   ],
   "notes": [
@@ -240,8 +223,19 @@
       "content": "- [x] edit notes *\n- [x] Do to list\n- [x] open notes *\n- [x] notess visibility none while edited\n- [x] reminders\n- [x] todays goals should say 'today'\n- [x] checklist items should not scroll horizontally\n- [x] notes should be scrollable vertically\n- [x] items in todo list should be moveable up and down\n- [x] default note should be plain text on open\n- [x] fix add new reward\n- [x] fix modal cover images for rewards\n- [x] reward shop should close on page change too or on click outside of rewards\n- [x] checklist dont save without title?\n- [x] edit and delete goals\n- [x] should not be able to choose goal dates before today\n- [x] min and max height of saved notes\n- [x] todays history should be for TODAY\n- [ ] save shit when changing page if not sav\n- [ ] unfinished goals should stay on top (overdue) even if the date has passed\n- [ ] icons for goals?\n- [ ] group of goals for a single award\n- [ ] sub goals\n- [ ] move notes around\n- [ ] routines and wishlists to save\n- [ ] goals should also be moveable up and down\n- [ ] checklist items should have the option of beign more than 1 line jesus...\n- [ ] ordered and unordered lists",
       "title": "asdsadas",
       "id": "1efde290-63f4-44c5-88dc-bcbb60057403",
-      "type": "checklist",
-      "reminder": "Apr 26, 2025"
+      "type": "checklist"
+    },
+    {
+      "content": "eeee",
+      "title": "eee",
+      "id": "f3ae99a3-1955-419a-b4a9-4694b1e76655",
+      "type": "text"
+    },
+    {
+      "content": "dsd\nsdfsdfdsf\nfsdfdsfdsf\ndsfdsfffffffffffffff",
+      "title": "dssd",
+      "id": "50759699-b4c1-412f-80d3-dd8be270b853",
+      "type": "text"
     }
   ]
 }

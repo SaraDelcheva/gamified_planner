@@ -12,6 +12,32 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
+.reminderNotesContainer {
+}
+
+.reminderIcon,
+.reminderClose {
+  flex-basis: 20px;
+  justify-self: center;
+}
+
+.reminderContent {
+  flex-basis: calc(100% - 40px);
+}
+
+.reminderNote {
+  align-items: center;
+  display: flex;
+  border-radius: 12px;
+  background-color: #2a3132;
+  margin-bottom: 18px;
+  z-index: 10;
+  padding-bottom: 20px;
+  padding: 20px;
+  cursor: pointer;
+  color: #ad5656;
+}
+
 /* Header section - fixed */
 .headerSection {
   display: flex;

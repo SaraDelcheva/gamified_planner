@@ -37,6 +37,7 @@ export default function Home() {
     editingGoalId,
     rewardCurrency,
     handleInputCurrencyChange,
+    removeReminder,
   } = useGoalManager({ daysToShow: 1 });
 
   return (
@@ -81,6 +82,7 @@ export default function Home() {
               setCustomRewardName,
               setExpanded: () => toggleExpanded(formattedDate),
               setIsCalendarOpen: () => toggleCalendar(formattedDate),
+              removeReminder,
 
               expanded: expanded[formattedDate] || false,
               isCalendarOpen: isCalendarOpen[formattedDate] || false,

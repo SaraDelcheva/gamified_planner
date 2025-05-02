@@ -1,6 +1,8 @@
 import styles from "./GoalsForToday.module.css";
 import AddGoal from "./addGoal/AddGoal";
 import NewGoal from "./newGoal/NewGoal";
+import { IoMdAlarm, IoMdClose } from "react-icons/io";
+
 import { GoalsForTodayI } from "../../helpers/interfaces";
 
 export default function GoalsForToday(props: GoalsForTodayI) {
@@ -26,8 +28,16 @@ export default function GoalsForToday(props: GoalsForTodayI) {
                     key={`reminder-${index}`}
                     className={styles.reminderNote}
                   >
-                    <h4>{note.title || ""}</h4>
-                    <p>{note.content || ""}</p>
+                    <div className={styles.reminderIcon}>
+                      <IoMdAlarm />
+                    </div>
+                    <div className={styles.reminderContent}>
+                      <h4>{note.title || ""}</h4>
+                      <p>{note.content || ""}</p>
+                    </div>
+                    <div onClick={() => props.removeReminder(note.id)}>
+                      <IoMdClose className={styles.closeIcon} />
+                    </div>
                   </div>
                 ));
               })()}

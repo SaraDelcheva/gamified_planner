@@ -86,6 +86,7 @@ export interface GoalsForTodayI extends AddGoalI {
   customRewardName: string;
   setGoalDate: React.Dispatch<React.SetStateAction<string>>;
   notes: NoteI[];
+  removeReminder: (noteId: string) => void;
 }
 
 export interface RewardsI {

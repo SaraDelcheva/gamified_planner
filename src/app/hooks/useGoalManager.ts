@@ -261,6 +261,30 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setNewGoalDate(formatDate(value));
   }
 
+  //Remove reminder
+  const removeReminder = (noteId: string) => {
+    const areYouSure = confirm(
+      "Are you sure you want to delete this reminder permanently?"
+    );
+    if (!areYouSure) return;
+    setNotes((prevNotes) =>
+      prevNotes.map((note) => {
+        if (note.id === noteId) {
+          const updatedNote = { ...note };
+          delete updatedNote.reminder;
+          return updatedNote;
+        }
+        return note;
+      })
+    );
+
+    saveData({
+      notes: notes.map((note) =>
+        note.id === noteId ? { ...note, reminder: undefined } : note
+      ),
+    });
+  };
+
   return {
     // State
     todaysHistory,
@@ -303,5 +327,6 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     toggleCalendar,
     onClickDay,
     handleInputCurrencyChange,
+    removeReminder,
   };
 }

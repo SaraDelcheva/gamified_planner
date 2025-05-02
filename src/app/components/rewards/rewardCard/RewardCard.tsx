@@ -88,8 +88,8 @@ export default function RewardCard(props: RewardCardI) {
             )}
           </div>
         </div>
+        <p className={styles.warning}>Not enough gems.</p>
       </div>
-      <p className={styles.warning}>Not enough gems.</p>
     </div>
   );
 }

@@ -95,9 +95,9 @@
 .warning {
   color: rgb(173, 86, 86);
   position: absolute;
-  bottom: -20px;
-  left: 0;
-  font-size: 0.8rem;
+  bottom: 2px;
+  right: 3px;
+  font-size: 0.6rem;
   display: none;
 }
 
