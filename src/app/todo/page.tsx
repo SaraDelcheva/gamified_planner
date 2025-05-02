@@ -32,6 +32,9 @@ export default function Todo() {
     onClickDay,
     isEditing,
     editingGoalId,
+    rewardCurrency,
+    handleInputCurrencyChange,
+    removeReminder,
   } = useGoalManager({ daysToShow: 7 });
 
   return (
@@ -42,15 +45,16 @@ export default function Todo() {
             {...{
               // From GoalsForTodayI
               title: formattedDate === dates[0].formattedDate ? "Today" : day,
-
               goals: goals.filter((goal) => goal.date === formattedDate),
-              completeGoal,
               deleteGoal,
               editGoal,
+              completeGoal,
               totalDiamonds,
               customRewardName,
-              setGoalDate: () => {}, // Empty function since we don't need it anymore
               notes,
+              isEditing,
+              editingGoalId,
+              currency: rewardCurrency,
 
               // From AddGoalI
               goalName,
@@ -62,6 +66,7 @@ export default function Todo() {
 
               addNewGoal: () => addNewGoal(formattedDate),
               cancelAddGoal: () => cancelAddGoal(formattedDate),
+              setGoalDate: () => {},
 
               setGoalName,
               setDifficulty,
@@ -70,12 +75,13 @@ export default function Todo() {
               setCustomRewardName,
               setExpanded: () => toggleExpanded(formattedDate),
               setIsCalendarOpen: () => toggleCalendar(formattedDate),
+              removeReminder,
 
               expanded: expanded[formattedDate] || false,
               isCalendarOpen: isCalendarOpen[formattedDate] || false,
               onClickDay,
-              isEditing,
-              editingGoalId,
+              rewardCurrency,
+              handleInputCurrencyChange,
             }}
           />
         </div>
