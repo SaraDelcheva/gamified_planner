@@ -173,6 +173,7 @@
   padding: 8px 12px;
   background-color: #2a3132;
   border-radius: 6px;
+  text-align: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
   flex-grow: 1;
@@ -260,6 +261,28 @@
 .customRewardInput::placeholder {
   border-bottom: 1px solid #ffffff4d;
   color: #b0b0b0;
+}
+
+.repeatingOptions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.repeatingOption {
+  text-align: center;
+  padding: 8px 12px;
+  background-color: #2a3132;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  flex-grow: 1;
+}
+
+.repeatingOption:hover {
+  background-color: #344346;
 }
 
 /* Calendar */

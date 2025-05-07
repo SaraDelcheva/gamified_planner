@@ -67,13 +67,17 @@ export default function GoalsForToday(props: GoalsForTodayI) {
             rewardCurrency={props.rewardCurrency}
             handleInputCurrencyChange={props.handleInputCurrencyChange}
             currency={props.currency}
+            repeating={props.repeating}
+            setRepeating={props.setRepeating}
           />
         </div>
 
         <div className={styles.scrollArea}>
           <div className={styles.dailyGoalsContainer}>
             {props.goals
-              .filter((goal) => goal.date === props.goalDate)
+              .filter(
+                (goal) => goal.date === props.goalDate && !goal.isCompleted
+              )
               .map((goal, index) => (
                 <NewGoal
                   key={index}

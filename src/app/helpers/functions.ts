@@ -16,6 +16,9 @@ export async function saveData(
     totalRedGems: number;
     totalGreenGems: number;
     totalPinkGems: number;
+    goalNumber: number;
+    completedGoalNumber: number;
+    notCompletedGoalNumber: number;
     rewards: RewardI[];
     goals: GoalI[];
     todaysHistory: TodaysHistoryI[];

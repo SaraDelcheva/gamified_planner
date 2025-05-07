@@ -35,6 +35,8 @@ export default function Todo() {
     rewardCurrency,
     handleInputCurrencyChange,
     removeReminder,
+    repeating,
+    setRepeating,
   } = useGoalManager({ daysToShow: 7 });
 
   return (
@@ -55,6 +57,8 @@ export default function Todo() {
               isEditing,
               editingGoalId,
               currency: rewardCurrency,
+              repeating,
+              setRepeating,
 
               // From AddGoalI
               goalName,

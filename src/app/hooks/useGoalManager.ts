@@ -28,7 +28,9 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
   const [goalName, setGoalName] = useState<string>("");
   const [difficulty, setDifficulty] = useState<number>(0);
   const [goalDate, setGoalDate] = useState("");
+  const [repeating, setRepeating] = useState<string>("never");
   const [rewardCurrency, setRewardCurrency] = useState("blue-gem");
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const [newGoalDate, setNewGoalDate] = useState("");
   const [customCoverName, setCustomCoverName] = useState("reward");
@@ -38,30 +40,113 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
   const [isCalendarOpen, setIsCalendarOpen] = useState<{
     [key: string]: boolean;
   }>({});
+  const [goalNumber, setGoalNumber] = useState<number>(0);
+  const [completedGoalNumber, setCompletedGoalNumber] = useState<number>(0);
+  const [notCompletedGoalNumber, setNotCompletedGoalNumber] =
+    useState<number>(0);
+  const [lastTrackedDate, setLastTrackedDate] = useState<string>("");
 
   // New state to track editing mode
   const [isEditing, setIsEditing] = useState(false);
   const [editingGoalId, setEditingGoalId] = useState<string | null>(null);
 
   const dates = createDates(0, daysToShow);
+  const todayFormatted = formatDate(new Date());
 
-  // ---------- Data Fetching ----------
+  // ---------- Data Fetching and Initial Setup ----------
   useEffect(() => {
     async function fetchData() {
       const res = await fetch("/api/data");
       const data = await res.json();
 
-      setGoals(Array.isArray(data.goals) ? data.goals : []);
-
+      const loadedGoals = Array.isArray(data.goals) ? data.goals : [];
+      setGoals(loadedGoals);
       setNotes(data.notes ? data.notes : []);
 
       const today = new Date();
       const formattedDate = formatDate(today);
       setGoalDate(formattedDate);
+      setLastTrackedDate(formattedDate);
+
+      // Handle date change: remove one-time completed goals from previous days
+      const cleanedGoals = cleanupPreviousGoals(loadedGoals, formattedDate);
+      if (cleanedGoals.length !== loadedGoals.length) {
+        setGoals(cleanedGoals);
+        saveData({ goals: cleanedGoals });
+      }
+
+      // Update goal counts
+      updateGoalCounts(cleanedGoals, formattedDate);
     }
 
     fetchData();
   }, []);
+
+  // Function to cleanup previous goals when date changes
+  function cleanupPreviousGoals(
+    goalsList: GoalI[],
+    currentDate: string
+  ): GoalI[] {
+    return goalsList.filter((goal) => {
+      // Keep all non-completed goals
+      if (!goal.isCompleted) return true;
+
+      // Keep completed goals from today
+      if (goal.date === currentDate) return true;
+
+      // Keep repeating goals (they should have been updated with a new date already)
+      if (goal.repeating !== "never") return true;
+
+      // Remove one-time completed goals from previous days
+      return false;
+    });
+  }
+
+  // ---------- Track date changes ----------
+  useEffect(() => {
+    const checkDateChange = () => {
+      const currentDate = formatDate(new Date());
+
+      // If date has changed since last check
+      if (lastTrackedDate && lastTrackedDate !== currentDate) {
+        // Clean up previous goals
+        const cleanedGoals = cleanupPreviousGoals(goals, currentDate);
+        setGoals(cleanedGoals);
+        saveData({ goals: cleanedGoals });
+
+        // Update goal counts for the new date
+        updateGoalCounts(cleanedGoals, currentDate);
+
+        // Update last tracked date
+        setLastTrackedDate(currentDate);
+      }
+    };
+
+    // Check immediately
+    checkDateChange();
+
+    // Set up interval to check date change (every minute)
+    const intervalId = setInterval(checkDateChange, 60000);
+
+    return () => clearInterval(intervalId);
+  }, [goals, lastTrackedDate]);
+
+  // ---------- Track goal counts ----------
+  // Update goal counts whenever goals change
+  useEffect(() => {
+    updateGoalCounts(goals, todayFormatted);
+  }, [goals]);
+
+  // Function to update goal counts
+  function updateGoalCounts(goalsList: GoalI[], currentDate: string) {
+    const todaysGoals = goalsList.filter((goal) => goal.date === currentDate);
+    const completedGoals = todaysGoals.filter((goal) => goal.isCompleted);
+    const notCompletedGoals = todaysGoals.filter((goal) => !goal.isCompleted);
+
+    setGoalNumber(todaysGoals.length);
+    setCompletedGoalNumber(completedGoals.length);
+    setNotCompletedGoalNumber(notCompletedGoals.length);
+  }
 
   // Handle currency change
   function handleInputCurrencyChange(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -80,6 +165,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
       return;
 
     let updatedGoals;
+    const targetDate = newGoalDate || formattedDate;
 
     if (isEditing && editingGoalId) {
       // Update existing goal
@@ -92,7 +178,9 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
               rewardName: isCustom ? customRewardName : "",
               isCustom,
               currency: rewardCurrency,
-              date: newGoalDate || formattedDate,
+              date: targetDate,
+              repeating: repeating,
+              isCompleted: isCompleted,
             }
           : goal
       );
@@ -107,7 +195,9 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
           rewardName: isCustom ? customRewardName : "",
           isCustom,
           currency: rewardCurrency,
-          date: newGoalDate || formattedDate,
+          date: targetDate,
+          repeating,
+          isCompleted: false,
         },
       ];
     }
@@ -124,8 +214,6 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     resetForm(containerDate);
   }
 
-  //
-
   // Helper function to reset form state
   function resetForm(containerDate: string) {
     setGoalName("");
@@ -133,6 +221,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setCustomRewardName("");
     setDifficulty(0);
     setRewardCurrency("blue-gem");
+    setRepeating("never");
     setIsCustom(false);
     setExpanded((prev) => ({ ...prev, [containerDate]: false }));
     setIsCalendarOpen((prev) => ({ ...prev, [containerDate]: false }));
@@ -145,9 +234,6 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
   function completeGoal(goalTitle: string) {
     const completedGoal = goals.find((goal) => goal.title === goalTitle);
     if (!completedGoal) return;
-
-    const updatedGoals = goals.filter((goal) => goal.title !== goalTitle);
-    setGoals(updatedGoals);
 
     const newHistory = [
       ...todaysHistory,
@@ -183,6 +269,30 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
         setTotalPinkGems(newTotalPinkGems);
         break;
     }
+
+    let updatedGoals;
+
+    if (completedGoal.repeating === "never") {
+      // For non-repeating goals, mark as completed but keep it until date changes
+      updatedGoals = goals.map((goal) =>
+        goal.title === goalTitle ? { ...goal, isCompleted: true } : goal
+      );
+    } else {
+      const nextDate = calculateNextDate(
+        completedGoal.date,
+        completedGoal.repeating
+      );
+
+      // Update the goal with new date and reset completion status
+      updatedGoals = goals.map((goal) =>
+        goal.title === goalTitle
+          ? { ...goal, date: nextDate, isCompleted: false }
+          : goal
+      );
+    }
+
+    setGoals(updatedGoals);
+
     saveData({
       goals: updatedGoals,
       totalBlueGems: newTotalBlueGems,
@@ -193,12 +303,38 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     });
   }
 
+  // Calculate the next date for repeating goals
+  function calculateNextDate(
+    currentDate: string,
+    repeatingType: string
+  ): string {
+    const date = new Date(currentDate);
+
+    switch (repeatingType) {
+      case "daily":
+        // Add one day
+        date.setDate(date.getDate() + 1);
+        break;
+      case "weekly":
+        // Add one week
+        date.setDate(date.getDate() + 7);
+        break;
+      case "monthly":
+        // Add one month
+        date.setMonth(date.getMonth() + 1);
+        break;
+      default:
+        // Should not happen, but return original date as fallback
+        return currentDate;
+    }
+
+    return formatDate(date);
+  }
+
   // Delete goal
   function deleteGoal(goalTitle: string) {
     if (!confirm("Are you sure you want to delete this goal permanently?"))
       return;
-    const completedGoal = goals.find((goal) => goal.title === goalTitle);
-    if (!completedGoal) return;
 
     const updatedGoals = goals.filter((goal) => goal.title !== goalTitle);
     setGoals(updatedGoals);
@@ -220,6 +356,9 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setCustomCoverName(goalToEdit.coverName || "reward");
     setCustomRewardName(goalToEdit.rewardName || "");
     setNewGoalDate(goalToEdit.date);
+    setRepeating(goalToEdit.repeating);
+    setIsCompleted(goalToEdit.isCompleted);
+    setRewardCurrency(goalToEdit.currency || "blue-gem");
 
     // Set editing state
     setIsEditing(true);
@@ -261,7 +400,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setNewGoalDate(formatDate(value));
   }
 
-  //Remove reminder
+  // Remove reminder
   const removeReminder = (noteId: string) => {
     const areYouSure = confirm(
       "Are you sure you want to delete this reminder permanently?"
@@ -308,7 +447,10 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     isEditing,
     editingGoalId,
     rewardCurrency,
-
+    repeating,
+    goalNumber,
+    completedGoalNumber,
+    notCompletedGoalNumber,
     // Setters
     setGoalName,
     setDifficulty,
@@ -316,7 +458,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setCustomRewardName,
     setIsCustom,
     setGoalDate,
-
+    setRepeating,
     // Functions
     addNewGoal,
     cancelAddGoal,

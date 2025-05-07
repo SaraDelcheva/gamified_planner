@@ -1,27 +1,86 @@
 {
   "totalDiamonds": 10,
-  "totalBlueGems": 40,
+  "totalBlueGems": 65,
   "totalPinkGems": 10,
-  "totalRedGems": 40,
-  "totalGreenGems": 20,
+  "totalRedGems": 70,
+  "totalGreenGems": 40,
   "goals": [
     {
-      "title": "sd",
-      "price": 0,
-      "coverName": "icecream",
-      "rewardName": "sss",
-      "isCustom": true,
+      "title": "dsfdsf",
+      "price": 30,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
       "currency": "blue-gem",
-      "date": "Apr 30, 2025"
+      "date": "May 07, 2025",
+      "repeating": "never",
+      "isCompleted": true
     },
     {
-      "title": "sadsa",
+      "title": "dasdasd",
+      "price": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "currency": "pink-gem",
+      "date": "May 07, 2025",
+      "repeating": "never",
+      "isCompleted": true
+    },
+    {
+      "title": "asdsadsadasd",
+      "price": 30,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "currency": "blue-gem",
+      "date": "May 07, 2025",
+      "repeating": "never",
+      "isCompleted": true
+    },
+    {
+      "title": "bcvbvc",
+      "price": 30,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "currency": "green-gem",
+      "date": "May 07, 2025",
+      "repeating": "never",
+      "isCompleted": true
+    },
+    {
+      "title": "cvbvcb",
+      "price": 30,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "currency": "green-gem",
+      "date": "May 07, 2025",
+      "repeating": "never",
+      "isCompleted": true
+    },
+    {
+      "title": "fdssdf",
+      "price": 30,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "currency": "blue-gem",
+      "date": "May 07, 2025",
+      "repeating": "never",
+      "isCompleted": false
+    },
+    {
+      "title": "fff",
       "price": 0,
-      "coverName": "sleep",
-      "rewardName": "asdasd",
+      "coverName": "meditate",
+      "rewardName": "bleg",
       "isCustom": true,
       "currency": "blue-gem",
-      "date": "Apr 30, 2025"
+      "date": "May 07, 2025",
+      "repeating": "never",
+      "isCompleted": true
     }
   ],
   "rewards": [
@@ -55,7 +114,8 @@
       "price": 50,
       "isWishListed": true,
       "cover": "icecream",
-      "id": "custom-reward-4"
+      "id": "custom-reward-4",
+      "claimedDate": "May 07, 2025"
     },
     {
       "title": "meditate",
@@ -79,7 +139,8 @@
       "price": 50,
       "isWishListed": false,
       "cover": "movie",
-      "id": "custom-reward-7"
+      "id": "custom-reward-7",
+      "claimedDate": "May 07, 2025"
     },
     {
       "title": "videogames",
@@ -87,7 +148,8 @@
       "price": 50,
       "isWishListed": false,
       "cover": "videogames",
-      "id": "custom-reward-8"
+      "id": "custom-reward-8",
+      "claimedDate": "May 07, 2025"
     },
     {
       "title": "workout",
@@ -95,7 +157,8 @@
       "price": 50,
       "isWishListed": false,
       "cover": "workout",
-      "id": "custom-reward-9"
+      "id": "custom-reward-9",
+      "claimedDate": "May 07, 2025"
     },
     {
       "title": "sadad",
@@ -103,7 +166,8 @@
       "currency": "pink-gem",
       "cover": "reward",
       "id": "68672079-eacc-48e9-9de7-4257a6a015e8",
-      "isWishListed": false
+      "isWishListed": false,
+      "claimedDate": "May 07, 2025"
     },
     {
       "title": "heh",
@@ -127,8 +191,7 @@
       "currency": "green-gem",
       "cover": "reward",
       "id": "7cdeb70d-6583-4a71-8356-0d45b3b2cd15",
-      "isWishListed": true,
-      "claimedDate": "May 02, 2025"
+      "isWishListed": true
     },
     {
       "title": "ghh",
@@ -136,8 +199,7 @@
       "currency": "red-gem",
       "cover": "reward",
       "id": "183045e5-2198-447a-99aa-880bdbb15a64",
-      "isWishListed": false,
-      "claimedDate": "May 02, 2025"
+      "isWishListed": false
     }
   ],
   "habits": [
@@ -146,6 +208,8 @@
       "latestStreak": 1,
       "maxStreak": 6,
       "dates": [
+        "May 07, 2025",
+        "May 05, 2025",
         "May 02, 2025",
         "Apr 30, 2025",
         "Apr 29, 2025",
@@ -181,41 +245,163 @@
   ],
   "todaysHistory": [
     {
-      "date": "May 02, 2025",
+      "date": "May 07, 2025",
       "type": "goal",
-      "title": "heh"
+      "title": "dsfdsf"
     },
     {
-      "date": "May 02, 2025",
-      "type": "reward",
-      "title": "Restaurant",
-      "cover": "reward"
-    },
-    {
-      "date": "May 02, 2025",
+      "date": "May 07, 2025",
       "type": "goal",
-      "title": "3 rwer"
+      "title": "dsfdsf"
     },
     {
-      "date": "May 02, 2025",
+      "date": "May 07, 2025",
       "type": "goal",
-      "title": "fdffdf"
+      "title": "dasdasd"
     },
     {
-      "date": "May 02, 2025",
+      "date": "May 07, 2025",
       "type": "goal",
-      "title": "xcccc"
+      "title": "asdsadsadasd"
     },
     {
-      "date": "May 02, 2025",
-      "type": "reward",
-      "title": "ghh",
-      "cover": "reward"
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
     },
     {
-      "date": "May 02, 2025",
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dsfdsf"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "dasdasd"
+    },
+    {
+      "date": "May 07, 2025",
       "type": "habit",
       "title": "Work on this"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "reward",
+      "title": "movie",
+      "cover": "movie"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "reward",
+      "title": "workout",
+      "cover": "workout"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "reward",
+      "title": "sadad",
+      "cover": "reward"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "bcvbvc"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "cvbvcb"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "reward",
+      "title": "icecream",
+      "cover": "icecream"
+    },
+    {
+      "date": "May 07, 2025",
+      "type": "goal",
+      "title": "fff"
     }
   ],
   "notes": [

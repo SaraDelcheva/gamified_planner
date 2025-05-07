@@ -6,6 +6,8 @@ export interface GoalI {
   rewardName: string;
   isCustom: boolean;
   date: string;
+  repeating: string;
+  isCompleted: boolean;
 }
 
 export interface NoteI {
@@ -54,9 +56,11 @@ export interface AddGoalI {
   newGoalDate: string;
   goalDate: string;
   currency: string;
+  repeating: string;
 
   addNewGoal: (containerDate: string) => void;
   cancelAddGoal: () => void;
+  setRepeating: React.Dispatch<React.SetStateAction<string>>;
 
   setGoalName: (name: string) => void;
   setDifficulty: (diamonds: number) => void;
@@ -153,6 +157,9 @@ export interface SaveDataFunctionI {
       rewards: RewardI[];
       goals: GoalI[];
       todaysHistory: TodaysHistoryI[];
+      goalNumber: number;
+      completedGoalNumber: number;
+      notCompletedGoalNumber: number;
     }>
   ): Promise<void>;
 }

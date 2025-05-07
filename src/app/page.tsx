@@ -19,12 +19,14 @@ export default function Home() {
     isCalendarOpen,
     dates,
     totalDiamonds,
+    repeating,
     setGoalName,
     setDifficulty,
     setCustomCoverName,
     setCustomRewardName,
     setIsCustom,
     setGoalDate,
+    setRepeating,
     addNewGoal,
     cancelAddGoal,
     completeGoal,
@@ -38,6 +40,9 @@ export default function Home() {
     rewardCurrency,
     handleInputCurrencyChange,
     removeReminder,
+    goalNumber,
+    completedGoalNumber,
+    notCompletedGoalNumber,
   } = useGoalManager({ daysToShow: 1 });
 
   return (
@@ -63,7 +68,8 @@ export default function Home() {
               isEditing,
               editingGoalId,
               currency: rewardCurrency,
-
+              repeating,
+              setRepeating,
               // From AddGoalI
               goalName,
               difficulty,
@@ -93,7 +99,11 @@ export default function Home() {
           />
         ))}
       </div>
-      <PersonalInfo />
+      <PersonalInfo
+        goalNumber={goalNumber}
+        completedGoalNumber={completedGoalNumber}
+        notCompletedGoalNumber={notCompletedGoalNumber}
+      />
     </div>
   );
 }

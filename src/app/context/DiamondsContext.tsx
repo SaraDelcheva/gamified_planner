@@ -51,7 +51,7 @@ export function DiamondsProvider({ children }: { children: React.ReactNode }) {
       await saveData({ todaysHistory: cleanedHistory });
     }
     fetchData();
-  }, [todaysHistory]);
+  }, []);
 
   return (
     <DiamondsContext.Provider

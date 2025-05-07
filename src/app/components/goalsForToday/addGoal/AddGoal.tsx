@@ -7,9 +7,12 @@ import { BiPlus } from "react-icons/bi";
 import Calendar from "react-calendar";
 import { useState } from "react";
 import CoverModal from "@/app/components/coverModal/CoverModal";
+import { FiRepeat } from "react-icons/fi";
 
 export default function AddGoal(props: AddGoalI) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRepeatingModalOpen, setIsRepeatingModalOpen] = useState(false);
+
   const currencyOptions = ["blue-gem", "pink-gem", "green-gem", "red-gem"];
 
   function easy(diamonds: number) {
@@ -95,6 +98,14 @@ export default function AddGoal(props: AddGoalI) {
             >
               {props.newGoalDate || props.goalDate}
             </div>
+
+            <div
+              onClick={() => setIsRepeatingModalOpen(!isRepeatingModalOpen)}
+              className={styles.repeatingOption}
+            >
+              {" "}
+              <FiRepeat /> {props.repeating}
+            </div>
             <select
               className={styles.currencySelector}
               value={props.currency}
@@ -107,6 +118,37 @@ export default function AddGoal(props: AddGoalI) {
               ))}
             </select>
           </div>
+          {isRepeatingModalOpen && (
+            <div
+              onClick={() => setIsRepeatingModalOpen(!isRepeatingModalOpen)}
+              className={styles.repeatingOptions}
+            >
+              <button
+                className={styles.repeatingOption}
+                onClick={() => props.setRepeating("never")}
+              >
+                <FiRepeat /> Is not repeating
+              </button>
+              <button
+                className={styles.repeatingOption}
+                onClick={() => props.setRepeating("daily")}
+              >
+                <FiRepeat /> Daily
+              </button>
+              <button
+                className={styles.repeatingOption}
+                onClick={() => props.setRepeating("weekly")}
+              >
+                <FiRepeat /> Every Week
+              </button>
+              <button
+                className={styles.repeatingOption}
+                onClick={() => props.setRepeating("monthly")}
+              >
+                <FiRepeat /> Every Month
+              </button>
+            </div>
+          )}
 
           <div className={styles.rewardTypeToggle}>
             <button
