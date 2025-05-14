@@ -1,93 +1,52 @@
 {
   "totalDiamonds": 10,
-  "totalBlueGems": 65,
+  "totalBlueGems": 115,
   "totalPinkGems": 10,
   "totalRedGems": 70,
-  "totalGreenGems": 40,
+  "totalGreenGems": 100,
   "goals": [
-    {
-      "title": "dsfdsf",
-      "price": 30,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "currency": "blue-gem",
-      "date": "May 07, 2025",
-      "repeating": "never",
-      "isCompleted": true
-    },
-    {
-      "title": "dasdasd",
-      "price": 10,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "currency": "pink-gem",
-      "date": "May 07, 2025",
-      "repeating": "never",
-      "isCompleted": true
-    },
-    {
-      "title": "asdsadsadasd",
-      "price": 30,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "currency": "blue-gem",
-      "date": "May 07, 2025",
-      "repeating": "never",
-      "isCompleted": true
-    },
-    {
-      "title": "bcvbvc",
-      "price": 30,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "currency": "green-gem",
-      "date": "May 07, 2025",
-      "repeating": "never",
-      "isCompleted": true
-    },
-    {
-      "title": "cvbvcb",
-      "price": 30,
-      "coverName": "",
-      "rewardName": "",
-      "isCustom": false,
-      "currency": "green-gem",
-      "date": "May 07, 2025",
-      "repeating": "never",
-      "isCompleted": true
-    },
     {
       "title": "fdssdf",
       "price": 30,
       "coverName": "",
       "rewardName": "",
       "isCustom": false,
-      "currency": "blue-gem",
+      "currency": "sapphire",
       "date": "May 07, 2025",
       "repeating": "never",
       "isCompleted": false
     },
     {
-      "title": "fff",
-      "price": 0,
-      "coverName": "meditate",
-      "rewardName": "bleg",
-      "isCustom": true,
-      "currency": "blue-gem",
-      "date": "May 07, 2025",
+      "title": "Stop panicking bitch",
+      "price": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "currency": "sapphire",
+      "date": "May 13, 2025",
       "repeating": "never",
-      "isCompleted": true
+      "isCompleted": false,
+      "priority": "none"
+    },
+    {
+      "title": "add subtasks",
+      "price": 30,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "currency": "emerald",
+      "date": "May 14, 2025",
+      "repeating": "never",
+      "isCompleted": false,
+      "priority": "Today's focus",
+      "subtasks": []
     }
   ],
   "rewards": [
     {
       "title": "book",
       "price": 50,
-      "currency": "green-gem",
+      "currency": "emerald",
       "isWishListed": true,
       "cover": "book",
       "id": "custom-reward-1"
@@ -95,14 +54,14 @@
     {
       "title": "coffee",
       "price": 50,
-      "currency": "green-gem",
+      "currency": "emerald",
       "isWishListed": false,
       "cover": "coffee",
       "id": "custom-reward-2"
     },
     {
       "title": "food",
-      "currency": "pink-gem",
+      "currency": "crystal",
       "price": 50,
       "isWishListed": false,
       "cover": "food",
@@ -110,16 +69,15 @@
     },
     {
       "title": "icecream",
-      "currency": "green-gem",
+      "currency": "emerald",
       "price": 50,
       "isWishListed": true,
       "cover": "icecream",
-      "id": "custom-reward-4",
-      "claimedDate": "May 07, 2025"
+      "id": "custom-reward-4"
     },
     {
       "title": "meditate",
-      "currency": "green-gem",
+      "currency": "emerald",
       "price": 50,
       "isWishListed": true,
       "cover": "meditate",
@@ -127,7 +85,7 @@
     },
     {
       "title": "sleep",
-      "currency": "green-gem",
+      "currency": "emerald",
       "price": 50,
       "isWishListed": true,
       "cover": "sleep",
@@ -135,44 +93,40 @@
     },
     {
       "title": "movie",
-      "currency": "blue-gem",
+      "currency": "sapphire",
       "price": 50,
       "isWishListed": false,
       "cover": "movie",
-      "id": "custom-reward-7",
-      "claimedDate": "May 07, 2025"
+      "id": "custom-reward-7"
     },
     {
       "title": "videogames",
-      "currency": "blue-gem",
+      "currency": "sapphire",
       "price": 50,
       "isWishListed": false,
       "cover": "videogames",
-      "id": "custom-reward-8",
-      "claimedDate": "May 07, 2025"
+      "id": "custom-reward-8"
     },
     {
       "title": "workout",
-      "currency": "blue-gem",
+      "currency": "sapphire",
       "price": 50,
       "isWishListed": false,
       "cover": "workout",
-      "id": "custom-reward-9",
-      "claimedDate": "May 07, 2025"
+      "id": "custom-reward-9"
     },
     {
       "title": "sadad",
       "price": 200,
-      "currency": "pink-gem",
+      "currency": "crystal",
       "cover": "reward",
       "id": "68672079-eacc-48e9-9de7-4257a6a015e8",
-      "isWishListed": false,
-      "claimedDate": "May 07, 2025"
+      "isWishListed": false
     },
     {
       "title": "heh",
       "price": 10,
-      "currency": "green-gem",
+      "currency": "emerald",
       "cover": "reward",
       "id": "a33536d1-d60c-420e-9a4e-ec76cbb74b95",
       "isWishListed": false
@@ -180,7 +134,7 @@
     {
       "title": "sdfsdf",
       "price": 10,
-      "currency": "green-gem",
+      "currency": "emerald",
       "cover": "reward",
       "id": "7f61a37d-fa0e-4bf6-8f62-27cdc987bc2b",
       "isWishListed": false
@@ -188,7 +142,7 @@
     {
       "title": "Restaurant",
       "price": 30,
-      "currency": "green-gem",
+      "currency": "emerald",
       "cover": "reward",
       "id": "7cdeb70d-6583-4a71-8356-0d45b3b2cd15",
       "isWishListed": true
@@ -196,7 +150,7 @@
     {
       "title": "ghh",
       "price": 30,
-      "currency": "red-gem",
+      "currency": "ruby",
       "cover": "reward",
       "id": "183045e5-2198-447a-99aa-880bdbb15a64",
       "isWishListed": false
@@ -208,6 +162,7 @@
       "latestStreak": 1,
       "maxStreak": 6,
       "dates": [
+        "May 13, 2025",
         "May 07, 2025",
         "May 05, 2025",
         "May 02, 2025",
@@ -243,185 +198,6 @@
       "dates": []
     }
   ],
-  "todaysHistory": [
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dsfdsf"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dsfdsf"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "asdsadsadasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dsfdsf"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "dasdasd"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "habit",
-      "title": "Work on this"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "reward",
-      "title": "movie",
-      "cover": "movie"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "reward",
-      "title": "workout",
-      "cover": "workout"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "reward",
-      "title": "sadad",
-      "cover": "reward"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "bcvbvc"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "cvbvcb"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "reward",
-      "title": "icecream",
-      "cover": "icecream"
-    },
-    {
-      "date": "May 07, 2025",
-      "type": "goal",
-      "title": "fff"
-    }
-  ],
-  "notes": [
-    {
-      "content": "- [x] edit notes *\n- [x] Do to list\n- [x] open notes *\n- [x] notess visibility none while edited\n- [x] reminders\n- [x] todays goals should say 'today'\n- [x] checklist items should not scroll horizontally\n- [x] notes should be scrollable vertically\n- [x] items in todo list should be moveable up and down\n- [x] default note should be plain text on open\n- [x] fix add new reward\n- [x] fix modal cover images for rewards\n- [x] reward shop should close on page change too or on click outside of rewards\n- [x] checklist dont save without title?\n- [x] edit and delete goals\n- [x] should not be able to choose goal dates before today\n- [x] min and max height of saved notes\n- [x] todays history should be for TODAY\n- [ ] save shit when changing page if not sav\n- [ ] unfinished goals should stay on top (overdue) even if the date has passed\n- [ ] icons for goals?\n- [ ] group of goals for a single award\n- [ ] sub goals\n- [ ] move notes around\n- [ ] routines and wishlists to save\n- [ ] goals should also be moveable up and down\n- [ ] checklist items should have the option of beign more than 1 line jesus...\n- [ ] ordered and unordered lists",
-      "title": "asdsadas",
-      "id": "1efde290-63f4-44c5-88dc-bcbb60057403",
-      "type": "checklist"
-    },
-    {
-      "content": "eeee",
-      "title": "eee",
-      "id": "f3ae99a3-1955-419a-b4a9-4694b1e76655",
-      "type": "text"
-    },
-    {
-      "content": "dsd\nsdfsdfdsf\nfsdfdsfdsf\ndsfdsfffffffffffffff",
-      "title": "dssd",
-      "id": "50759699-b4c1-412f-80d3-dd8be270b853",
-      "type": "text"
-    }
-  ]
+  "todaysHistory": [],
+  "notes": []
 }

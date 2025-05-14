@@ -37,6 +37,8 @@ export default function Todo() {
     removeReminder,
     repeating,
     setRepeating,
+    priority,
+    handleInputPriorityChange,
   } = useGoalManager({ daysToShow: 7 });
 
   return (
@@ -86,6 +88,8 @@ export default function Todo() {
               onClickDay,
               rewardCurrency,
               handleInputCurrencyChange,
+              priority,
+              handleInputPriorityChange,
             }}
           />
         </div>

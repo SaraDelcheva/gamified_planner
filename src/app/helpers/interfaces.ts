@@ -1,13 +1,21 @@
+export interface SubtaskI {
+  id: string;
+  title: string;
+  isCompleted: boolean;
+}
+
 export interface GoalI {
   title: string;
   price: number;
-  currency: string;
   coverName: string;
   rewardName: string;
   isCustom: boolean;
+  currency: string;
   date: string;
   repeating: string;
   isCompleted: boolean;
+  priority: string;
+  subtasks?: SubtaskI[];
 }
 
 export interface NoteI {
@@ -57,6 +65,7 @@ export interface AddGoalI {
   goalDate: string;
   currency: string;
   repeating: string;
+  priority: string;
 
   addNewGoal: (containerDate: string) => void;
   cancelAddGoal: () => void;
@@ -78,11 +87,15 @@ export interface AddGoalI {
   editingGoalId: string | null;
   rewardCurrency: string;
   handleInputCurrencyChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleInputPriorityChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  addSubtask?: (goalTitle: string, subtaskTitle: string) => void;
+  toggleSubtaskCompletion?: (goalTitle: string, subtaskId: string) => void;
+  deleteSubtask?: (goalTitle: string, subtaskId: string) => void;
+  goals: GoalI[];
 }
 
 export interface GoalsForTodayI extends AddGoalI {
   title: string;
-  goals: GoalI[];
   completeGoal: (goalTitle: string) => void;
   deleteGoal: (goalTitle: string) => void;
   editGoal: (goalTitle: string) => void;

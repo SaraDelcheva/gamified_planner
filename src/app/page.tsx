@@ -43,6 +43,11 @@ export default function Home() {
     goalNumber,
     completedGoalNumber,
     notCompletedGoalNumber,
+    handleInputPriorityChange,
+    priority,
+    addSubtask,
+    toggleSubtaskCompletion,
+    deleteSubtask,
   } = useGoalManager({ daysToShow: 1 });
 
   return (
@@ -95,6 +100,11 @@ export default function Home() {
               onClickDay,
               rewardCurrency,
               handleInputCurrencyChange,
+              priority,
+              handleInputPriorityChange,
+              addSubtask,
+              toggleSubtaskCompletion,
+              deleteSubtask,
             }}
           />
         ))}
@@ -103,6 +113,7 @@ export default function Home() {
         goalNumber={goalNumber}
         completedGoalNumber={completedGoalNumber}
         notCompletedGoalNumber={notCompletedGoalNumber}
+        goals={goals}
       />
     </div>
   );

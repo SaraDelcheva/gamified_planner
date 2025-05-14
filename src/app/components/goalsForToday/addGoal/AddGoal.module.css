@@ -1,23 +1,23 @@
 .addGoal {
-  max-height: 60px;
+  max-height: 52px;
   transition: max-height 0.4s ease-in-out, transform 0.3s ease;
-  border-radius: 12px;
+  border-radius: 8px;
   background-color: #2a3132;
   color: #f5f5f5;
-  margin-bottom: 18px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  margin-bottom: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   position: relative;
 }
 
 .addGoal.expanded {
-  max-height: 800px;
+  max-height: 700px;
 }
 
 .addGoal:not(.expanded) .addGoalHeader:hover {
   background-color: #344346;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .addGoal:not(.expanded) .addGoalHeader:hover .addBtn {
@@ -26,19 +26,19 @@
 }
 
 .addGoalHeader {
-  height: 60px;
-  border-radius: 12px;
+  height: 52px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 15px;
+  padding: 0 12px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease,
     box-shadow 0.3s ease;
 }
 
 .addGoal.expanded .addGoalHeader {
-  border-radius: 12px 12px 0 0;
+  border-radius: 8px 8px 0 0;
   cursor: default;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .addGoalTitle {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
   color: #f5f5f5;
 }
@@ -60,10 +60,10 @@
   background-color: transparent;
   color: #f5f5f5;
   width: 75%;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   border: none;
   border-bottom: 1px solid #ffffff4d;
-  padding: 5px 0;
+  padding: 4px 0;
   outline: none;
   transition: border-bottom 0.3s ease;
 }
@@ -73,13 +73,13 @@
 }
 
 .addBtn {
-  height: 40px;
-  width: 40px;
+  height: 32px;
+  width: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   background-color: #4a6670;
   color: #f5f5f5;
   border: none;
@@ -92,8 +92,8 @@
 }
 
 .customBtn {
-  height: 40px;
-  width: 40px;
+  height: 32px;
+  width: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -119,21 +119,17 @@
   justify-content: center;
   background-color: rgba(74, 102, 112, 0.6);
   color: white;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   border-radius: 8px;
   transition: background-color 0.3s ease;
 }
 
-.coverOverlay:hover {
-  /* background-color: rgba(0, 0, 0, 0.7); */
-}
-
 /* Reward badge */
 .rewardBadge {
-  height: 30px;
-  min-width: 50px;
-  padding: 0 12px;
-  border-radius: 15px;
+  height: 26px;
+  min-width: 46px;
+  padding: 0 10px;
+  border-radius: 13px;
   background-color: #4a6670;
   display: flex;
   align-items: center;
@@ -148,8 +144,8 @@
 }
 
 .gemIcon {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -157,51 +153,44 @@
 }
 
 .addGoalContent {
-  padding: 20px;
+  padding: 14px;
   background-color: #3a4a4d;
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 8px 8px;
 }
 
 .dateAndCurrency {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
-  gap: 10px;
+  margin-bottom: 12px;
+  gap: 8px;
 }
 
-.dateSelector {
-  padding: 8px 12px;
-  background-color: #2a3132;
-  border-radius: 6px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  flex-grow: 1;
-}
-
-.dateSelector:hover {
-  background-color: #344346;
-}
-
-.currencySelector {
-  padding: 8px 12px;
-  background-color: #2a3132;
+.currencySelector,
+.dateSelector,
+.prioritySelector,
+.repeatSelector {
+  padding: 4px;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   color: #f5f5f5;
   cursor: pointer;
   outline: none;
   transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+  flex-grow: 1;
 }
 
-.currencySelector:hover {
+.currencySelector:hover,
+.dateSelector:hover,
+.prioritySelector:hover,
+.repeatSelector:hover {
   background-color: #344346;
 }
 
 .rewardTypeToggle {
   display: flex;
-  margin-bottom: 15px;
-  border-radius: 6px;
+  margin-bottom: 12px;
+  border-radius: 4px;
   overflow: hidden;
   background-color: #2a3132;
 }
@@ -212,11 +201,11 @@
   text-align: left;
   display: flex;
   align-items: center;
-  padding: 10px 15px;
+  padding: 8px 12px;
   color: #f5f5f5;
   border: none;
   transition: background-color 0.3s ease;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
 }
 
 .toggleButton:hover {
@@ -225,31 +214,32 @@
 
 .toggleButton.active {
   background-color: rgba(255, 255, 255, 0.15);
+  font-weight: 500;
 }
 
 .plusIcon {
-  margin-right: 8px;
+  margin-right: 6px;
 }
 
 .difficultyGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin: 15px 0;
+  gap: 8px;
+  margin: 12px 0;
 }
 
 .customRewardSection {
-  margin: 15px 0;
+  margin: 12px 0;
 }
 
 .customRewardInput {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   background-color: #2a3132;
   color: #f5f5f5;
-  font-size: 1rem;
+  font-size: 0.9rem;
   outline: none;
   transition: background-color 0.3s ease;
 }
@@ -259,38 +249,44 @@
 }
 
 .customRewardInput::placeholder {
-  border-bottom: 1px solid #ffffff4d;
   color: #b0b0b0;
+}
+
+.repeatingOption,
+.dateOption {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  padding: 6px 12px;
+  background-color: #2a3132;
+  border-radius: 4px;
+  cursor: pointer;
+  flex-grow: 1;
+  font-size: 0.85rem;
 }
 
 .repeatingOptions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
-.repeatingOption {
-  text-align: center;
-  padding: 8px 12px;
-  background-color: #2a3132;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  flex-grow: 1;
-}
-
-.repeatingOption:hover {
-  background-color: #344346;
+.priority {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
 }
 
 /* Calendar */
 .calendarWrapper {
-  margin: 15px 0;
-  padding: 10px;
+  margin: 12px 0;
+  padding: 8px;
   background-color: #2a3132;
-  border-radius: 8px;
+  border-radius: 6px;
   display: flex;
   justify-content: center;
 }
@@ -299,48 +295,18 @@
 .actionButtons {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 8px;
+  margin-top: 16px;
 }
 
 /* Utility classes */
 .boxShadow {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .imageGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   .difficultyGrid {
     grid-template-columns: 1fr;
-  }
-
-  .modal {
-    width: 95%;
-    max-width: 400px;
   }
 }

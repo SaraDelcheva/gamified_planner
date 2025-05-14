@@ -1,14 +1,17 @@
 import styles from "./PersonalInfo.module.css";
 import { useDiamonds } from "../../context/DiamondsContext";
+import { GoalI } from "../../helpers/interfaces";
 
 export default function PersonalInfo({
   goalNumber,
   completedGoalNumber,
   notCompletedGoalNumber,
+  goals,
 }: {
   goalNumber: number;
   completedGoalNumber: number;
   notCompletedGoalNumber: number;
+  goals: GoalI[];
 }) {
   const {
     todaysHistory,
@@ -17,6 +20,11 @@ export default function PersonalInfo({
     totalGreenGems,
     totalPinkGems,
   } = useDiamonds();
+
+  // Find today's focus goal
+  const todaysFocusGoal = goals.find(
+    (goal) => goal.priority === "Today's focus"
+  );
 
   return (
     <div className={styles.personalInfo}>
@@ -46,12 +54,21 @@ export default function PersonalInfo({
             </div>
           </div>
         </div>
-
         <div className={styles.personalStatusDescription}>
           <div className={styles.personalStatusDescriptionUsername}>
             SuperPantsVerified
           </div>
           <div className={styles.personalStatusDescriptionBody}>
+            <div className={styles.todaysFocusSection}>
+              Today&apos;s focus:{" "}
+              {todaysFocusGoal ? (
+                <span className={styles.focusGoalTitle}>
+                  {todaysFocusGoal.title}
+                </span>
+              ) : (
+                <span className={styles.noFocusGoal}>No focus set</span>
+              )}
+            </div>
             You have <span className={styles.highlighted}>{goalNumber}</span>{" "}
             goals for today.
             <br />

@@ -69,6 +69,9 @@ export default function GoalsForToday(props: GoalsForTodayI) {
             currency={props.currency}
             repeating={props.repeating}
             setRepeating={props.setRepeating}
+            priority={props.priority}
+            handleInputPriorityChange={props.handleInputPriorityChange}
+            goals={props.goals}
           />
         </div>
 
@@ -90,6 +93,7 @@ export default function GoalsForToday(props: GoalsForTodayI) {
                   editGoal={props.editGoal}
                   customCoverName={goal.coverName}
                   customRewardName={goal.rewardName}
+                  priority={goal.priority}
                 />
               ))}
           </div>

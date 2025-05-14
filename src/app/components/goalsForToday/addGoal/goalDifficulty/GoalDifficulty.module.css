@@ -2,21 +2,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 12px;
+  padding: 8px 10px;
   background-color: #2a3132;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .difficultyOption:hover {
   background-color: #344346;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .selectedDifficulty {
   background-color: #344346;
-  border: solid 1px rgba(255, 255, 255, 0.1);
+  border-left: solid 3px #5d8898;
 }
 
 .difficultyBadge {
@@ -24,19 +24,24 @@
   align-items: center;
   justify-content: center;
   background-color: #4a6670;
-  padding: 5px 10px;
-  border-radius: 12px;
-  font-size: 0.9rem;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 0.85rem;
   transition: transform 0.2s ease;
 }
 
 .difficultyOption:hover .difficultyBadge {
-  transform: scale(1.1);
+  transform: scale(1.05);
+}
+
+.difficultyOption p {
+  margin: 0;
+  font-size: 0.9rem;
 }
 
 .gemIcon {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { GoalI, NoteI } from "../helpers/interfaces";
+import { GoalI, NoteI, SubtaskI } from "../helpers/interfaces";
 import { formatDate, saveData, createDates } from "../helpers/functions";
 import { useDiamonds } from "../context/DiamondsContext";
 
@@ -29,7 +29,8 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
   const [difficulty, setDifficulty] = useState<number>(0);
   const [goalDate, setGoalDate] = useState("");
   const [repeating, setRepeating] = useState<string>("never");
-  const [rewardCurrency, setRewardCurrency] = useState("blue-gem");
+  const [rewardCurrency, setRewardCurrency] = useState("sapphire");
+  const [priority, setPriority] = useState<string>("none");
   const [isCompleted, setIsCompleted] = useState(false);
 
   const [newGoalDate, setNewGoalDate] = useState("");
@@ -52,6 +53,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
 
   const dates = createDates(0, daysToShow);
   const todayFormatted = formatDate(new Date());
+  const [isTodaysFocus, setIsTodaysFocus] = useState(false);
 
   // ---------- Data Fetching and Initial Setup ----------
   useEffect(() => {
@@ -62,6 +64,11 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
       const loadedGoals = Array.isArray(data.goals) ? data.goals : [];
       setGoals(loadedGoals);
       setNotes(data.notes ? data.notes : []);
+
+      const hasFocusGoal = loadedGoals.some(
+        (goal: GoalI) => goal.priority === "Today's focus"
+      );
+      setIsTodaysFocus(hasFocusGoal);
 
       const today = new Date();
       const formattedDate = formatDate(today);
@@ -135,6 +142,12 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
   // Update goal counts whenever goals change
   useEffect(() => {
     updateGoalCounts(goals, todayFormatted);
+
+    // Update isTodaysFocus based on goals
+    const hasFocusGoal = goals.some(
+      (goal) => goal.priority === "Today's focus"
+    );
+    setIsTodaysFocus(hasFocusGoal);
   }, [goals]);
 
   // Function to update goal counts
@@ -150,8 +163,36 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
 
   // Handle currency change
   function handleInputCurrencyChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    e.preventDefault();
-    setRewardCurrency(e.target.value.trim() || "blue-gem");
+    setRewardCurrency(e.target.value.trim() || "sapphire");
+  }
+
+  // Handle currency change
+  function handleInputPriorityChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const newPriority = e.target.value.trim() || "none";
+    if (newPriority === "Today's focus") {
+      if (!isTodaysFocus) {
+        setIsTodaysFocus(true);
+      } else {
+        const focusedGoal = confirm(
+          "You already have a goal marked as today's focus. Do you want to change it?"
+        );
+        if (!focusedGoal) {
+          return;
+        }
+
+        // If confirmed, clear today's focus from all other goals
+        const updatedGoals = goals.map((goal) => {
+          if (goal.priority === "Today's focus") {
+            return { ...goal, priority: "none" };
+          }
+          return goal;
+        });
+
+        setGoals(updatedGoals);
+        saveData({ goals: updatedGoals });
+      }
+    }
+    setPriority(newPriority);
   }
 
   // ---------- Handlers for Goal Management ----------
@@ -167,9 +208,25 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     let updatedGoals;
     const targetDate = newGoalDate || formattedDate;
 
+    // If setting this goal as Today's focus, clear any existing focus
+    let clearedFocusGoals = [...goals];
+    if (priority === "Today's focus") {
+      clearedFocusGoals = goals.map((goal) => {
+        if (goal.priority === "Today's focus") {
+          return { ...goal, priority: "none" };
+        }
+        return goal;
+      });
+    }
+
     if (isEditing && editingGoalId) {
-      // Update existing goal
-      updatedGoals = goals.map((goal) =>
+      // Get the current goal to check if we're changing a focus goal
+      const currentGoal = goals.find((goal) => goal.title === editingGoalId);
+      const wasAFocusGoal = currentGoal?.priority === "Today's focus";
+      const isNowFocusGoal = priority === "Today's focus";
+
+      // Update existing goal but preserve subtasks
+      updatedGoals = clearedFocusGoals.map((goal) =>
         goal.title === editingGoalId
           ? {
               title: goalName,
@@ -181,13 +238,21 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
               date: targetDate,
               repeating: repeating,
               isCompleted: isCompleted,
+              priority: priority,
+              subtasks: goal.subtasks || [], // Preserve existing subtasks
             }
           : goal
       );
+      // Update isTodaysFocus if necessary
+      if (wasAFocusGoal && !isNowFocusGoal) {
+        setIsTodaysFocus(false);
+      } else if (!wasAFocusGoal && isNowFocusGoal) {
+        setIsTodaysFocus(true);
+      }
     } else {
-      // Add new goal
+      // Add new goal with empty subtasks array
       updatedGoals = [
-        ...goals,
+        ...clearedFocusGoals,
         {
           title: goalName,
           price: isCustom ? 0 : difficulty,
@@ -198,8 +263,15 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
           date: targetDate,
           repeating,
           isCompleted: false,
+          priority: priority,
+          subtasks: [], // Initialize with empty subtasks array
         },
       ];
+
+      // Update isTodaysFocus if necessary
+      if (priority === "Today's focus") {
+        setIsTodaysFocus(true);
+      }
     }
 
     setGoals(updatedGoals);
@@ -220,7 +292,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setCustomCoverName("reward");
     setCustomRewardName("");
     setDifficulty(0);
-    setRewardCurrency("blue-gem");
+    setRewardCurrency("sapphire");
     setRepeating("never");
     setIsCustom(false);
     setExpanded((prev) => ({ ...prev, [containerDate]: false }));
@@ -228,6 +300,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setNewGoalDate("");
     setIsEditing(false);
     setEditingGoalId(null);
+    setPriority("none");
   }
 
   // Complete a goal
@@ -252,19 +325,19 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
 
     // Update the appropriate gem count
     switch (completedGoal.currency) {
-      case "blue-gem":
+      case "sapphire":
         newTotalBlueGems += completedGoal.price;
         setTotalBlueGems(newTotalBlueGems);
         break;
-      case "red-gem":
+      case "ruby":
         newTotalRedGems += completedGoal.price;
         setTotalRedGems(newTotalRedGems);
         break;
-      case "green-gem":
+      case "emerald":
         newTotalGreenGems += completedGoal.price;
         setTotalGreenGems(newTotalGreenGems);
         break;
-      case "pink-gem":
+      case "crystal":
         newTotalPinkGems += completedGoal.price;
         setTotalPinkGems(newTotalPinkGems);
         break;
@@ -289,6 +362,14 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
           ? { ...goal, date: nextDate, isCompleted: false }
           : goal
       );
+    }
+
+    // Check if the completed goal was today's focus
+    const wasFocusGoal = completedGoal.priority === "Today's focus";
+
+    // If completed a non-repeating focus goal, update isTodaysFocus
+    if (wasFocusGoal && completedGoal.repeating === "never") {
+      setIsTodaysFocus(false);
     }
 
     setGoals(updatedGoals);
@@ -336,8 +417,17 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     if (!confirm("Are you sure you want to delete this goal permanently?"))
       return;
 
+    // Check if deleting a focus goal
+    const goalToDelete = goals.find((goal) => goal.title === goalTitle);
+    const isDeletingFocusGoal = goalToDelete?.priority === "Today's focus";
+
     const updatedGoals = goals.filter((goal) => goal.title !== goalTitle);
     setGoals(updatedGoals);
+
+    // Update isTodaysFocus if necessary
+    if (isDeletingFocusGoal) {
+      setIsTodaysFocus(false);
+    }
 
     saveData({
       goals: updatedGoals,
@@ -358,7 +448,8 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setNewGoalDate(goalToEdit.date);
     setRepeating(goalToEdit.repeating);
     setIsCompleted(goalToEdit.isCompleted);
-    setRewardCurrency(goalToEdit.currency || "blue-gem");
+    setRewardCurrency(goalToEdit.currency || "sapphire");
+    setPriority(goalToEdit.priority || "none");
 
     // Set editing state
     setIsEditing(true);
@@ -424,6 +515,73 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     });
   };
 
+  // ----- NEW SUBTASK FUNCTIONS -----
+
+  // Generate a unique ID for subtasks
+  function generateSubtaskId(): string {
+    return Date.now().toString() + Math.random().toString(36).substring(2, 9);
+  }
+
+  // Add a subtask to a goal
+  function addSubtask(goalTitle: string, subtaskTitle: string) {
+    if (!subtaskTitle.trim()) return;
+
+    const newSubtask: SubtaskI = {
+      id: generateSubtaskId(),
+      title: subtaskTitle.trim(),
+      isCompleted: false,
+    };
+
+    const updatedGoals = goals.map((goal) => {
+      if (goal.title === goalTitle) {
+        const updatedSubtasks = [...(goal.subtasks || []), newSubtask];
+        return {
+          ...goal,
+          subtasks: updatedSubtasks,
+        };
+      }
+      return goal;
+    });
+
+    setGoals(updatedGoals);
+    saveData({ goals: updatedGoals });
+  }
+
+  // Toggle subtask completion
+  function toggleSubtaskCompletion(goalTitle: string, subtaskId: string) {
+    const updatedGoals = goals.map((goal) => {
+      if (goal.title === goalTitle && goal.subtasks) {
+        const updatedSubtasks = goal.subtasks.map((subtask) => {
+          if (subtask.id === subtaskId) {
+            return { ...subtask, isCompleted: !subtask.isCompleted };
+          }
+          return subtask;
+        });
+        return { ...goal, subtasks: updatedSubtasks };
+      }
+      return goal;
+    });
+
+    setGoals(updatedGoals);
+    saveData({ goals: updatedGoals });
+  }
+
+  // Delete a subtask
+  function deleteSubtask(goalTitle: string, subtaskId: string) {
+    const updatedGoals = goals.map((goal) => {
+      if (goal.title === goalTitle && goal.subtasks) {
+        const updatedSubtasks = goal.subtasks.filter(
+          (subtask) => subtask.id !== subtaskId
+        );
+        return { ...goal, subtasks: updatedSubtasks };
+      }
+      return goal;
+    });
+
+    setGoals(updatedGoals);
+    saveData({ goals: updatedGoals });
+  }
+
   return {
     // State
     todaysHistory,
@@ -451,6 +609,8 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     goalNumber,
     completedGoalNumber,
     notCompletedGoalNumber,
+    priority,
+    isTodaysFocus,
     // Setters
     setGoalName,
     setDifficulty,
@@ -470,5 +630,10 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     onClickDay,
     handleInputCurrencyChange,
     removeReminder,
+    handleInputPriorityChange,
+    // Subtask functions
+    addSubtask,
+    toggleSubtaskCompletion,
+    deleteSubtask,
   };
 }

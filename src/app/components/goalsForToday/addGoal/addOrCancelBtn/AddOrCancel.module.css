@@ -4,11 +4,12 @@
 .cancelBtn,
 .addBtn {
   background-color: transparent;
-  margin-left: 5px;
-  font-size: 1.5rem;
-  border-radius: 3px;
-  padding: 5px 15px;
+  margin-left: 10px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  padding: 5px;
   line-height: 0;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .cancelBtn {
@@ -21,4 +22,5 @@
 .cancelBtn:hover,
 .addBtn:hover {
   background-color: rgb(255, 255, 255, 0.2);
+  transform: scale(1.05);
 }

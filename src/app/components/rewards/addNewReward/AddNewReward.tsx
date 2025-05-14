@@ -11,7 +11,7 @@ export default function AddNewReward(props: AddNewRewardI) {
   const [expanded, setExpanded] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const diamondOptions = [5, 10, 20, 30, 50, 100, 200, 500, 1000];
-  const currencyOptions = ["blue-gem", "pink-gem", "green-gem", "red-gem"];
+  const currencyOptions = ["sapphire", "crystal", "emerald", "ruby"];
 
   return (
     <>
@@ -65,7 +65,7 @@ export default function AddNewReward(props: AddNewRewardI) {
 
                 <select
                   className={styles.addNewRewardCurrency}
-                  value={props.rewardCurrency || "blue-gem"}
+                  value={props.rewardCurrency || "sapphire"}
                   onChange={(e) => props.handleInputCurrencyChange(e)}
                 >
                   {currencyOptions.map((currency) => (
@@ -84,7 +84,7 @@ export default function AddNewReward(props: AddNewRewardI) {
                   className={styles.selectedGem}
                   style={{
                     backgroundImage: `url('/images/${
-                      props.rewardCurrency || "blue-gem"
+                      props.rewardCurrency || "sapphire"
                     }.svg')`,
                     width: "20px",
                     height: "20px",

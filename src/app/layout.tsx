@@ -48,7 +48,7 @@ function RewardContent() {
   } = useDiamonds();
   const [rewards, setRewards] = useState<RewardI[]>([]);
   const [rewardName, setRewardName] = useState<string>("");
-  const [rewardCurrency, setRewardCurrency] = useState<string>("blue-gem");
+  const [rewardCurrency, setRewardCurrency] = useState<string>("sapphire");
   const [rewardPrice, setRewardPrice] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [coverName, setCoverName] = useState<string>("reward");
@@ -122,7 +122,7 @@ function RewardContent() {
     saveData({ rewards: updatedRewards });
     setCoverName("reward");
     setRewardName("");
-    setRewardCurrency("blue-gem");
+    setRewardCurrency("sapphire");
     setRewardPrice(null);
   }
 
@@ -152,16 +152,16 @@ function RewardContent() {
     // Determine which gem type to deduct from based on the reward's currency
     let canAfford = false;
     switch (claimedReward.currency) {
-      case "blue-gem":
+      case "sapphire":
         canAfford = totalBlueGems >= claimedReward.price;
         break;
-      case "red-gem":
+      case "ruby":
         canAfford = totalRedGems >= claimedReward.price;
         break;
-      case "green-gem":
+      case "emerald":
         canAfford = totalGreenGems >= claimedReward.price;
         break;
-      case "pink-gem":
+      case "crystal":
         canAfford = totalPinkGems >= claimedReward.price;
         break;
     }
@@ -175,19 +175,19 @@ function RewardContent() {
     let newTotalPinkGems = totalPinkGems;
 
     switch (claimedReward.currency) {
-      case "blue-gem":
+      case "sapphire":
         newTotalBlueGems = totalBlueGems - claimedReward.price;
         setTotalBlueGems(newTotalBlueGems);
         break;
-      case "red-gem":
+      case "ruby":
         newTotalRedGems = totalRedGems - claimedReward.price;
         setTotalRedGems(newTotalRedGems);
         break;
-      case "green-gem":
+      case "emerald":
         newTotalGreenGems = totalGreenGems - claimedReward.price;
         setTotalGreenGems(newTotalGreenGems);
         break;
-      case "pink-gem":
+      case "crystal":
         newTotalPinkGems = totalPinkGems - claimedReward.price;
         setTotalPinkGems(newTotalPinkGems);
         break;
@@ -257,7 +257,7 @@ function RewardContent() {
           },
           currencyChange: (e) => {
             e.preventDefault();
-            setRewardCurrency(e.target.value.trim() || "blue-gem");
+            setRewardCurrency(e.target.value.trim() || "sapphire");
           },
           addNewReward,
           claimReward,

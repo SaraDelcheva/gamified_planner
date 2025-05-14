@@ -112,16 +112,16 @@
 }
 
 .blueGem {
-  background-image: url("../../../../public/images/blue-gem.svg");
+  background-image: url("../../../../public/images/sapphire.svg");
 }
 .redGem {
-  background-image: url("../../../../public/images/red-gem.svg");
+  background-image: url("../../../../public/images/ruby.svg");
 }
 .greenGem {
-  background-image: url("../../../../public/images/green-gem.svg");
+  background-image: url("../../../../public/images/emerald.svg");
 }
 .pinkGem {
-  background-image: url("../../../../public/images/pink-gem.svg");
+  background-image: url("../../../../public/images/crystal.svg");
 }
 
 .todaysHistory {
@@ -214,4 +214,21 @@
 .claimedHabitCover {
   background-color: #ad5656;
   background-image: url("../../../../public/images/chain-dark.svg");
+}
+
+.todaysFocusSection {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #3a4a4d;
+}
+
+.focusGoalTitle {
+  color: #ffc107;
+  margin-top: 4px;
+  font-size: 1.1em;
+}
+
+.noFocusGoal {
+  color: #aaa;
+  font-style: italic;
 }

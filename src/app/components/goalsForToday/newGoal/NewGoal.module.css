@@ -1,5 +1,5 @@
 .newGoalContainer {
-  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .newGoal {
@@ -31,6 +31,9 @@
 }
 
 .newGoalP {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 1.2rem;
   margin-left: 15px;
   font-weight: 500;
@@ -114,7 +117,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: -20px;
+  right: -20px;
   z-index: 3;
   margin: auto;
   display: none;

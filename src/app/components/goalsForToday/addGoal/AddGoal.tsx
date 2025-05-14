@@ -1,19 +1,30 @@
 import { AiOutlinePlus } from "react-icons/ai";
+import { BiPlus, BiTrash } from "react-icons/bi";
+import { FiRepeat } from "react-icons/fi";
+import { useState } from "react";
 import styles from "./AddGoal.module.css";
 import GoalDifficulty from "./goalDifficulty/GoalDifficulty";
 import AddOrCancelBtn from "./addOrCancelBtn/AddOrCancelBtn";
-import { AddGoalI } from "@/app/helpers/interfaces";
-import { BiPlus } from "react-icons/bi";
+import CustomSelect from "@/app/components/customSelect/CustomSelect";
+import { AddGoalI, SubtaskI } from "@/app/helpers/interfaces";
 import Calendar from "react-calendar";
-import { useState } from "react";
 import CoverModal from "@/app/components/coverModal/CoverModal";
-import { FiRepeat } from "react-icons/fi";
 
 export default function AddGoal(props: AddGoalI) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRepeatingModalOpen, setIsRepeatingModalOpen] = useState(false);
+  const [newSubtask, setNewSubtask] = useState("");
+  const [showSubtaskInput, setShowSubtaskInput] = useState(false);
 
-  const currencyOptions = ["blue-gem", "pink-gem", "green-gem", "red-gem"];
+  const currencyOptions = ["sapphire", "crystal", "emerald", "ruby"];
+  const priorityOptions = [
+    "none",
+    "Today's focus",
+    "High Priority",
+    "Medium Priority",
+    "Low Priority",
+    "Optional/Backlog",
+  ];
 
   function easy(diamonds: number) {
     props.setDifficulty(diamonds);
@@ -28,8 +39,57 @@ export default function AddGoal(props: AddGoalI) {
     return false;
   }
 
+  // Handler for currency change with CustomSelect
+  const handleCurrencyChange = (option: string) => {
+    props.handleInputCurrencyChange({
+      target: { value: option },
+    } as React.ChangeEvent<HTMLSelectElement>);
+  };
+
+  // Handler for priority change with CustomSelect
+  const handlePriorityChange = (option: string) => {
+    props.handleInputPriorityChange({
+      target: { value: option },
+    } as React.ChangeEvent<HTMLSelectElement>);
+  };
+
+  // Get subtasks of the currently editing goal
+  const getSubtasks = () => {
+    if (props.isEditing && props.editingGoalId) {
+      const editingGoal = props.goals?.find(
+        (goal) => goal.title === props.editingGoalId
+      );
+      return editingGoal?.subtasks || [];
+    }
+    return [];
+  };
+
+  // Add a new subtask
+  const handleAddSubtask = () => {
+    if (newSubtask.trim() && props.addSubtask && props.editingGoalId) {
+      props.addSubtask(props.editingGoalId, newSubtask);
+      setNewSubtask("");
+    }
+  };
+
+  // Toggle subtask completion
+  const handleToggleSubtask = (subtaskId: string) => {
+    if (props.toggleSubtaskCompletion && props.editingGoalId) {
+      props.toggleSubtaskCompletion(props.editingGoalId, subtaskId);
+    }
+  };
+
+  // Delete a subtask
+  const handleDeleteSubtask = (subtaskId: string) => {
+    if (props.deleteSubtask && props.editingGoalId) {
+      props.deleteSubtask(props.editingGoalId, subtaskId);
+    }
+  };
+
   const minDate = new Date();
   minDate.setHours(0, 0, 0, 0);
+
+  const subtasks = getSubtasks();
 
   return (
     <div
@@ -42,7 +102,7 @@ export default function AddGoal(props: AddGoalI) {
         {!props.expanded ? (
           <div className={styles.collapsedHeader}>
             <p className={styles.addGoalTitle}>
-              {props.isEditing ? "Edit addGoal" : "Add New addGoal"}
+              {props.isEditing ? "Edit Goal" : "Add New Goal"}
             </p>
             <button className={`${styles.addBtn} ${styles.boxShadow}`}>
               <AiOutlinePlus />
@@ -92,31 +152,43 @@ export default function AddGoal(props: AddGoalI) {
       {props.expanded && (
         <div className={styles.addGoalContent}>
           <div className={styles.dateAndCurrency}>
-            <div
-              className={styles.dateSelector}
-              onClick={() => props.setIsCalendarOpen(!props.isCalendarOpen)}
-            >
-              {props.newGoalDate || props.goalDate}
+            <div>
+              <div
+                className={styles.dateSelector}
+                onClick={() => props.setIsCalendarOpen(!props.isCalendarOpen)}
+              >
+                <div className={styles.dateOption}>
+                  {props.newGoalDate || props.goalDate}
+                </div>
+              </div>
+            </div>
+            <div className={styles.repeatSelector}>
+              <div
+                onClick={() => setIsRepeatingModalOpen(!isRepeatingModalOpen)}
+                className={styles.repeatingOption}
+              >
+                {" "}
+                <FiRepeat /> {props.repeating}
+              </div>
             </div>
 
-            <div
-              onClick={() => setIsRepeatingModalOpen(!isRepeatingModalOpen)}
-              className={styles.repeatingOption}
-            >
-              {" "}
-              <FiRepeat /> {props.repeating}
-            </div>
-            <select
-              className={styles.currencySelector}
+            {/* Custom Priority Select component */}
+            <CustomSelect
+              options={priorityOptions}
+              value={props.priority}
+              onChange={handlePriorityChange}
+              type="priority"
+              className={styles.prioritySelector}
+            />
+
+            {/* Custom Currency Select component */}
+            <CustomSelect
+              options={currencyOptions}
               value={props.currency}
-              onChange={props.handleInputCurrencyChange}
-            >
-              {currencyOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option.split("-")[0]}
-                </option>
-              ))}
-            </select>
+              onChange={handleCurrencyChange}
+              type="currency"
+              className={styles.currencySelector}
+            />
           </div>
           {isRepeatingModalOpen && (
             <div
@@ -210,6 +282,59 @@ export default function AddGoal(props: AddGoalI) {
               />
             </div>
           )}
+          <div className={styles.subtasksSection}>
+            <div className={styles.subtasksHeader}>
+              <h4>Subtasks</h4>
+              <button
+                className={styles.addSubtaskBtn}
+                onClick={() => setShowSubtaskInput(!showSubtaskInput)}
+              >
+                <AiOutlinePlus /> {showSubtaskInput ? "Cancel" : "Add Subtask"}
+              </button>
+            </div>
+
+            {showSubtaskInput && (
+              <div className={styles.subtaskInput}>
+                <input
+                  type="text"
+                  placeholder="Subtask name"
+                  value={newSubtask}
+                  onChange={(e) => setNewSubtask(e.target.value)}
+                  onKeyPress={(e) => e.key === "Enter" && handleAddSubtask()}
+                />
+                <button onClick={handleAddSubtask}>Add</button>
+              </div>
+            )}
+
+            <div className={styles.subtasksList}>
+              {subtasks.length > 0 ? (
+                subtasks.map((subtask: SubtaskI) => (
+                  <div key={subtask.id} className={styles.subtaskItem}>
+                    <div className={styles.subtaskLeft}>
+                      <input
+                        type="checkbox"
+                        checked={subtask.isCompleted}
+                        onChange={() => handleToggleSubtask(subtask.id)}
+                      />
+                      <span
+                        className={subtask.isCompleted ? styles.completed : ""}
+                      >
+                        {subtask.title}
+                      </span>
+                    </div>
+                    <button
+                      className={styles.deleteSubtaskBtn}
+                      onClick={() => handleDeleteSubtask(subtask.id)}
+                    >
+                      <BiTrash />
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <p className={styles.noSubtasks}>No subtasks yet</p>
+              )}
+            </div>
+          </div>
 
           {props.isCalendarOpen && (
             <div className={styles.calendarWrapper}>

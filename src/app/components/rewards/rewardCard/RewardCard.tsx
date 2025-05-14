@@ -7,11 +7,11 @@ import { AiFillHeart } from "react-icons/ai";
 export default function RewardCard(props: RewardCardI) {
   const [isHovered, setIsHovered] = useState(false);
   const isClaimable =
-    props.currency === "blue-gem"
+    props.currency === "sapphire"
       ? props.price <= props.totalBlueGems
-      : props.currency === "pink-gem"
+      : props.currency === "crystal"
       ? props.price <= props.totalPinkGems
-      : props.currency === "red-gem"
+      : props.currency === "ruby"
       ? props.price <= props.totalRedGems
       : props.price <= props.totalGreenGems;
   const wasClaimedToday = props.claimedDate === props.currentDate;
@@ -75,7 +75,7 @@ export default function RewardCard(props: RewardCardI) {
                   className={styles.gemIcon}
                   style={{
                     backgroundImage: `url('/images/${
-                      props.currency || "blue-gem"
+                      props.currency || "sapphire"
                     }.svg')`,
                     width: "20px",
                     height: "20px",
