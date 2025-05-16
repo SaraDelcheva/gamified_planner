@@ -39,6 +39,12 @@ export default function Todo() {
     setRepeating,
     priority,
     handleInputPriorityChange,
+    toggleSubtaskCompletion,
+    deleteSubtask,
+    currentSubtasks,
+    addCurrentSubtask,
+    toggleCurrentSubtaskCompletion,
+    deleteCurrentSubtask,
   } = useGoalManager({ daysToShow: 7 });
 
   return (
@@ -90,6 +96,12 @@ export default function Todo() {
               handleInputCurrencyChange,
               priority,
               handleInputPriorityChange,
+              toggleSubtaskCompletion,
+              deleteSubtask,
+              currentSubtasks,
+              addCurrentSubtask,
+              toggleCurrentSubtaskCompletion,
+              deleteCurrentSubtask,
             }}
           />
         </div>
