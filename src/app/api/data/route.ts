@@ -1,17 +1,24 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const filePath = path.join(process.cwd(), "public/data.json");
+import { ObjectId } from "mongodb";
+import clientPromise from "@/lib/mongodb";
 
 export async function GET() {
   try {
-    const data = fs.readFileSync(filePath, "utf-8");
-    return NextResponse.json(JSON.parse(data));
+    const client = await clientPromise;
+    const db = client.db("gamified_planner");
+
+    // Get the data from the "planner" collection
+    const data = await db.collection("planner").findOne();
+
+    if (!data) {
+      return NextResponse.json({ error: "No data found" }, { status: 404 });
+    }
+
+    return NextResponse.json(data);
   } catch (error) {
-    console.error("Error reading data.json:", error);
+    console.error("Error reading from MongoDB:", error);
     return NextResponse.json(
-      { error: "Error reading data.json" },
+      { error: "Error reading from database" },
       { status: 500 }
     );
   }
@@ -20,12 +27,30 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const { data } = await req.json();
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    return NextResponse.json({ success: true });
+    const client = await clientPromise;
+    const db = client.db("gamified_planner");
+
+    // Update the existing document if it exists
+    const documentId = "68271c3c842cc0a98841afb9";
+
+    const result = await db
+      .collection("planner")
+      .updateOne(
+        { _id: new ObjectId(documentId) },
+        { $set: data },
+        { upsert: true }
+      );
+
+    return NextResponse.json({
+      success: true,
+      acknowledged: result.acknowledged,
+      modifiedCount: result.modifiedCount,
+      upsertedId: result.upsertedId,
+    });
   } catch (error) {
-    console.error("Error writing data.json:", error);
+    console.error("Error writing to MongoDB:", error);
     return NextResponse.json(
-      { error: "Error writing data.json" },
+      { error: "Error writing to database" },
       { status: 500 }
     );
   }
