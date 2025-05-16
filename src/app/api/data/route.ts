@@ -34,9 +34,13 @@ export async function POST(req: Request) {
     const existingDoc = await db.collection("planner").findOne();
     const documentId = existingDoc?._id || new ObjectId();
 
+    // Remove _id from the data if it exists
+    const dataToUpdate = { ...data };
+    delete dataToUpdate._id;
+
     const result = await db
       .collection("planner")
-      .updateOne({ _id: documentId }, { $set: data }, { upsert: true });
+      .updateOne({ _id: documentId }, { $set: dataToUpdate }, { upsert: true });
 
     if (!result.acknowledged) {
       throw new Error("Update operation was not acknowledged");
