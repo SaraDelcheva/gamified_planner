@@ -30,16 +30,17 @@ export async function POST(req: Request) {
     const client = await clientPromise;
     const db = client.db("gamified_planner");
 
-    // Update the existing document if it exists
-    const documentId = "68271c3c842cc0a98841afb9";
+    // First, try to find an existing document
+    const existingDoc = await db.collection("planner").findOne();
+    const documentId = existingDoc?._id || new ObjectId();
 
     const result = await db
       .collection("planner")
-      .updateOne(
-        { _id: new ObjectId(documentId) },
-        { $set: data },
-        { upsert: true }
-      );
+      .updateOne({ _id: documentId }, { $set: data }, { upsert: true });
+
+    if (!result.acknowledged) {
+      throw new Error("Update operation was not acknowledged");
+    }
 
     return NextResponse.json({
       success: true,
@@ -50,7 +51,10 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error("Error writing to MongoDB:", error);
     return NextResponse.json(
-      { error: "Error writing to database" },
+      {
+        error: "Error writing to database",
+        details: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 }
     );
   }
