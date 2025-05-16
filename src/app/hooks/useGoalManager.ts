@@ -54,6 +54,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
   const dates = createDates(0, daysToShow);
   const todayFormatted = formatDate(new Date());
   const [isTodaysFocus, setIsTodaysFocus] = useState(false);
+  const [currentSubtasks, setCurrentSubtasks] = useState<SubtaskI[]>([]);
 
   // ---------- Data Fetching and Initial Setup ----------
   useEffect(() => {
@@ -239,7 +240,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
               repeating: repeating,
               isCompleted: isCompleted,
               priority: priority,
-              subtasks: goal.subtasks || [], // Preserve existing subtasks
+              subtasks: currentSubtasks,
             }
           : goal
       );
@@ -264,7 +265,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
           repeating,
           isCompleted: false,
           priority: priority,
-          subtasks: [], // Initialize with empty subtasks array
+          subtasks: currentSubtasks,
         },
       ];
 
@@ -301,6 +302,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setIsEditing(false);
     setEditingGoalId(null);
     setPriority("none");
+    setCurrentSubtasks([]);
   }
 
   // Complete a goal
@@ -450,6 +452,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setIsCompleted(goalToEdit.isCompleted);
     setRewardCurrency(goalToEdit.currency || "sapphire");
     setPriority(goalToEdit.priority || "none");
+    setCurrentSubtasks(goalToEdit.subtasks || []);
 
     // Set editing state
     setIsEditing(true);
@@ -516,12 +519,6 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
   };
 
   // ----- NEW SUBTASK FUNCTIONS -----
-
-  // Generate a unique ID for subtasks
-  function generateSubtaskId(): string {
-    return Date.now().toString() + Math.random().toString(36).substring(2, 9);
-  }
-
   // Add a subtask to a goal
   function addSubtask(goalTitle: string, subtaskTitle: string) {
     if (!subtaskTitle.trim()) return;
@@ -550,14 +547,16 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
   // Toggle subtask completion
   function toggleSubtaskCompletion(goalTitle: string, subtaskId: string) {
     const updatedGoals = goals.map((goal) => {
-      if (goal.title === goalTitle && goal.subtasks) {
-        const updatedSubtasks = goal.subtasks.map((subtask) => {
-          if (subtask.id === subtaskId) {
-            return { ...subtask, isCompleted: !subtask.isCompleted };
-          }
-          return subtask;
-        });
-        return { ...goal, subtasks: updatedSubtasks };
+      if (goal.title === goalTitle) {
+        const updatedSubtasks = (goal.subtasks || []).map((subtask) =>
+          subtask.id === subtaskId
+            ? { ...subtask, isCompleted: !subtask.isCompleted }
+            : subtask
+        );
+        return {
+          ...goal,
+          subtasks: updatedSubtasks,
+        };
       }
       return goal;
     });
@@ -569,17 +568,56 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
   // Delete a subtask
   function deleteSubtask(goalTitle: string, subtaskId: string) {
     const updatedGoals = goals.map((goal) => {
-      if (goal.title === goalTitle && goal.subtasks) {
-        const updatedSubtasks = goal.subtasks.filter(
+      if (goal.title === goalTitle) {
+        const updatedSubtasks = (goal.subtasks || []).filter(
           (subtask) => subtask.id !== subtaskId
         );
-        return { ...goal, subtasks: updatedSubtasks };
+        return {
+          ...goal,
+          subtasks: updatedSubtasks,
+        };
       }
       return goal;
     });
 
     setGoals(updatedGoals);
     saveData({ goals: updatedGoals });
+  }
+
+  // Generate a unique ID for subtasks
+  function generateSubtaskId(): string {
+    return Date.now().toString() + Math.random().toString(36).substring(2, 9);
+  }
+
+  // Add a subtask to the current goal being edited
+  function addCurrentSubtask(subtaskTitle: string) {
+    if (!subtaskTitle.trim()) return;
+
+    const newSubtask: SubtaskI = {
+      id: generateSubtaskId(),
+      title: subtaskTitle.trim(),
+      isCompleted: false,
+    };
+
+    setCurrentSubtasks((prev) => [...prev, newSubtask]);
+  }
+
+  // Toggle completion of a current subtask
+  function toggleCurrentSubtaskCompletion(subtaskId: string) {
+    setCurrentSubtasks((prev) =>
+      prev.map((subtask) =>
+        subtask.id === subtaskId
+          ? { ...subtask, isCompleted: !subtask.isCompleted }
+          : subtask
+      )
+    );
+  }
+
+  // Delete a current subtask
+  function deleteCurrentSubtask(subtaskId: string) {
+    setCurrentSubtasks((prev) =>
+      prev.filter((subtask) => subtask.id !== subtaskId)
+    );
   }
 
   return {
@@ -611,6 +649,8 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     notCompletedGoalNumber,
     priority,
     isTodaysFocus,
+    currentSubtasks,
+
     // Setters
     setGoalName,
     setDifficulty,
@@ -635,5 +675,8 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     addSubtask,
     toggleSubtaskCompletion,
     deleteSubtask,
+    addCurrentSubtask,
+    toggleCurrentSubtaskCompletion,
+    deleteCurrentSubtask,
   };
 }

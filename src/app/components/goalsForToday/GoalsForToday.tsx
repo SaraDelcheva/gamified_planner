@@ -72,6 +72,12 @@ export default function GoalsForToday(props: GoalsForTodayI) {
             priority={props.priority}
             handleInputPriorityChange={props.handleInputPriorityChange}
             goals={props.goals}
+            currentSubtasks={props.currentSubtasks}
+            addCurrentSubtask={props.addCurrentSubtask}
+            toggleCurrentSubtaskCompletion={
+              props.toggleCurrentSubtaskCompletion
+            }
+            deleteCurrentSubtask={props.deleteCurrentSubtask}
           />
         </div>
 
@@ -94,6 +100,9 @@ export default function GoalsForToday(props: GoalsForTodayI) {
                   customCoverName={goal.coverName}
                   customRewardName={goal.rewardName}
                   priority={goal.priority}
+                  subtasks={goal.subtasks}
+                  toggleSubtaskCompletion={props.toggleSubtaskCompletion}
+                  deleteSubtask={props.deleteSubtask}
                 />
               ))}
           </div>

@@ -89,9 +89,12 @@ export interface AddGoalI {
   handleInputCurrencyChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   handleInputPriorityChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   addSubtask?: (goalTitle: string, subtaskTitle: string) => void;
-  toggleSubtaskCompletion?: (goalTitle: string, subtaskId: string) => void;
   deleteSubtask?: (goalTitle: string, subtaskId: string) => void;
   goals: GoalI[];
+  currentSubtasks: SubtaskI[];
+  addCurrentSubtask: (subtaskTitle: string) => void;
+  toggleCurrentSubtaskCompletion: (subtaskId: string) => void;
+  deleteCurrentSubtask: (subtaskId: string) => void;
 }
 
 export interface GoalsForTodayI extends AddGoalI {
@@ -104,6 +107,8 @@ export interface GoalsForTodayI extends AddGoalI {
   setGoalDate: React.Dispatch<React.SetStateAction<string>>;
   notes: NoteI[];
   removeReminder: (noteId: string) => void;
+  toggleSubtaskCompletion: (goalTitle: string, subtaskId: string) => void;
+  deleteSubtask: (goalTitle: string, subtaskId: string) => void;
 }
 
 export interface RewardsI {

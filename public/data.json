@@ -1,9 +1,9 @@
 {
   "totalDiamonds": 10,
-  "totalBlueGems": 115,
-  "totalPinkGems": 10,
+  "totalBlueGems": 145,
+  "totalPinkGems": 20,
   "totalRedGems": 70,
-  "totalGreenGems": 100,
+  "totalGreenGems": 120,
   "goals": [
     {
       "title": "fdssdf",
@@ -40,6 +40,105 @@
       "isCompleted": false,
       "priority": "Today's focus",
       "subtasks": []
+    },
+    {
+      "title": "dsadasd",
+      "price": 30,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "currency": "sapphire",
+      "date": "May 16, 2025",
+      "repeating": "never",
+      "isCompleted": true,
+      "priority": "none",
+      "subtasks": []
+    },
+    {
+      "title": "sdfsdf",
+      "price": 10,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "currency": "crystal",
+      "date": "May 16, 2025",
+      "repeating": "never",
+      "isCompleted": true,
+      "priority": "none",
+      "subtasks": [
+        {
+          "id": "1747384714329oikxgny",
+          "title": "dsfsdf",
+          "isCompleted": false
+        },
+        {
+          "id": "1747384717209uf7raf6",
+          "title": "fsdfsdf",
+          "isCompleted": true
+        }
+      ]
+    },
+    {
+      "title": "retret",
+      "price": 20,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "currency": "emerald",
+      "date": "May 16, 2025",
+      "repeating": "never",
+      "isCompleted": true,
+      "priority": "none",
+      "subtasks": [
+        {
+          "id": "17473854444085hl3gcj",
+          "title": "ert",
+          "isCompleted": false
+        }
+      ]
+    },
+    {
+      "title": "zxczxc",
+      "price": 30,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "currency": "sapphire",
+      "date": "May 16, 2025",
+      "repeating": "never",
+      "isCompleted": false,
+      "priority": "High Priority",
+      "subtasks": [
+        {
+          "id": "17473863053439j1uyq4",
+          "title": "sad",
+          "isCompleted": true
+        },
+        {
+          "id": "174738630652760dmx61",
+          "title": "dasd",
+          "isCompleted": false
+        }
+      ]
+    },
+    {
+      "title": "dsadasd",
+      "price": 30,
+      "coverName": "",
+      "rewardName": "",
+      "isCustom": false,
+      "currency": "emerald",
+      "date": "May 16, 2025",
+      "repeating": "never",
+      "isCompleted": false,
+      "priority": "none",
+      "subtasks": [
+        {
+          "id": "1747386806654n4qbyav",
+          "title": "d",
+          "isCompleted": false
+        }
+      ]
     }
   ],
   "rewards": [
@@ -198,6 +297,22 @@
       "dates": []
     }
   ],
-  "todaysHistory": [],
+  "todaysHistory": [
+    {
+      "date": "May 16, 2025",
+      "type": "goal",
+      "title": "dsadasd"
+    },
+    {
+      "date": "May 16, 2025",
+      "type": "goal",
+      "title": "retret"
+    },
+    {
+      "date": "May 16, 2025",
+      "type": "goal",
+      "title": "sdfsdf"
+    }
+  ],
   "notes": []
 }

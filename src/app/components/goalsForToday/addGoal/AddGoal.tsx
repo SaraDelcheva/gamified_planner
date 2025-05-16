@@ -14,7 +14,6 @@ export default function AddGoal(props: AddGoalI) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRepeatingModalOpen, setIsRepeatingModalOpen] = useState(false);
   const [newSubtask, setNewSubtask] = useState("");
-  const [showSubtaskInput, setShowSubtaskInput] = useState(false);
 
   const currencyOptions = ["sapphire", "crystal", "emerald", "ruby"];
   const priorityOptions = [
@@ -53,43 +52,32 @@ export default function AddGoal(props: AddGoalI) {
     } as React.ChangeEvent<HTMLSelectElement>);
   };
 
-  // Get subtasks of the currently editing goal
-  const getSubtasks = () => {
-    if (props.isEditing && props.editingGoalId) {
-      const editingGoal = props.goals?.find(
-        (goal) => goal.title === props.editingGoalId
-      );
-      return editingGoal?.subtasks || [];
-    }
-    return [];
+  // Handle subtask input changes
+  const handleSubtaskInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewSubtask(e.target.value);
   };
 
-  // Add a new subtask
+  // Add new subtask and reset input
   const handleAddSubtask = () => {
-    if (newSubtask.trim() && props.addSubtask && props.editingGoalId) {
-      props.addSubtask(props.editingGoalId, newSubtask);
-      setNewSubtask("");
+    if (newSubtask.trim()) {
+      props.addCurrentSubtask(newSubtask);
+      setNewSubtask(""); // Clear input after adding
     }
   };
 
-  // Toggle subtask completion
-  const handleToggleSubtask = (subtaskId: string) => {
-    if (props.toggleSubtaskCompletion && props.editingGoalId) {
-      props.toggleSubtaskCompletion(props.editingGoalId, subtaskId);
-    }
-  };
-
-  // Delete a subtask
-  const handleDeleteSubtask = (subtaskId: string) => {
-    if (props.deleteSubtask && props.editingGoalId) {
-      props.deleteSubtask(props.editingGoalId, subtaskId);
+  // Handle Enter key press in subtask input
+  const handleSubtaskKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent form submission
+      handleAddSubtask();
     }
   };
 
   const minDate = new Date();
   minDate.setHours(0, 0, 0, 0);
 
-  const subtasks = getSubtasks();
+  // Use currentSubtasks directly instead of fetching from goals
+  const subtasks = props.currentSubtasks || [];
 
   return (
     <div
@@ -282,29 +270,21 @@ export default function AddGoal(props: AddGoalI) {
               />
             </div>
           )}
+          {/* Subtasks Section - This is the key part we're fixing */}
           <div className={styles.subtasksSection}>
             <div className={styles.subtasksHeader}>
               <h4>Subtasks</h4>
-              <button
-                className={styles.addSubtaskBtn}
-                onClick={() => setShowSubtaskInput(!showSubtaskInput)}
-              >
-                <AiOutlinePlus /> {showSubtaskInput ? "Cancel" : "Add Subtask"}
-              </button>
-            </div>
-
-            {showSubtaskInput && (
               <div className={styles.subtaskInput}>
                 <input
                   type="text"
                   placeholder="Subtask name"
                   value={newSubtask}
-                  onChange={(e) => setNewSubtask(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && handleAddSubtask()}
+                  onChange={handleSubtaskInputChange}
+                  onKeyDown={handleSubtaskKeyDown}
                 />
                 <button onClick={handleAddSubtask}>Add</button>
               </div>
-            )}
+            </div>
 
             <div className={styles.subtasksList}>
               {subtasks.length > 0 ? (
@@ -314,7 +294,9 @@ export default function AddGoal(props: AddGoalI) {
                       <input
                         type="checkbox"
                         checked={subtask.isCompleted}
-                        onChange={() => handleToggleSubtask(subtask.id)}
+                        onChange={() =>
+                          props.toggleCurrentSubtaskCompletion(subtask.id)
+                        }
                       />
                       <span
                         className={subtask.isCompleted ? styles.completed : ""}
@@ -324,7 +306,7 @@ export default function AddGoal(props: AddGoalI) {
                     </div>
                     <button
                       className={styles.deleteSubtaskBtn}
-                      onClick={() => handleDeleteSubtask(subtask.id)}
+                      onClick={() => props.deleteCurrentSubtask(subtask.id)}
                     >
                       <BiTrash />
                     </button>

@@ -48,6 +48,10 @@ export default function Home() {
     addSubtask,
     toggleSubtaskCompletion,
     deleteSubtask,
+    currentSubtasks,
+    addCurrentSubtask,
+    toggleCurrentSubtaskCompletion,
+    deleteCurrentSubtask,
   } = useGoalManager({ daysToShow: 1 });
 
   return (
@@ -105,6 +109,10 @@ export default function Home() {
               addSubtask,
               toggleSubtaskCompletion,
               deleteSubtask,
+              currentSubtasks,
+              addCurrentSubtask,
+              toggleCurrentSubtaskCompletion,
+              deleteCurrentSubtask,
             }}
           />
         ))}

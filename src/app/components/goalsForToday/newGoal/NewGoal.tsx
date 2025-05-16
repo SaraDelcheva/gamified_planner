@@ -5,6 +5,8 @@ import styles from "./NewGoal.module.css";
 import { FaCheck } from "react-icons/fa";
 import { MdDeleteForever, MdOutlineEdit } from "react-icons/md";
 import { BsExclamationCircleFill, BsStars, BsListTask } from "react-icons/bs";
+import { IoIosArrowDown } from "react-icons/io";
+import { SubtaskI } from "@/app/helpers/interfaces";
 
 export default function NewGoal({
   goalTitle,
@@ -17,6 +19,9 @@ export default function NewGoal({
   customCoverName,
   customRewardName,
   priority,
+  subtasks,
+  toggleSubtaskCompletion,
+  deleteSubtask,
 }: {
   goalTitle: string;
   price: number;
@@ -28,8 +33,12 @@ export default function NewGoal({
   customCoverName: string;
   customRewardName: string;
   priority: string;
+  subtasks?: SubtaskI[];
+  toggleSubtaskCompletion?: (goalTitle: string, subtaskId: string) => void;
+  deleteSubtask?: (goalTitle: string, subtaskId: string) => void;
 }) {
   const [isGoalHovered, setIsGoalHovered] = useState(false);
+  const [showSubtasks, setShowSubtasks] = useState(false);
 
   function getPriorityIcon(priority: string) {
     switch (priority) {
@@ -47,6 +56,7 @@ export default function NewGoal({
         return null;
     }
   }
+
   // Function to handle edit click
   const handleEditClick = () => {
     editGoal(goalTitle);
@@ -64,9 +74,11 @@ export default function NewGoal({
         }}
       >
         <div className={styles.newGoalHeader}>
-          <p className={styles.newGoalP}>
-            {getPriorityIcon(priority)} {goalTitle}
-          </p>
+          <div className={styles.goalTitleContainer}>
+            <p className={styles.newGoalP}>
+              {getPriorityIcon(priority)} {goalTitle}
+            </p>
+          </div>
           {isGoalHovered ? (
             <button
               onClick={() => completeGoal(goalTitle)}
@@ -129,6 +141,34 @@ export default function NewGoal({
             </div>
           </div>
         </div>
+
+        {showSubtasks && subtasks && subtasks.length > 0 && (
+          <div className={styles.subtasksList}>
+            {subtasks.map((subtask) => (
+              <div key={subtask.id} className={styles.subtaskItem}>
+                <div className={styles.subtaskLeft}>
+                  <input
+                    type="checkbox"
+                    checked={subtask.isCompleted}
+                    onChange={() =>
+                      toggleSubtaskCompletion?.(goalTitle, subtask.id)
+                    }
+                  />
+                  <span className={subtask.isCompleted ? styles.completed : ""}>
+                    {subtask.title}
+                  </span>
+                </div>
+                <button
+                  className={styles.deleteSubtaskBtn}
+                  onClick={() => deleteSubtask?.(goalTitle, subtask.id)}
+                >
+                  <MdDeleteForever />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className={styles.deleteEditContainer}>
           <div className={styles.delete} onClick={() => deleteGoal(goalTitle)}>
             <MdDeleteForever />
@@ -138,6 +178,19 @@ export default function NewGoal({
           </div>
         </div>
       </div>
+      {subtasks && subtasks.length > 0 && (
+        <button
+          className={styles.subtasksToggle}
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowSubtasks(!showSubtasks);
+          }}
+        >
+          <IoIosArrowDown />
+          <span className={styles.highlight}>{subtasks.length}</span>
+          subtasks
+        </button>
+      )}
     </div>
   );
 }

@@ -276,3 +276,7 @@ input[type="number"] {
   /* background-color: #1a2223; */
   font-weight: bold;
 }
+
+.subtasksHeader {
+  background-color: red;
+}
