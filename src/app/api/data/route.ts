@@ -28,8 +28,13 @@ export async function GET() {
     const client = await clientPromise;
     const db = client.db("gamified_planner");
 
-    // Get the data from the "planner" collection
-    const data = await db.collection("planner").findOne();
+    // Get the data from the "planner" collection with a timeout
+    const data = (await Promise.race([
+      db.collection("planner").findOne(),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Database query timeout")), 8000)
+      ),
+    ])) as Record<string, unknown> | null;
 
     if (!data) {
       return NextResponse.json(
@@ -42,7 +47,10 @@ export async function GET() {
   } catch (error) {
     console.error("Error reading from MongoDB:", error);
     return NextResponse.json(
-      { error: "Error reading from database" },
+      {
+        error: "Error reading from database",
+        details: error instanceof Error ? error.message : String(error),
+      },
       { status: 500, headers: corsHeaders() }
     );
   }
@@ -62,17 +70,36 @@ export async function POST(req: Request) {
     const client = await clientPromise;
     const db = client.db("gamified_planner");
 
-    // First, try to find an existing document
-    const existingDoc = await db.collection("planner").findOne();
+    // First, try to find an existing document with a timeout
+    const existingDoc = (await Promise.race([
+      db.collection("planner").findOne(),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Database query timeout")), 8000)
+      ),
+    ])) as { _id?: ObjectId } | null;
+
     const documentId = existingDoc?._id || new ObjectId();
 
     // Remove _id from the data if it exists
     const dataToUpdate = { ...data };
     delete dataToUpdate._id;
 
-    const result = await db
-      .collection("planner")
-      .updateOne({ _id: documentId }, { $set: dataToUpdate }, { upsert: true });
+    const result = (await Promise.race([
+      db
+        .collection("planner")
+        .updateOne(
+          { _id: documentId },
+          { $set: dataToUpdate },
+          { upsert: true }
+        ),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Database update timeout")), 8000)
+      ),
+    ])) as {
+      acknowledged: boolean;
+      modifiedCount: number;
+      upsertedId?: ObjectId;
+    };
 
     if (!result.acknowledged) {
       throw new Error("Update operation was not acknowledged");
