@@ -1,169 +1,69 @@
 import { NextResponse } from "next/server";
-import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
-};
-
-export const dynamic = "force-dynamic";
-export const runtime = "nodejs";
-
-// Debug logging for build time
-console.log("API Route Build Info:", {
-  nodeEnv: process.env.NODE_ENV,
-  hasMongoUri: !!process.env.MONGODB_URI,
-  mongoUriLength: process.env.MONGODB_URI?.length,
-  buildTime: new Date().toISOString(),
-});
-
-export async function OPTIONS() {
-  return NextResponse.json({}, { headers: corsHeaders });
-}
+import clientPromise from "@/lib/mongodb";
 
 export async function GET() {
   try {
-    console.log("1. Starting GET request...");
-    console.log("2. Checking MongoDB URI:", {
-      exists: !!process.env.MONGODB_URI,
-      length: process.env.MONGODB_URI?.length,
-      hasDatabase: process.env.MONGODB_URI?.includes("/gamified_planner"),
-      nodeEnv: process.env.NODE_ENV,
-    });
-
-    console.log("3. Attempting MongoDB connection...");
     const client = await clientPromise;
-    console.log("4. MongoDB client connected successfully");
-
-    console.log("5. Selecting database...");
     const db = client.db("gamified_planner");
-    console.log("6. Database selected successfully");
 
-    console.log("7. Attempting to find data...");
+    // Get the data from the "planner" collection
     const data = await db.collection("planner").findOne();
-    console.log("8. Data retrieval result:", {
-      success: true,
-      hasData: !!data,
-      dataKeys: data ? Object.keys(data) : [],
-    });
 
-    return NextResponse.json(data || {}, { headers: corsHeaders });
-  } catch (error: unknown) {
-    console.error("API Error Details:", {
-      step: "Failed during API execution",
-      error:
-        error instanceof Error
-          ? {
-              name: error.name,
-              message: error.message,
-              stack: error.stack?.split("\n")[0], // First line of stack trace
-            }
-          : error,
-      mongoUri: {
-        exists: !!process.env.MONGODB_URI,
-        length: process.env.MONGODB_URI?.length,
-        hasDatabase: process.env.MONGODB_URI?.includes("/gamified_planner"),
-      },
-      nodeEnv: process.env.NODE_ENV,
-      timestamp: new Date().toISOString(),
-    });
+    if (!data) {
+      return NextResponse.json({ error: "No data found" }, { status: 404 });
+    }
 
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error("Error reading from MongoDB:", error);
     return NextResponse.json(
-      {
-        error: "Failed to fetch data",
-        details: error instanceof Error ? error.message : "Unknown error",
-        step: "API execution failed",
-      },
-      { status: 500, headers: corsHeaders }
+      { error: "Error reading from database" },
+      { status: 500 }
     );
   }
 }
 
 export async function POST(req: Request) {
   try {
-    console.log("POST Request Started:", {
-      timestamp: new Date().toISOString(),
-      nodeEnv: process.env.NODE_ENV,
-    });
-
-    const requestData = await req.json();
-    console.log("Request Data Received:", {
-      hasData: !!requestData,
-      dataKeys: Object.keys(requestData),
-    });
-
-    const data = requestData.data || requestData;
+    const { data } = await req.json();
     const client = await clientPromise;
     const db = client.db("gamified_planner");
 
+    // Remove _id from the data if it exists to prevent immutable field error
     const { _id, ...dataWithoutId } = data;
-    console.log("Processing Data:", {
-      hasId: !!_id,
-      dataKeys: Object.keys(dataWithoutId),
-    });
 
+    // If _id exists, use it to update the document
     if (_id) {
-      const objectId = new ObjectId(_id);
-      console.log("Updating Document:", { _id: objectId.toString() });
-
       const result = await db
         .collection("planner")
         .updateOne(
-          { _id: objectId },
+          { _id: new ObjectId(_id) },
           { $set: dataWithoutId },
           { upsert: true }
         );
 
-      console.log("Update Result:", {
+      return NextResponse.json({
+        success: true,
+        acknowledged: result.acknowledged,
         modifiedCount: result.modifiedCount,
-        upsertedId: result.upsertedId?.toString(),
+        upsertedId: result.upsertedId || _id,
       });
-
-      return NextResponse.json(
-        {
-          success: true,
-          modifiedCount: result.modifiedCount,
-          upsertedId: result.upsertedId || objectId,
-        },
-        { headers: corsHeaders }
-      );
     } else {
-      console.log("Inserting New Document");
+      // If no _id, insert as new document
       const result = await db.collection("planner").insertOne(dataWithoutId);
-      console.log("Insert Result:", {
-        insertedId: result.insertedId.toString(),
+
+      return NextResponse.json({
+        success: true,
+        acknowledged: result.acknowledged,
+        insertedId: result.insertedId,
       });
-
-      return NextResponse.json(
-        {
-          success: true,
-          insertedId: result.insertedId,
-        },
-        { headers: corsHeaders }
-      );
     }
-  } catch (error: unknown) {
-    console.error("POST Error Details:", {
-      error:
-        error instanceof Error
-          ? {
-              name: error.name,
-              message: error.message,
-              stack: error.stack,
-            }
-          : error,
-      timestamp: new Date().toISOString(),
-      nodeEnv: process.env.NODE_ENV,
-    });
-
+  } catch (error) {
+    console.error("Error writing to MongoDB:", error);
     return NextResponse.json(
-      {
-        error: "Failed to update data",
-        details: error instanceof Error ? error.message : "Unknown error",
-      },
-      { status: 500, headers: corsHeaders }
+      { error: "Error writing to database" },
+      { status: 500 }
     );
   }
 }
