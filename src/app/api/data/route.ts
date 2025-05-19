@@ -8,12 +8,22 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 export async function OPTIONS() {
   return NextResponse.json({}, { headers: corsHeaders });
 }
 
 export async function GET() {
   try {
+    if (process.env.NODE_ENV === "production" && !process.env.MONGODB_URI) {
+      return NextResponse.json(
+        { error: "MongoDB URI not configured" },
+        { status: 500, headers: corsHeaders }
+      );
+    }
+
     const client = await clientPromise;
     const db = client.db("gamified_planner");
     const data = await db.collection("planner").findOne();
