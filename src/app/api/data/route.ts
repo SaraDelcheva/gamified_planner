@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -13,23 +14,12 @@ export async function OPTIONS() {
 
 export async function GET() {
   try {
-    console.log("Attempting to connect to MongoDB...");
     const client = await clientPromise;
-    console.log("MongoDB client connected successfully");
-
     const db = client.db("gamified_planner");
-    console.log("Database selected:", db.databaseName);
-
     const data = await db.collection("planner").findOne();
-    console.log("Data retrieved:", data ? "Found" : "Not found");
-
     return NextResponse.json(data || {}, { headers: corsHeaders });
-  } catch (error: Error | unknown) {
-    console.error("Detailed database error:", {
-      name: error instanceof Error ? error.name : "Unknown error",
-      message: error instanceof Error ? error.message : String(error),
-      stack: error instanceof Error ? error.stack : undefined,
-    });
+  } catch (error: any) {
+    console.error("GET error:", error);
     return NextResponse.json(
       { error: "Failed to fetch data" },
       { status: 500, headers: corsHeaders }
@@ -39,44 +29,34 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    console.log("Attempting to connect to MongoDB for POST...");
     const requestData = await req.json();
     const data = requestData.data || requestData;
-    console.log("Received data:", data);
 
     const client = await clientPromise;
-    console.log("MongoDB client connected successfully");
-
     const db = client.db("gamified_planner");
-    console.log("Database selected:", db.databaseName);
 
-    // Create a copy of the data without the _id field
     const { _id, ...dataWithoutId } = data;
 
-    // Check if we already have a document
-    const existingDoc = await db.collection("planner").findOne();
-
-    if (existingDoc) {
-      // Update existing document
+    if (_id) {
+      const objectId = new ObjectId(_id); // ensure it's the correct format
       const result = await db
         .collection("planner")
-        .updateOne({ _id: existingDoc._id }, { $set: dataWithoutId });
-
-      console.log("Update result:", result);
+        .updateOne(
+          { _id: objectId },
+          { $set: dataWithoutId },
+          { upsert: true }
+        );
 
       return NextResponse.json(
         {
           success: true,
           modifiedCount: result.modifiedCount,
-          upsertedId: existingDoc._id,
+          upsertedId: result.upsertedId || objectId,
         },
         { headers: corsHeaders }
       );
     } else {
-      // Insert new document
       const result = await db.collection("planner").insertOne(dataWithoutId);
-      console.log("Insert result:", result);
-
       return NextResponse.json(
         {
           success: true,
@@ -85,12 +65,8 @@ export async function POST(req: Request) {
         { headers: corsHeaders }
       );
     }
-  } catch (error: Error | unknown) {
-    console.error("Detailed database error:", {
-      name: error instanceof Error ? error.name : "Unknown error",
-      message: error instanceof Error ? error.message : String(error),
-      stack: error instanceof Error ? error.stack : undefined,
-    });
+  } catch (error: any) {
+    console.error("POST error:", error);
     return NextResponse.json(
       { error: "Failed to update data" },
       { status: 500, headers: corsHeaders }
