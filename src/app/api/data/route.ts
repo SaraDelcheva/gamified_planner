@@ -18,7 +18,7 @@ export async function GET() {
     const db = client.db("gamified_planner");
     const data = await db.collection("planner").findOne();
     return NextResponse.json(data || {}, { headers: corsHeaders });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("GET error:", error);
     return NextResponse.json(
       { error: "Failed to fetch data" },
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
         { headers: corsHeaders }
       );
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("POST error:", error);
     return NextResponse.json(
       { error: "Failed to update data" },
