@@ -1,57 +1,99 @@
 import { NextResponse } from "next/server";
-import { ObjectId } from "mongodb";
 import clientPromise from "@/lib/mongodb";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
 
 export async function GET() {
   try {
+    console.log("Attempting to connect to MongoDB...");
     const client = await clientPromise;
+    console.log("MongoDB client connected successfully");
+
     const db = client.db("gamified_planner");
+    console.log("Database selected:", db.databaseName);
 
-    // Get the data from the "planner" collection
     const data = await db.collection("planner").findOne();
+    console.log("Data retrieved:", data ? "Found" : "Not found");
 
-    if (!data) {
-      return NextResponse.json({ error: "No data found" }, { status: 404 });
-    }
-
-    return NextResponse.json(data);
-  } catch (error) {
-    console.error("Error reading from MongoDB:", error);
+    return NextResponse.json(data || {}, { headers: corsHeaders });
+  } catch (error: Error | unknown) {
+    console.error("Detailed database error:", {
+      name: error instanceof Error ? error.name : "Unknown error",
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    });
     return NextResponse.json(
-      { error: "Error reading from database" },
-      { status: 500 }
+      { error: "Failed to fetch data" },
+      { status: 500, headers: corsHeaders }
     );
   }
 }
 
 export async function POST(req: Request) {
   try {
-    const { data } = await req.json();
+    console.log("Attempting to connect to MongoDB for POST...");
+    const requestData = await req.json();
+    const data = requestData.data || requestData;
+    console.log("Received data:", data);
+
     const client = await clientPromise;
+    console.log("MongoDB client connected successfully");
+
     const db = client.db("gamified_planner");
+    console.log("Database selected:", db.databaseName);
 
-    // Update the existing document if it exists
-    const documentId = "68271c3c842cc0a98841afb9";
+    // Create a copy of the data without the _id field
+    const { _id, ...dataWithoutId } = data;
 
-    const result = await db
-      .collection("planner")
-      .updateOne(
-        { _id: new ObjectId(documentId) },
-        { $set: data },
-        { upsert: true }
+    // Check if we already have a document
+    const existingDoc = await db.collection("planner").findOne();
+
+    if (existingDoc) {
+      // Update existing document
+      const result = await db
+        .collection("planner")
+        .updateOne({ _id: existingDoc._id }, { $set: dataWithoutId });
+
+      console.log("Update result:", result);
+
+      return NextResponse.json(
+        {
+          success: true,
+          modifiedCount: result.modifiedCount,
+          upsertedId: existingDoc._id,
+        },
+        { headers: corsHeaders }
       );
+    } else {
+      // Insert new document
+      const result = await db.collection("planner").insertOne(dataWithoutId);
+      console.log("Insert result:", result);
 
-    return NextResponse.json({
-      success: true,
-      acknowledged: result.acknowledged,
-      modifiedCount: result.modifiedCount,
-      upsertedId: result.upsertedId,
+      return NextResponse.json(
+        {
+          success: true,
+          insertedId: result.insertedId,
+        },
+        { headers: corsHeaders }
+      );
+    }
+  } catch (error: Error | unknown) {
+    console.error("Detailed database error:", {
+      name: error instanceof Error ? error.name : "Unknown error",
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
     });
-  } catch (error) {
-    console.error("Error writing to MongoDB:", error);
     return NextResponse.json(
-      { error: "Error writing to database" },
-      { status: 500 }
+      { error: "Failed to update data" },
+      { status: 500, headers: corsHeaders }
     );
   }
 }
