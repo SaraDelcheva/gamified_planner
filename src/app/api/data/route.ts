@@ -2,23 +2,47 @@ import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import clientPromise from "@/lib/mongodb";
 
+interface MongoError {
+  name?: string;
+  message?: string;
+  stack?: string;
+  code?: string;
+}
+
 export async function GET() {
   try {
+    console.log("Attempting to connect to MongoDB...");
     const client = await clientPromise;
+    console.log("MongoDB connection successful");
+
     const db = client.db("gamified_planner");
+    console.log("Database selected:", "gamified_planner");
 
     // Get the data from the "planner" collection
     const data = await db.collection("planner").findOne();
+    console.log("Query result:", data ? "Data found" : "No data found");
 
     if (!data) {
       return NextResponse.json({ error: "No data found" }, { status: 404 });
     }
 
     return NextResponse.json(data);
-  } catch (error) {
-    console.error("Error reading from MongoDB:", error);
+  } catch (error: unknown) {
+    const mongoError = error as MongoError;
+    // Log the full error details
+    console.error("Detailed MongoDB error:", {
+      name: mongoError?.name,
+      message: mongoError?.message,
+      stack: mongoError?.stack,
+      code: mongoError?.code,
+    });
+
     return NextResponse.json(
-      { error: "Error reading from database" },
+      {
+        error: "Error reading from database",
+        details: mongoError?.message || "Unknown error",
+        code: mongoError?.code || "UNKNOWN",
+      },
       { status: 500 }
     );
   }
