@@ -1,0 +1,86 @@
+.customSelect {
+  position: relative;
+  font-size: 14px;
+  user-select: none;
+  color: white;
+}
+
+.selectHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 12px;
+  background-color: #2a3132;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+}
+
+.selectHeader.active {
+  border-color: #61717a;
+  box-shadow: 0 0 0 2px rgba(79, 148, 205, 0.2);
+}
+
+.selectedOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chevron {
+  font-size: 18px;
+  transition: transform 0.2s ease;
+  color: #a0a0a0;
+}
+
+.chevron.rotated {
+  transform: rotate(180deg);
+}
+
+.optionsContainer {
+  position: fixed; /* Change to fixed to escape parent overflow */
+  top: auto; /* Let the component's position determine this */
+  left: auto; /* Let the component's position determine this */
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #2a3132;
+  border: 1px solid #414f57;
+  border-radius: 4px;
+  z-index: 1000; /* Higher z-index to ensure it's visible */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: white;
+}
+
+.option:hover {
+  background-color: #344346;
+}
+
+.option.selected {
+  background-color: #344346;
+  font-weight: 500;
+}
+
+.gemIcon {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.priorityIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

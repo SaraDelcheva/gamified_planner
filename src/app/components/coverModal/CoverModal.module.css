@@ -1,0 +1,47 @@
+.modalContainer {
+  position: fixed;
+  background-color: rgb(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+.modalInner {
+  border-radius: 10px;
+  position: absolute;
+  background-color: #2a3132;
+  width: 50%;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+}
+
+.modalImagesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 20px;
+}
+
+.modalImage {
+  width: 70px;
+  height: 70px;
+  background-size: 60px 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.selected,
+.modalImage:hover {
+  background-color: #3a4a4d;
+}
+
+.addCancelContainer {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}

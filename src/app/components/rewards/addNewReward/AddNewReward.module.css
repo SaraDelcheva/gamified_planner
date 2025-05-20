@@ -1,0 +1,73 @@
+.addNewReward {
+  flex-basis: 150px;
+  max-width: 150px;
+  cursor: pointer;
+  position: relative;
+  padding: 10px 5px 10px 10px;
+  /* background-color: rgb(78, 25, 25); */
+  height: fit-content;
+}
+.expanded.addNewReward:hover .addNewRewardP {
+  transform: scale(1.1);
+}
+
+.addNewRewardP {
+  display: flex;
+  word-wrap: break-word;
+  padding-bottom: 5px;
+}
+
+.addNewRewardInput {
+  max-width: 100px;
+  font-size: 1rem;
+}
+
+.addNewRewardDropdown {
+  max-width: 55px;
+  margin-left: 10px;
+  text-align: center;
+}
+
+.expandedContent {
+  display: flex;
+  align-items: center;
+}
+
+.rewardCardImg {
+  flex-basis: 40%;
+  flex-shrink: 0;
+  aspect-ratio: 1;
+  background-position: center;
+  background-size: cover;
+}
+
+.rewardPriceDiv {
+  width: 70%;
+}
+
+.rewardPrice {
+  color: #fff;
+  display: flex;
+  justify-content: flex-end;
+  gap: 3px;
+  font-size: 1rem;
+  padding-right: 5px;
+}
+
+.addCancelContainer {
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  justify-content: flex-end;
+}
+
+.button {
+  background-color: #0000;
+  font-size: 1rem;
+  border-radius: 3px;
+  padding: 3px 5px;
+  line-height: 0;
+}
+.button:hover {
+  background-color: rgb(255, 255, 255, 0.2);
+}

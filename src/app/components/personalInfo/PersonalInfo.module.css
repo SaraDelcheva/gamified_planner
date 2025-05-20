@@ -1,0 +1,275 @@
+.personalInfo {
+  width: 100%;
+  color: #f5f5f5;
+}
+
+.personalInfoContainer {
+  height: 100%;
+}
+
+/* Profile section with avatar and gems */
+.profileSection {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.profileAvatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-image: url("../../../../public/images/avatar.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  border: 2px solid #4a6670;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profileAvatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.profileInfo {
+  margin-left: 1.5rem;
+  flex: 1;
+}
+
+.username {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.verifiedBadge {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: #1d9bf0;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+  position: relative;
+}
+
+.verifiedBadge::after {
+  content: "✓";
+  position: absolute;
+  font-size: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+/* Gems display */
+.gemsDisplay {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.gemGroup {
+  display: flex;
+  align-items: center;
+}
+
+.gem {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-position: center;
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.05);
+  position: relative;
+  transition: transform 0.15s ease;
+}
+
+.gem:hover {
+  transform: scale(1.15);
+}
+
+.gemValue {
+  margin-left: 0.5rem;
+  font-weight: 500;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+}
+
+.blueGem {
+  background-image: url("../../../../public/images/sapphire.svg");
+}
+
+.redGem {
+  background-image: url("../../../../public/images/ruby.svg");
+}
+
+.greenGem {
+  background-image: url("../../../../public/images/emerald.svg");
+}
+
+.pinkGem {
+  background-image: url("../../../../public/images/crystal.svg");
+}
+
+/* Stats card */
+.statsCard {
+  margin: 1.25rem;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.statsCard:hover {
+  transform: translateY(-3px);
+}
+
+.statsContent {
+  padding: 1.25rem;
+  line-height: 1.6;
+}
+
+.focusSection {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.focusLabel {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #a0a0a0;
+  margin-bottom: 0.5rem;
+}
+
+.focusValue {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #64d2ff;
+}
+
+.noFocus {
+  color: #a0a0a0;
+  font-style: italic;
+}
+
+.goalStats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.goalTotal {
+  font-size: 0.95rem;
+}
+
+.goalProgress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.progressText span {
+  font-weight: 600;
+}
+
+.highlighted {
+  color: #64d2ff;
+  font-weight: 600;
+}
+
+.completed {
+  color: #4caf50;
+}
+
+.remaining {
+  color: #ff9800;
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(to right, #4caf50, #8bc34a);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* Media queries */
+@media only screen and (max-width: 767px) {
+  .profileSection {
+    padding: 1rem;
+  }
+
+  .profileAvatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .profileInfo {
+    margin-left: 1rem;
+  }
+
+  .username {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .gemsDisplay {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .gem {
+    width: 24px;
+    height: 24px;
+    background-size: 14px 14px;
+  }
+
+  .gemValue {
+    font-size: 0.85rem;
+  }
+
+  .statsCard {
+    margin: 0.75rem;
+  }
+
+  .statsContent {
+    padding: 1rem;
+  }
+
+  .focusSection {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .focusLabel {
+    font-size: 0.8rem;
+  }
+
+  .focusValue {
+    font-size: 1rem;
+  }
+}

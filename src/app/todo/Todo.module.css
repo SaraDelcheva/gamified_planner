@@ -1,0 +1,8 @@
+.todo {
+  display: flex;
+  width: 100%;
+}
+
+.dailyGoals {
+  width: calc(100% / 7);
+}

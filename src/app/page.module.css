@@ -1,0 +1,49 @@
+.page {
+  display: flex;
+  height: 100%;
+  gap: 20px;
+}
+
+.dailyGoals {
+  width: 50%;
+}
+
+.infoAndHistory {
+  width: calc(50% - 20px);
+  height: 100%;
+  border-radius: 12px;
+  background-color: #222728;
+  box-shadow: 0 8px 16px #00000026;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mobileHistory {
+  display: none;
+}
+
+@media only screen and (max-width: 767px) {
+  .page {
+    flex-direction: column-reverse;
+    height: unset;
+    padding-bottom: 60px;
+  }
+
+  .dailyGoals,
+  .infoAndHistory {
+    width: 100%;
+  }
+
+  .desktopHistory {
+    display: none;
+  }
+
+  .mobileHistory {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    background-color: #222728;
+    box-shadow: 0 8px 16px #00000026;
+  }
+}

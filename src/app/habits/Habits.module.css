@@ -1,0 +1,92 @@
+.habitsContainer {
+  height: calc(100vh - 40px);
+  overflow-y: scroll;
+  display: flex;
+  scrollbar-color: #4a6670 #2a3132;
+  border-radius: 12px;
+  background-color: #222728;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.dates {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  margin-top: 100px;
+}
+
+.date {
+  background-color: #2a3132;
+  width: 100px;
+  border-radius: 8px;
+  margin-top: 10px;
+  padding: 10px;
+  color: #f5f5f5;
+  height: 45px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.date:hover {
+  background-color: #3a4a4d;
+  transform: translateX(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.today {
+  background-color: #4a6670;
+  font-weight: bold;
+}
+
+.dateText {
+  font-size: 14px;
+  font-weight: 500;
+  color: #f5f5f5;
+  margin: 0;
+}
+
+.dayText {
+  font-size: 12px;
+  color: #b0b0b0;
+}
+
+.habitsInner {
+  display: flex;
+  flex: 1;
+  gap: 16px;
+  padding-bottom: 16px;
+}
+
+.habitCard {
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+  background-color: transparent;
+}
+
+.habitName {
+  background-color: #2a3132;
+  border-radius: 10px;
+  padding: 16px;
+  color: #f5f5f5;
+  font-weight: 500;
+  text-align: center;
+  height: 100px;
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.habitName p {
+  font-size: 14px;
+  color: #b0b0b0;
+  margin: 4px 0;
+}
+
+.habitDates {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+}

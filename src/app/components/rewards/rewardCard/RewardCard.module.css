@@ -1,0 +1,252 @@
+.rewardCard {
+  width: 100%;
+  position: relative;
+  padding: 16px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent; /* Border for gem color indicator */
+}
+
+.rewardCard:hover:not(.rewardCard.noHoverEffect):not(.claimed) {
+  background-color: rgba(65, 155, 129, 0.1);
+}
+
+.rewardCardInner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rewardCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.rewardCardTitle {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #ffffff;
+  max-width: 80%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.wishlistToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.wishlistToggle:hover {
+  transform: scale(1.15);
+}
+
+.wishlistIcon {
+  font-size: 1.2rem;
+}
+
+.rewardCardImg {
+  width: 55px;
+  height: 55px;
+  border-radius: 8px;
+  background-position: center;
+  background-size: 45px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 8px #0003;
+  background-repeat: no-repeat;
+}
+
+.rewardCardImg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.rewardCardInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.buttonContainer {
+  position: relative;
+  width: 100%;
+}
+
+.priceTag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+  color: #d0d0d0;
+  font-size: 0.85rem;
+}
+
+.gemIcon {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.newBtn,
+.claimBtn {
+  width: 100%;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.buttonText {
+  position: relative;
+  z-index: 2;
+}
+
+.newBtn {
+  background-color: #2d3436;
+  color: #ffffff;
+}
+
+.newBtn:hover:not(:disabled) {
+  background-color: #3d4548;
+}
+
+.newBtn:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.claimBtn {
+  background-color: #419b81;
+  color: #ffffff;
+}
+
+.claimBtn:hover {
+  background-color: #35806a;
+  transform: translateY(-2px);
+}
+
+.claimBtn:active {
+  transform: translateY(0);
+}
+
+.claimed {
+  position: relative;
+  opacity: 0.85;
+  cursor: default;
+}
+
+.claimedBadge {
+  width: 100%;
+  background-color: #419b81;
+  color: #fff;
+  padding: 8px 0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.warning {
+  color: #ff6b6b;
+  font-size: 0.75rem;
+  margin-top: 8px;
+  text-align: center;
+  display: none;
+}
+
+/* Gem-specific styling for warning texts */
+.blueGem .warning {
+  color: #79bdff;
+}
+
+.redGem .warning {
+  color: #ff6b6b;
+}
+
+.greenGem .warning {
+  color: #7fcfb5;
+}
+
+.pinkGem .warning {
+  color: #ffbbe2;
+}
+
+.noHoverEffect,
+.claimed {
+  opacity: 0.7;
+}
+
+.noHoverEffect:hover .warning {
+  display: block;
+}
+
+/* New progress bar styling */
+.progressBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 6px;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+/* Gem-specific styling for progress bars */
+.blueGem .progressBar {
+  background-color: #3399ff;
+}
+
+.redGem .progressBar {
+  background-color: #ff6b6b;
+}
+
+.greenGem .progressBar {
+  background-color: #419b81;
+}
+
+.pinkGem .progressBar {
+  background-color: #ff78c4;
+}
+
+/* Add smooth animations for hover states */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.rewardCard:hover:not(.noHoverEffect):not(.claimed) .rewardCardImg {
+  animation: pulse 1.5s infinite;
+}

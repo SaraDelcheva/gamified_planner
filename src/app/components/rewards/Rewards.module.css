@@ -1,0 +1,95 @@
+.rewards {
+  border-bottom: none;
+  top: 20px;
+  right: 130px;
+  height: calc(100% - 40px);
+  width: 0;
+  position: absolute;
+  background-color: rgb(50, 56, 57);
+  overflow: hidden;
+  transition: width 0.5s ease-in-out;
+  z-index: 15;
+  box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.3);
+  border-radius: 12px 0 0 12px;
+}
+
+.rewards.open {
+  width: calc(50vw - 170px);
+}
+
+.rewardsContainer {
+  display: flex;
+  padding: 20px;
+  flex-wrap: wrap;
+  height: calc(100% - 50px);
+  gap: 80px;
+  align-content: flex-start;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  transition-delay: 0.5s;
+  overflow-y: scroll;
+}
+
+.rewards.open .rewardsContainer {
+  opacity: 1;
+  transition-delay: 0.5s;
+}
+
+.rewards:not(.open) .rewardsContainer {
+  opacity: 0;
+  transition-delay: 0s;
+  transition-duration: 0.1s;
+}
+
+.shopBtn {
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
+  font-size: 1.2rem;
+  background-color: #1a1e20;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.shopBtn:hover {
+  transform: scale(1.05);
+}
+
+.shopIcon {
+  font-size: 1.5rem;
+  color: #419b81;
+}
+
+.header {
+  line-height: 50px;
+  height: 50px;
+  color: #ffffff;
+  width: 100%;
+  font-family: "Karla";
+  font-size: 1.5rem;
+  padding-left: 20px;
+  white-space: nowrap;
+}
+
+@media only screen and (max-width: 767px) {
+  .rewards.open {
+    width: 100%;
+    right: 0;
+    top: 0;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .shopBtn {
+    bottom: 60px;
+    right: 20px;
+  }
+}

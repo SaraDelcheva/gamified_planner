@@ -1,0 +1,130 @@
+.goalsForToday {
+  width: 100%;
+}
+
+.goalsContainer {
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  background-color: #222728;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.reminderNotesContainer {
+}
+
+.reminderIcon,
+.reminderClose {
+  flex-basis: 20px;
+  justify-self: center;
+}
+
+.reminderContent {
+  flex-basis: calc(100% - 40px);
+}
+
+.reminderNote {
+  align-items: center;
+  display: flex;
+  border-radius: 12px;
+  background-color: #2a3132;
+  margin-bottom: 18px;
+  z-index: 10;
+  padding-bottom: 20px;
+  padding: 20px;
+  cursor: pointer;
+  color: #ad5656;
+}
+
+/* Header section - fixed */
+.headerSection {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  background-color: #222728;
+  z-index: 10;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #333;
+}
+
+.header {
+  color: #f5f5f5;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  padding: 10px 0;
+}
+
+/* Scrollable content section */
+.scrollArea {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-color: #4a6670 #2a3132;
+  margin-top: 10px;
+}
+
+.dailyGoalsContainer {
+  padding: 10px 5px;
+}
+
+/* Make scrollbar style consistent with Habits component */
+.scrollArea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollArea::-webkit-scrollbar-track {
+  background: #2a3132;
+  border-radius: 4px;
+}
+
+.scrollArea::-webkit-scrollbar-thumb {
+  background: #4a6670;
+  border-radius: 4px;
+}
+
+.scrollArea::-webkit-scrollbar-thumb:hover {
+  background: #5a7680;
+}
+
+@media only screen and (max-width: 767px) {
+  .goalsContainer {
+    height: auto;
+    padding: 15px;
+  }
+
+  .header {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    padding: 5px 0;
+  }
+
+  .headerSection {
+    padding-bottom: 10px;
+  }
+
+  .reminderNote {
+    padding: 15px;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+  }
+
+  .reminderContent h4 {
+    font-size: 1rem;
+    margin-bottom: 3px;
+  }
+
+  .reminderContent p {
+    font-size: 0.85rem;
+  }
+
+  .scrollArea {
+    margin-top: 5px;
+  }
+
+  .dailyGoalsContainer {
+    padding: 5px 0;
+  }
+}

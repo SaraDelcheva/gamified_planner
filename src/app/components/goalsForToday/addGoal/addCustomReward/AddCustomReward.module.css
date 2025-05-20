@@ -1,0 +1,21 @@
+.addCustomReward {
+  z-index: 99;
+}
+
+.customRewardTitle::placeholder {
+  color: white;
+}
+
+.customCoverImg {
+  height: 100px;
+  aspect-ratio: 1/1;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+}
+
+.customChooseCover {
+  height: 100px;
+  width: 100px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
