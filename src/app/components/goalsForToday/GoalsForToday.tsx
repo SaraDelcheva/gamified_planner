@@ -2,6 +2,7 @@ import styles from "./GoalsForToday.module.css";
 import AddGoal from "./addGoal/AddGoal";
 import NewGoal from "./newGoal/NewGoal";
 import { IoMdAlarm, IoMdClose } from "react-icons/io";
+import { FaFrog } from "react-icons/fa";
 
 import { GoalsForTodayI } from "../../helpers/interfaces";
 
@@ -10,7 +11,15 @@ export default function GoalsForToday(props: GoalsForTodayI) {
     <div className={styles.goalsForToday} id={props.goalDate}>
       <div className={styles.goalsContainer}>
         <div className={styles.headerSection}>
-          <div className={styles.header}>{props.title}</div>
+          <div className={styles.header}>
+            <FaFrog
+              style={{ marginRight: "10px", color: "var(--accent-hover)" }}
+            />
+            {props.title}{" "}
+            <span className={styles.headerDate}>
+              {props.goalDate.split(",")[0]}
+            </span>
+          </div>
 
           {props.notes?.length > 0 && (
             <div className={styles.reminderNotesContainer}>

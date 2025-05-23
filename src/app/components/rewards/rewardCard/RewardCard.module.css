@@ -6,7 +6,6 @@
   transition: all 0.2s ease;
   position: relative;
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.08);
-  /* height: 200px; */
 }
 
 .rewardCard:hover {

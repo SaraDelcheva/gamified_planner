@@ -7,11 +7,10 @@
   position: fixed;
   top: 20px;
   right: 100px;
-  height: calc(100% - 40px);
   box-shadow: var(--shadow-lg);
   transition: width 0.5s ease-in-out;
   overflow: hidden;
-  z-index: 900;
+  z-index: 99;
   border-radius: 12px 0 0 12px;
 }
 
@@ -129,9 +128,19 @@
 
 .wishlistItems {
   display: flex;
-  flex-direction: column;
-  width: 100%;
+  padding: 20px;
+  flex-wrap: wrap;
+  height: calc(100% - 50px);
+  align-content: flex-start;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  transition-delay: 0.5s;
   overflow-y: scroll;
+}
+
+.wishlist.wishlistOpen .wishlistItems {
+  opacity: 1;
+  transition-delay: 0.5s;
 }
 
 /* Wishlist Toggle Button */
@@ -147,7 +156,7 @@
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-md);
-  z-index: 50;
+  z-index: 100;
   border: none;
   outline: none;
   color: var(--warning);

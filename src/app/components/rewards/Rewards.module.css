@@ -1,18 +1,17 @@
 .rewards {
-  border-bottom: none;
-  top: 20px;
-  right: 100px;
-  height: calc(100% - 40px);
   width: 0;
-  position: absolute;
+  height: 100%;
   background-color: var(--background);
-  overflow: hidden;
-  transition: width 0.5s ease-in-out;
-  z-index: 15;
-  box-shadow: var(--shadow-lg);
-  border-radius: 12px 0 0 12px;
   display: flex;
   flex-direction: column;
+  position: fixed;
+  top: 20px;
+  right: 100px;
+  box-shadow: var(--shadow-lg);
+  transition: width 0.5s ease-in-out;
+  overflow: hidden;
+  z-index: 99;
+  border-radius: 12px 0 0 12px;
 }
 
 .rewards.open {
@@ -54,7 +53,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 50;
+  z-index: 100;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.2s ease;
@@ -88,6 +87,10 @@
 }
 
 @media only screen and (max-width: 767px) {
+  .rewards {
+    height: 100%;
+  }
+
   .rewards.open {
     width: 100%;
     right: 0;
