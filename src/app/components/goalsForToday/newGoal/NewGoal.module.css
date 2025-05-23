@@ -8,16 +8,16 @@
   min-height: 55px;
   transition: all 0.3s ease-in-out;
   border-radius: 10px;
-  background-color: #2a3132;
+  background-color: var(--surface);
   cursor: pointer;
-  color: #f5f5f5;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .newGoal:hover {
-  background-color: #3a4a4d;
+  background-color: var(--surface-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 .newGoalHeader {
@@ -43,11 +43,11 @@
   font-size: 1.2rem;
   margin-left: 15px;
   font-weight: 500;
-  color: #f5f5f5;
+  color: var(--text-primary);
 }
 
 .highlight {
-  color: #f5f5f5;
+  color: var(--text-primary);
   font-weight: 500;
   margin: 0 4px;
 }
@@ -58,18 +58,18 @@
   display: flex;
   align-items: center;
   border: none;
-  color: #a0a0a0;
+  color: var(--text-muted);
   font-size: 0.9rem;
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 0 0 4px 4px;
   transition: all 0.2s ease;
-  background-color: #374d50;
+  background-color: var(--background);
 }
 
 .subtasksToggle:hover {
-  background-color: #4a6670;
-  color: #f5f5f5;
+  background-color: var(--surface-hover);
+  color: var(--text-primary);
 }
 
 .subtasksList {
@@ -82,14 +82,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 10px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--background);
   border-radius: 4px;
   margin-bottom: 8px;
   transition: background-color 0.2s;
 }
 
 .subtaskItem:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--surface-hover);
 }
 
 .subtaskLeft {
@@ -109,13 +109,13 @@
 
 .subtaskLeft span.completed {
   text-decoration: line-through;
-  color: #888;
+  color: var(--text-muted);
 }
 
 .deleteSubtaskBtn {
   background: none;
   border: none;
-  color: #888;
+  color: var(--text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -125,8 +125,8 @@
 }
 
 .deleteSubtaskBtn:hover {
-  color: #d9534f;
-  background-color: rgba(217, 83, 79, 0.1);
+  color: var(--error);
+  background-color: var(--error-light);
 }
 
 .newBtn {
@@ -142,20 +142,20 @@
   background-repeat: no-repeat;
   z-index: 98;
   border: none;
-  color: #f5f5f5;
+  color: var(--text-primary);
   transition: all 0.2s ease;
 }
 
 .diamondBtn {
-  background-color: #4a6670;
+  background-color: var(--background);
 }
 
 .customBtn {
-  background-color: #4a6670;
+  background-color: var(--background);
 }
 
 .completeBtn {
-  background-color: #507d5c;
+  background-color: var(--accent);
 }
 
 .newBtn:hover {
@@ -164,9 +164,9 @@
 
 .customRewardDetails {
   position: absolute;
-  background-color: #3a4a4d;
+  background-color: var(--surface-hover);
   right: 20px;
-  color: #f5f5f5;
+  color: var(--text-primary);
   width: 0;
   height: 100%;
   border-radius: 8px;
@@ -184,7 +184,7 @@
 .customRewardDescriptionP {
   font-size: 0.9rem;
   margin-right: 10px;
-  color: #b0b0b0;
+  color: var(--text-muted);
 }
 
 .customRewardDescription {
@@ -195,7 +195,7 @@
 }
 
 .customRewardName {
-  color: #f5f5f5;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   font-weight: 500;

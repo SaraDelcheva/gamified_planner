@@ -1,15 +1,32 @@
 .rewardCard {
   width: 100%;
-  position: relative;
+  background-color: var(--background);
   padding: 16px;
-  cursor: pointer;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 12px;
   transition: all 0.2s ease;
-  border-left: 3px solid transparent; /* Border for gem color indicator */
+  position: relative;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.08);
+  /* height: 200px; */
 }
 
-.rewardCard:hover:not(.rewardCard.noHoverEffect):not(.claimed) {
-  background-color: rgba(65, 155, 129, 0.1);
+.rewardCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.rewardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.rewardTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  flex: 1;
 }
 
 .rewardCardInner {
@@ -28,7 +45,7 @@
 .rewardCardTitle {
   font-weight: 600;
   font-size: 0.95rem;
-  color: #ffffff;
+  color: var(--text-primary);
   max-width: 80%;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -60,11 +77,11 @@
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 8px #0003;
+  box-shadow: 0 4px 8px var(--background);
   background-repeat: no-repeat;
 }
 
-.rewardCardImg::after {
+/* .rewardCardImg::after {
   content: "";
   position: absolute;
   top: 0;
@@ -76,7 +93,7 @@
     rgba(255, 255, 255, 0.1) 0%,
     rgba(255, 255, 255, 0) 100%
   );
-}
+} */
 
 .rewardCardInfo {
   flex: 1;
@@ -95,7 +112,7 @@
   align-items: center;
   gap: 4px;
   margin-bottom: 8px;
-  color: #d0d0d0;
+  color: var(--text-muted);
   font-size: 0.85rem;
 }
 
@@ -128,12 +145,8 @@
 }
 
 .newBtn {
-  background-color: #2d3436;
-  color: #ffffff;
-}
-
-.newBtn:hover:not(:disabled) {
-  background-color: #3d4548;
+  background-color: var(--surface);
+  color: var(--text-primary);
 }
 
 .newBtn:disabled {
@@ -142,12 +155,12 @@
 }
 
 .claimBtn {
-  background-color: #419b81;
-  color: #ffffff;
+  background-color: var(--accent);
+  color: var(--text-primary);
 }
 
 .claimBtn:hover {
-  background-color: #35806a;
+  background-color: var(--accent-hover);
   transform: translateY(-2px);
 }
 
@@ -163,8 +176,8 @@
 
 .claimedBadge {
   width: 100%;
-  background-color: #419b81;
-  color: #fff;
+  background-color: var(--accent);
+  color: var(--text-primary);
   padding: 8px 0;
   border-radius: 6px;
   font-size: 0.85rem;
@@ -173,7 +186,7 @@
 }
 
 .warning {
-  color: #ff6b6b;
+  color: var(--error);
   font-size: 0.75rem;
   margin-top: 8px;
   text-align: center;
@@ -182,19 +195,19 @@
 
 /* Gem-specific styling for warning texts */
 .blueGem .warning {
-  color: #79bdff;
+  color: var(--gem-blue);
 }
 
 .redGem .warning {
-  color: #ff6b6b;
+  color: var(--gem-red);
 }
 
 .greenGem .warning {
-  color: #7fcfb5;
+  color: var(--gem-green);
 }
 
 .pinkGem .warning {
-  color: #ffbbe2;
+  color: var(--gem-pink);
 }
 
 .noHoverEffect,
@@ -219,19 +232,19 @@
 
 /* Gem-specific styling for progress bars */
 .blueGem .progressBar {
-  background-color: #3399ff;
+  background-color: var(--gem-blue);
 }
 
 .redGem .progressBar {
-  background-color: #ff6b6b;
+  background-color: var(--gem-red);
 }
 
 .greenGem .progressBar {
-  background-color: #419b81;
+  background-color: var(--gem-green);
 }
 
 .pinkGem .progressBar {
-  background-color: #ff78c4;
+  background-color: var(--gem-pink);
 }
 
 /* Add smooth animations for hover states */

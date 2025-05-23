@@ -3,7 +3,7 @@
   border-radius: 8px;
   padding: 14px;
   margin-top: 16px;
-  background-color: #2a3132;
+  background-color: var(--surface-hover);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: all 0.2s ease;
   position: fixed;
@@ -18,7 +18,7 @@
 }
 
 .addNewHabit p {
-  color: #7a9b81;
+  color: var(--accent);
   font-weight: 500;
   margin: 0;
   display: inline-flex;
@@ -27,7 +27,7 @@
 }
 
 .addNewHabit p:hover {
-  color: #8aac91;
+  color: var(--accent-hover);
 }
 
 .addNewHabit input {
@@ -35,8 +35,8 @@
   padding: 10px 14px;
   border: none;
   border-radius: 6px;
-  background-color: #3a4a4d;
-  color: #f5f5f5;
+  background-color: var(--scrollbar-track);
+  color: var(--text-primary);
   font-size: 16px;
   margin-bottom: 12px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -45,7 +45,7 @@
 
 .addNewHabit input:focus {
   outline: none;
-  background-color: #455a5e;
+  background-color: var(--surface-hover);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1),
     0 0 0 2px rgba(122, 155, 129, 0.4);
 }

@@ -1,20 +1,22 @@
 .rewards {
   border-bottom: none;
   top: 20px;
-  right: 130px;
+  right: 100px;
   height: calc(100% - 40px);
   width: 0;
   position: absolute;
-  background-color: rgb(50, 56, 57);
+  background-color: var(--background);
   overflow: hidden;
   transition: width 0.5s ease-in-out;
   z-index: 15;
-  box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
   border-radius: 12px 0 0 12px;
+  display: flex;
+  flex-direction: column;
 }
 
 .rewards.open {
-  width: calc(50vw - 170px);
+  width: calc(50vw - 80px);
 }
 
 .rewardsContainer {
@@ -22,7 +24,6 @@
   padding: 20px;
   flex-wrap: wrap;
   height: calc(100% - 50px);
-  gap: 80px;
   align-content: flex-start;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
@@ -43,10 +44,10 @@
 
 .shopBtn {
   position: fixed;
-  bottom: 35px;
-  right: 35px;
+  bottom: 20px;
+  right: 20px;
   font-size: 1.2rem;
-  background-color: #1a1e20;
+  background-color: var(--background);
   border-radius: 50%;
   height: 60px;
   width: 60px;
@@ -65,13 +66,13 @@
 
 .shopIcon {
   font-size: 1.5rem;
-  color: #419b81;
+  color: var(--accent);
 }
 
 .header {
   line-height: 50px;
   height: 50px;
-  color: #ffffff;
+  color: var(--text-primary);
   width: 100%;
   font-family: "Karla";
   font-size: 1.5rem;
@@ -79,17 +80,27 @@
   white-space: nowrap;
 }
 
+.rewardsTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
 @media only screen and (max-width: 767px) {
   .rewards.open {
     width: 100%;
     right: 0;
     top: 0;
-    height: 100%;
-    border-radius: 0;
   }
 
   .shopBtn {
     bottom: 60px;
-    right: 20px;
+    right: 10px;
+  }
+
+  .shopBtn {
+    width: 40px;
+    height: 40px;
   }
 }

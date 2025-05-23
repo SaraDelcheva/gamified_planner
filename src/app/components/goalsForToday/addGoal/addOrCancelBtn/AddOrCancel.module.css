@@ -10,17 +10,19 @@
   padding: 5px;
   line-height: 0;
   transition: background-color 0.2s ease, transform 0.2s ease;
+  color: var(--text-primary);
 }
 
 .cancelBtn {
   background-color: transparent;
 }
+
 .addBtn {
   /* background-color: rgb(255, 255, 255, 0.2); */
 }
 
 .cancelBtn:hover,
 .addBtn:hover {
-  background-color: rgb(255, 255, 255, 0.2);
+  background-color: var(--surface-hover);
   transform: scale(1.05);
 }

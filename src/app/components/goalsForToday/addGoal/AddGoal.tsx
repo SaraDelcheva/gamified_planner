@@ -270,7 +270,6 @@ export default function AddGoal(props: AddGoalI) {
               />
             </div>
           )}
-          {/* Subtasks Section - This is the key part we're fixing */}
           <div className={styles.subtasksSection}>
             <div className={styles.subtasksHeader}>
               <h4>Subtasks</h4>

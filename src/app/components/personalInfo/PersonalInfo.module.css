@@ -1,6 +1,6 @@
 .personalInfo {
   width: 100%;
-  color: #f5f5f5;
+  color: var(--text-primary);
 }
 
 .personalInfoContainer {
@@ -24,8 +24,8 @@
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  border: 2px solid #4a6670;
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--surface-hover);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -43,7 +43,7 @@
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #fff;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
 }
@@ -52,7 +52,7 @@
   display: inline-block;
   width: 16px;
   height: 16px;
-  background-color: #1d9bf0;
+  background-color: var(--info);
   border-radius: 50%;
   margin-left: 0.5rem;
   position: relative;
@@ -101,7 +101,7 @@
 .gemValue {
   margin-left: 0.5rem;
   font-weight: 500;
-  color: #e0e0e0;
+  color: var(--text-muted);
   font-size: 0.95rem;
 }
 
@@ -125,9 +125,9 @@
 .statsCard {
   margin: 1.25rem;
   border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--surface);
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
   transition: transform 0.3s ease;
 }
 
@@ -150,18 +150,18 @@
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #a0a0a0;
+  color: var(--text-muted);
   margin-bottom: 0.5rem;
 }
 
 .focusValue {
   font-size: 1.1rem;
   font-weight: 500;
-  color: #64d2ff;
+  color: var(--info);
 }
 
 .noFocus {
-  color: #a0a0a0;
+  color: var(--text-muted);
   font-style: italic;
 }
 
@@ -187,22 +187,22 @@
 }
 
 .highlighted {
-  color: #64d2ff;
+  color: var(--info);
   font-weight: 600;
 }
 
 .completed {
-  color: #4caf50;
+  color: var(--accent-hover);
 }
 
 .remaining {
-  color: #ff9800;
+  color: var(--warning);
 }
 
 .progressBar {
   width: 100%;
   height: 6px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--surface-hover);
   border-radius: 3px;
   margin-top: 0.5rem;
   overflow: hidden;
@@ -211,7 +211,7 @@
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(to right, #4caf50, #8bc34a);
+  background: linear-gradient(to right, var(--accent), var(--accent-hover));
   border-radius: 3px;
   transition: width 0.3s ease;
 }
@@ -272,4 +272,71 @@
   .focusValue {
     font-size: 1rem;
   }
+}
+
+.container {
+  background-color: var(--background);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--surface-hover);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.editButton {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+
+.editButton:hover {
+  color: var(--text-primary);
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.value {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 24px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-style: italic;
 }

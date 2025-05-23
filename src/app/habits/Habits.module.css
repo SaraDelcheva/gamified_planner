@@ -2,9 +2,9 @@
   height: calc(100vh - 40px);
   overflow-y: scroll;
   display: flex;
-  scrollbar-color: #4a6670 #2a3132;
+  scrollbar-color: var(----some-muted-bull) var(--surface-hover);
   border-radius: 12px;
-  background-color: #222728;
+  background-color: var(--sujrface);
   padding: 20px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
@@ -17,38 +17,38 @@
 }
 
 .date {
-  background-color: #2a3132;
+  background-color: var(--surface-hover);
   width: 100px;
   border-radius: 8px;
   margin-top: 10px;
   padding: 10px;
-  color: #f5f5f5;
+  color: var(--text-primary);
   height: 45px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
 }
 
 .date:hover {
-  background-color: #3a4a4d;
+  background-color: var(--scrollbar-track);
   transform: translateX(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .today {
-  background-color: #4a6670;
+  background-color: var(----some-muted-bull);
   font-weight: bold;
 }
 
 .dateText {
   font-size: 14px;
   font-weight: 500;
-  color: #f5f5f5;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .dayText {
   font-size: 12px;
-  color: #b0b0b0;
+  color: var(--text-muted);
 }
 
 .habitsInner {
@@ -66,10 +66,10 @@
 }
 
 .habitName {
-  background-color: #2a3132;
+  background-color: var(--surface-hover);
   border-radius: 10px;
   padding: 16px;
-  color: #f5f5f5;
+  color: var(--text-primary);
   font-weight: 500;
   text-align: center;
   height: 100px;
@@ -80,7 +80,7 @@
 
 .habitName p {
   font-size: 14px;
-  color: #b0b0b0;
+  color: var(--text-muted);
   margin: 4px 0;
 }
 

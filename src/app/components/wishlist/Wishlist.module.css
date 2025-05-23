@@ -1,13 +1,14 @@
 .wishlist {
   width: 0;
   height: 100%;
-  background-color: #1a1e20;
+  background-color: var(--background);
   display: flex;
   flex-direction: column;
   position: fixed;
   top: 20px;
+  right: 100px;
   height: calc(100% - 40px);
-  box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
   transition: width 0.5s ease-in-out;
   overflow: hidden;
   z-index: 900;
@@ -15,40 +16,15 @@
 }
 
 .wishlist.wishlistOpen {
-  width: 280px;
-}
-
-.wishlistContent {
-  width: 280px;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  transition-delay: 0s;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #419b81 #1a1e20;
-}
-
-.wishlist.wishlistOpen .wishlistContent {
-  opacity: 1;
-  transition-delay: 0.5s;
-}
-
-.wishlist:not(.wishlistOpen) .wishlistContent {
-  opacity: 0;
-  transition-delay: 0s;
-  transition-duration: 0.1s;
-}
-
-.wishlist::-webkit-scrollbar {
-  width: 6px;
+  width: calc(50vw - 80px);
 }
 
 .wishlist::-webkit-scrollbar-track {
-  background: #1a1e20;
+  background: var(--background);
 }
 
 .wishlist::-webkit-scrollbar-thumb {
-  background-color: #419b81;
+  background-color: var(--accent);
   border-radius: 10px;
 }
 
@@ -56,7 +32,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: #1a1e20;
+  background-color: var(--background);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -70,8 +46,8 @@
   font-size: 1.2rem;
   font-weight: 700;
   font-family: "Karla", sans-serif;
-  color: #ffffff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--surface-hover);
   letter-spacing: 1px;
   display: flex;
   align-items: center;
@@ -80,7 +56,7 @@
 }
 
 .wishlistTitle svg {
-  color: #ff6b6b;
+  color: var(--warning);
 }
 
 .closeButton {
@@ -89,7 +65,7 @@
   right: 15px;
   background: none;
   border: none;
-  color: white;
+  color: var(--text-primary);
   font-size: 1rem;
   cursor: pointer;
   display: block;
@@ -107,7 +83,7 @@
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  color: #8a9194;
+  color: var(--text-muted);
   text-align: center;
 }
 
@@ -126,8 +102,8 @@
   display: flex;
   justify-content: space-around;
   padding: 15px 10px;
-  background-color: rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--background);
+  border-bottom: 1px solid var(--surface-hover);
   width: 100%;
 }
 
@@ -155,25 +131,26 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  overflow-y: scroll;
 }
 
 /* Wishlist Toggle Button */
 .wishlistToggleBtn {
   position: fixed;
-  bottom: 140px; /* Position above shop button */
-  right: 35px;
+  bottom: 100px;
+  right: 20px;
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: #1a1e20;
+  background-color: var(--background);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-md);
   z-index: 50;
   border: none;
   outline: none;
-  color: #ff6b6b;
+  color: var(--warning);
   font-size: 1.6rem;
   cursor: pointer;
   transition: transform 0.2s ease;
@@ -187,8 +164,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  background: #419b81;
-  color: white;
+  background: var(--accent);
+  color: var(--text-primary);
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -201,19 +178,19 @@
 
 /* Special styling for gem types */
 .blueGem .gemIcon {
-  filter: drop-shadow(0 0 3px rgba(51, 153, 255, 0.5));
+  filter: drop-shadow(0 0 3px var(--info-light));
 }
 
 .redGem .gemIcon {
-  filter: drop-shadow(0 0 3px rgba(255, 107, 107, 0.5));
+  filter: drop-shadow(0 0 3px var(--error-light));
 }
 
 .greenGem .gemIcon {
-  filter: drop-shadow(0 0 3px rgba(65, 155, 129, 0.5));
+  filter: drop-shadow(0 0 3px var(--success-light));
 }
 
 .pinkGem .gemIcon {
-  filter: drop-shadow(0 0 3px rgba(255, 120, 196, 0.5));
+  filter: drop-shadow(0 0 3px var(--accent-light));
 }
 
 /* Mobile Styles */
@@ -238,12 +215,14 @@
     display: block;
     font-size: 0.85rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--text-primary);
     margin-top: 4px;
   }
 
   .wishlistToggleBtn {
-    bottom: 140px;
-    right: 20px;
+    bottom: 110px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
   }
 }

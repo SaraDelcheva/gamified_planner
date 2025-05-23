@@ -2,7 +2,7 @@
   position: relative;
   font-size: 14px;
   user-select: none;
-  color: white;
+  color: var(--text-primary);
 }
 
 .selectHeader {
@@ -10,16 +10,20 @@
   align-items: center;
   justify-content: space-between;
   padding: 4px 12px;
-  background-color: #2a3132;
+  background-color: var(--surface);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: white;
+  color: var(--text-primary);
+}
+
+.selectHeader:hover {
+  background-color: var(--surface-hover);
 }
 
 .selectHeader.active {
-  border-color: #61717a;
-  box-shadow: 0 0 0 2px rgba(79, 148, 205, 0.2);
+  border-color: var(--surface-hover);
+  box-shadow: 0 0 0 2px var(--info-light);
 }
 
 .selectedOption {
@@ -31,7 +35,7 @@
 .chevron {
   font-size: 18px;
   transition: transform 0.2s ease;
-  color: #a0a0a0;
+  color: var(--text-muted);
 }
 
 .chevron.rotated {
@@ -45,11 +49,11 @@
   width: 100%;
   max-height: 200px;
   overflow-y: auto;
-  background-color: #2a3132;
-  border: 1px solid #414f57;
+  background-color: var(--background);
+  border: 1px solid var(--surface-hover);
   border-radius: 4px;
   z-index: 1000; /* Higher z-index to ensure it's visible */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-md);
 }
 
 .option {
@@ -59,15 +63,15 @@
   padding: 8px 12px;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  color: white;
+  color: var(--text-primary);
 }
 
 .option:hover {
-  background-color: #344346;
+  background-color: var(--surface-hover);
 }
 
 .option.selected {
-  background-color: #344346;
+  background-color: var(--surface-hover);
   font-weight: 500;
 }
 

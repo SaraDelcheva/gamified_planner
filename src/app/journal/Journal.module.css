@@ -2,7 +2,7 @@
   position: relative;
   height: calc(100vh - 40px);
   display: flex;
-  background-color: #222728;
+  background-color: var(--sujrface);
   padding: 20px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   width: 100%;
@@ -63,7 +63,7 @@
 }
 
 .notesContainer {
-  scrollbar-color: #4a6670 #2a3132;
+  scrollbar-color: var(----some-muted-bull) var(--surface-hover);
   padding: 0 20px;
   display: flex;
   gap: 20px;
@@ -253,7 +253,7 @@
 .saveNoteLabel {
   position: absolute;
   top: 30px;
-  background-color: #323839;
+  background-color: var(--surface-hover);
   padding: 2px 5px;
   font-size: 0.8rem;
   white-space: nowrap;
@@ -278,7 +278,7 @@
   position: absolute;
   bottom: 50px;
   display: block;
-  background-color: #2a3132;
+  background-color: var(--surface-hover);
   padding: 10px;
   left: 50%;
   transform: translateX(-50%);

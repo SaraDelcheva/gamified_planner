@@ -10,7 +10,7 @@
 .modalInner {
   border-radius: 10px;
   position: absolute;
-  background-color: #2a3132;
+  background-color: var(--surface-hover);
   width: 50%;
   height: 400px;
   transform: translate(-50%, -50%);
@@ -37,7 +37,7 @@
 }
 .selected,
 .modalImage:hover {
-  background-color: #3a4a4d;
+  background-color: var(--scrollbar-track);
 }
 
 .addCancelContainer {

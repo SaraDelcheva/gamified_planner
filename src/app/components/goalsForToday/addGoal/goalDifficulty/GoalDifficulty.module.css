@@ -3,27 +3,27 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 10px;
-  background-color: #2a3132;
+  background-color: var(--background);
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .difficultyOption:hover {
-  background-color: #344346;
+  background-color: var(--surface-hover);
   transform: translateY(-1px);
 }
 
 .selectedDifficulty {
-  background-color: #344346;
-  border-left: solid 3px #5d8898;
+  background-color: var(--surface-hover);
+  /* border-left: solid 3px var(--info); */
 }
 
 .difficultyBadge {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #4a6670;
+  background-color: var(--background);
   padding: 4px 8px;
   border-radius: 10px;
   font-size: 0.85rem;
@@ -37,6 +37,7 @@
 .difficultyOption p {
   margin: 0;
   font-size: 0.9rem;
+  color: var(--text-primary);
 }
 
 .gemIcon {
