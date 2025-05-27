@@ -112,7 +112,9 @@ input[type="number"] {
 .react-calendar {
   width: 100%;
   max-width: 100%;
-  background: white;
+  background-color: var(--surface);
+  color: var(--text-primary);
+
   font-family: Karla;
   line-height: 1.125em;
   border-radius: 5px;
@@ -139,11 +141,6 @@ input[type="number"] {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-}
-
-.react-calendar {
-  color: var(--text-primary);
-  background-color: var(--background);
 }
 
 .react-calendar__tile,
@@ -179,14 +176,17 @@ input[type="number"] {
 .react-calendar__navigation button {
   min-width: 44px;
   background: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
 }
 
 .react-calendar__navigation button:disabled {
-  background-color: var(--text-muted);
+  opacity: 0.3;
 }
 
 .react-calendar__navigation button:enabled:hover {
-  background-color: var(--text-muted);
+  background-color: var(--surface-hover);
+  color: var(--accent);
 }
 
 .react-calendar__month-view__weekdays {

@@ -135,14 +135,24 @@ function RewardContent() {
   }
 
   //Claim Reward
-  function claimReward(e: React.MouseEvent<HTMLButtonElement>) {
-    const button = e.target as HTMLButtonElement;
-    const rewardId =
-      button.parentElement?.parentElement?.parentElement?.parentElement?.getAttribute(
-        "data-reward-id"
-      );
+  function claimReward(
+    rewardOrEvent: RewardI | React.MouseEvent<HTMLButtonElement>
+  ) {
+    let claimedReward: RewardI | undefined;
 
-    const claimedReward = rewards.find((reward) => reward.id === rewardId);
+    if ("target" in rewardOrEvent) {
+      // Handle event-based claim
+      const button = rewardOrEvent.target as HTMLButtonElement;
+      const rewardId =
+        button.parentElement?.parentElement?.parentElement?.parentElement?.getAttribute(
+          "data-reward-id"
+        );
+      claimedReward = rewards.find((reward) => reward.id === rewardId);
+    } else {
+      // Handle direct reward object claim
+      claimedReward = rewardOrEvent;
+    }
+
     if (!claimedReward) return;
 
     if (!claimedReward.price || wasClaimedToday(claimedReward)) {
@@ -169,6 +179,7 @@ function RewardContent() {
     if (!canAfford) {
       return;
     }
+
     let newTotalBlueGems = totalBlueGems;
     let newTotalRedGems = totalRedGems;
     let newTotalGreenGems = totalGreenGems;
@@ -194,7 +205,9 @@ function RewardContent() {
     }
 
     const updatedRewards = rewards.map((reward) =>
-      reward.id === rewardId ? { ...reward, claimedDate: today } : reward
+      reward.id === claimedReward.id
+        ? { ...reward, claimedDate: today }
+        : reward
     );
 
     const newHistory = [

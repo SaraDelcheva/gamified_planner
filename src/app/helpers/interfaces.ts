@@ -47,12 +47,12 @@ export interface HabitI {
 }
 
 export interface RewardI {
+  id: string;
   title: string;
   price: number | null;
   currency: string;
   isWishListed: boolean;
   cover: string;
-  id: string;
   claimedDate?: string;
 }
 
@@ -86,8 +86,11 @@ export interface AddGoalI {
   isEditing: boolean;
   editingGoalId: string | null;
   rewardCurrency: string;
-  handleInputCurrencyChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  handleInputPriorityChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+
+  handleInputChange: (
+    type: "currency" | "priority" | "difficulty" | "repeat",
+    value: string
+  ) => void;
   addSubtask?: (goalTitle: string, subtaskTitle: string) => void;
   deleteSubtask?: (goalTitle: string, subtaskId: string) => void;
   goals: GoalI[];
@@ -112,8 +115,11 @@ export interface GoalsForTodayI extends AddGoalI {
 }
 
 export interface RewardsI {
-  totalDiamonds: number;
   rewards: RewardI[];
+  claimReward: (reward: RewardI) => void;
+  handleIsWishListed: (e: React.MouseEvent<HTMLDivElement>) => void;
+  currentDate: string;
+  totalDiamonds: number;
   rewardName: string;
   rewardPrice: number | null;
   rewardCurrency: string;
@@ -121,13 +127,10 @@ export interface RewardsI {
   PriceChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   currencyChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   addNewReward: () => void;
-  claimReward: (e: React.MouseEvent<HTMLButtonElement>) => void;
   coverName: string;
   setCoverName: React.Dispatch<React.SetStateAction<string>>;
   isModalOpen: boolean;
   setIsModalOpen: (isModalOpen: boolean) => void;
-  handleIsWishListed: (e: React.MouseEvent<HTMLDivElement>) => void;
-  currentDate: string;
   totalBlueGems: number;
   totalRedGems: number;
   totalGreenGems: number;
@@ -149,20 +152,22 @@ export interface AddNewRewardI {
 }
 
 export interface RewardCardI {
+  id: string;
   rewardName: string;
-  price: number;
+  price: number | null;
   currency: string;
-  cover: string;
+  cover?: string;
   totalBlueGems: number;
+  totalPinkGems: number;
   totalRedGems: number;
   totalGreenGems: number;
-  totalPinkGems: number;
-  claimReward: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  id: string;
+  claimReward: (reward: RewardI) => void;
   handleIsWishListed: (e: React.MouseEvent<HTMLDivElement>) => void;
   isWishListed: boolean;
   claimedDate?: string;
   currentDate: string;
+  isSelected?: boolean;
+  onSelect?: (id: string) => void;
 }
 
 export interface SaveDataFunctionI {

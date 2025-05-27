@@ -140,7 +140,7 @@
   background-size: 50%;
   background-position: center;
   background-repeat: no-repeat;
-  z-index: 98;
+  z-index: 9;
   border: none;
   color: var(--text-primary);
   transition: all 0.2s ease;

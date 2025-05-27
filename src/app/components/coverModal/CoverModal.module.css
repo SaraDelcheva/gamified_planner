@@ -5,7 +5,7 @@
   width: 100%;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 100;
 }
 .modalInner {
   border-radius: 10px;

@@ -1,9 +1,9 @@
 import { AiOutlinePlus } from "react-icons/ai";
-import { BiPlus, BiTrash } from "react-icons/bi";
+import { BiPlus, BiTrash, BiMinus, BiChevronDown } from "react-icons/bi";
+import { BsExclamationCircleFill, BsStars, BsListTask } from "react-icons/bs";
 import { FiRepeat } from "react-icons/fi";
 import { useState } from "react";
 import styles from "./AddGoal.module.css";
-import GoalDifficulty from "./goalDifficulty/GoalDifficulty";
 import AddOrCancelBtn from "./addOrCancelBtn/AddOrCancelBtn";
 import CustomSelect from "@/app/components/customSelect/CustomSelect";
 import { AddGoalI, SubtaskI } from "@/app/helpers/interfaces";
@@ -12,22 +12,165 @@ import CoverModal from "@/app/components/coverModal/CoverModal";
 
 export default function AddGoal(props: AddGoalI) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isRepeatingModalOpen, setIsRepeatingModalOpen] = useState(false);
   const [newSubtask, setNewSubtask] = useState("");
 
-  const currencyOptions = ["sapphire", "crystal", "emerald", "ruby"];
-  const priorityOptions = [
-    "none",
-    "Today's focus",
-    "High Priority",
-    "Medium Priority",
-    "Low Priority",
-    "Optional/Backlog",
+  // Currency options with icons
+
+  const repeatOptions = [
+    {
+      value: "never",
+      label: "Never",
+      icon: <FiRepeat className={styles.gemIcon} />,
+    },
+    {
+      value: "daily",
+      label: "Daily",
+      icon: <FiRepeat className={styles.gemIcon} />,
+    },
+    {
+      value: "weekly",
+      label: "Weekly",
+      icon: <FiRepeat className={styles.gemIcon} />,
+    },
+    {
+      value: "monthly",
+      label: "Monthly",
+      icon: <FiRepeat className={styles.gemIcon} />,
+    },
   ];
 
-  function easy(diamonds: number) {
-    props.setDifficulty(diamonds);
-  }
+  const currencyOptions = [
+    {
+      value: "sapphire",
+      label: "",
+      icon: (
+        <div
+          className={styles.gemIcon}
+          style={{ backgroundImage: `url('/images/sapphire.svg')` }}
+        />
+      ),
+    },
+    {
+      value: "crystal",
+      label: "",
+      icon: (
+        <div
+          className={styles.gemIcon}
+          style={{ backgroundImage: `url('/images/crystal.svg')` }}
+        />
+      ),
+    },
+    {
+      value: "emerald",
+      label: "",
+      icon: (
+        <div
+          className={styles.gemIcon}
+          style={{ backgroundImage: `url('/images/emerald.svg')` }}
+        />
+      ),
+    },
+    {
+      value: "ruby",
+      label: "",
+      icon: (
+        <div
+          className={styles.gemIcon}
+          style={{ backgroundImage: `url('/images/ruby.svg')` }}
+        />
+      ),
+    },
+  ];
+
+  // Priority options with icons
+  const priorityOptions = [
+    {
+      value: "Today's focus",
+      label: "Today's focus",
+      icon: <BsStars color="#FFD700" />,
+    },
+    {
+      value: "High Priority",
+      label: "High Priority",
+      icon: <BsExclamationCircleFill color="#FF4500" />,
+    },
+    {
+      value: "Medium Priority",
+      label: "Medium Priority",
+      icon: <BsExclamationCircleFill color="#FFA500" />,
+    },
+    {
+      value: "Low Priority",
+      label: "Low Priority",
+      icon: <BsExclamationCircleFill color="#90EE90" />,
+    },
+    {
+      value: "Optional/Backlog",
+      label: "Optional/Backlog",
+      icon: <BsListTask color="#a0a0a0" />,
+    },
+  ];
+
+  // Difficulty options with gem count display
+
+  const difficultyOptions = [
+    {
+      value: "5",
+      label: "",
+      iconPosition: "right" as const,
+      icon: (
+        <div className={styles.difficultyOption}>
+          <span>5</span>
+          <div
+            className={styles.gemIcon}
+            style={{ backgroundImage: `url('/images/${props.currency}.svg')` }}
+          />
+        </div>
+      ),
+    },
+    {
+      value: "10",
+      label: "",
+      iconPosition: "right" as const,
+      icon: (
+        <div className={styles.difficultyOption}>
+          <span>10</span>
+          <div
+            className={styles.gemIcon}
+            style={{ backgroundImage: `url('/images/${props.currency}.svg')` }}
+          />
+        </div>
+      ),
+    },
+    {
+      value: "20",
+      label: "",
+      iconPosition: "right" as const,
+      icon: (
+        <div className={styles.difficultyOption}>
+          <span>20</span>
+          <div
+            className={styles.gemIcon}
+            style={{ backgroundImage: `url('/images/${props.currency}.svg')` }}
+          />
+        </div>
+      ),
+    },
+    {
+      value: "30",
+      label: "",
+      iconPosition: "right" as const,
+      icon: (
+        <div className={styles.difficultyOption}>
+          <span>30</span>
+          <div
+            className={styles.gemIcon}
+            style={{ backgroundImage: `url('/images/${props.currency}.svg')` }}
+          />
+        </div>
+      ),
+    },
+  ];
 
   function tileDisabled({ date, view }: { date: Date; view: string }) {
     if (view === "month") {
@@ -37,20 +180,6 @@ export default function AddGoal(props: AddGoalI) {
     }
     return false;
   }
-
-  // Handler for currency change with CustomSelect
-  const handleCurrencyChange = (option: string) => {
-    props.handleInputCurrencyChange({
-      target: { value: option },
-    } as React.ChangeEvent<HTMLSelectElement>);
-  };
-
-  // Handler for priority change with CustomSelect
-  const handlePriorityChange = (option: string) => {
-    props.handleInputPriorityChange({
-      target: { value: option },
-    } as React.ChangeEvent<HTMLSelectElement>);
-  };
 
   // Handle subtask input changes
   const handleSubtaskInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,17 +251,17 @@ export default function AddGoal(props: AddGoalI) {
                   <AiOutlinePlus />
                 </div>
               </button>
-            ) : props.difficulty !== 0 ? (
-              <div className={`${styles.rewardBadge} ${styles.boxShadow}`}>
-                {props.difficulty}{" "}
-                <div
-                  className={styles.gemIcon}
-                  style={{
-                    backgroundImage: `url('/images/${props.currency}.svg')`,
-                  }}
-                ></div>
-              </div>
-            ) : null}
+            ) : (
+              <CustomSelect
+                options={difficultyOptions}
+                value={String(props.difficulty)}
+                onChange={(value) =>
+                  props.handleInputChange("difficulty", value)
+                }
+                placeholder=""
+                className={styles.difficultySelect}
+              />
+            )}
           </div>
         )}
       </div>
@@ -140,143 +269,119 @@ export default function AddGoal(props: AddGoalI) {
       {props.expanded && (
         <div className={styles.addGoalContent}>
           <div className={styles.dateAndCurrency}>
-            <div>
+            <div className={styles.customSelect}>
               <div
                 className={styles.dateSelector}
                 onClick={() => props.setIsCalendarOpen(!props.isCalendarOpen)}
               >
                 <div className={styles.dateOption}>
-                  {props.newGoalDate || props.goalDate}
-                </div>
-              </div>
-            </div>
-            <div className={styles.repeatSelector}>
-              <div
-                onClick={() => setIsRepeatingModalOpen(!isRepeatingModalOpen)}
-                className={styles.repeatingOption}
-              >
-                {" "}
-                <FiRepeat /> {props.repeating}
-              </div>
-            </div>
+                  {(() => {
+                    const today = new Date();
+                    const tomorrow = new Date(today);
+                    tomorrow.setDate(tomorrow.getDate() + 1);
 
-            {/* Custom Priority Select component */}
+                    const selectedDate = props.newGoalDate || props.goalDate;
+                    const selectedDateObj = new Date(selectedDate);
+
+                    if (
+                      today.toDateString() === selectedDateObj.toDateString()
+                    ) {
+                      return "Today";
+                    } else if (
+                      tomorrow.toDateString() === selectedDateObj.toDateString()
+                    ) {
+                      return "Tomorrow";
+                    } else {
+                      return selectedDate;
+                    }
+                  })()}
+                </div>
+                <div
+                  className={`${styles.chevron} ${
+                    props.isCalendarOpen ? styles.rotated : ""
+                  }`}
+                >
+                  <BiChevronDown />
+                </div>
+                {props.isCalendarOpen && (
+                  <div className={styles.calendarWrapper}>
+                    <Calendar
+                      onClickDay={props.onClickDay}
+                      tileDisabled={tileDisabled}
+                      minDate={minDate}
+                      value={
+                        props.newGoalDate
+                          ? new Date(props.newGoalDate)
+                          : new Date(props.goalDate)
+                      }
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+            <CustomSelect
+              options={repeatOptions}
+              value={props.repeating}
+              onChange={(value) => props.handleInputChange("repeat", value)}
+              placeholder="Repeating"
+              className={styles.repeatSelector}
+            />
             <CustomSelect
               options={priorityOptions}
               value={props.priority}
-              onChange={handlePriorityChange}
-              type="priority"
+              onChange={(value) => props.handleInputChange("priority", value)}
+              placeholder="Priority"
               className={styles.prioritySelector}
             />
+            {!props.isCustom && (
+              <CustomSelect
+                options={currencyOptions}
+                value={props.currency}
+                onChange={(value) => props.handleInputChange("currency", value)}
+                placeholder=""
+                className={styles.currencySelector}
+              />
+            )}
 
-            {/* Custom Currency Select component */}
-            <CustomSelect
-              options={currencyOptions}
-              value={props.currency}
-              onChange={handleCurrencyChange}
-              type="currency"
-              className={styles.currencySelector}
-            />
-          </div>
-          {isRepeatingModalOpen && (
-            <div
-              onClick={() => setIsRepeatingModalOpen(!isRepeatingModalOpen)}
-              className={styles.repeatingOptions}
-            >
-              <button
-                className={styles.repeatingOption}
-                onClick={() => props.setRepeating("never")}
+            <div className={styles.customSelect}>
+              <div
+                className={`${styles.customRewardSelector} ${
+                  props.isCustom ? styles.active : ""
+                }`}
+                onClick={() => props.setIsCustom(!props.isCustom)}
               >
-                <FiRepeat /> Is not repeating
-              </button>
-              <button
-                className={styles.repeatingOption}
-                onClick={() => props.setRepeating("daily")}
-              >
-                <FiRepeat /> Daily
-              </button>
-              <button
-                className={styles.repeatingOption}
-                onClick={() => props.setRepeating("weekly")}
-              >
-                <FiRepeat /> Every Week
-              </button>
-              <button
-                className={styles.repeatingOption}
-                onClick={() => props.setRepeating("monthly")}
-              >
-                <FiRepeat /> Every Month
-              </button>
+                {props.isCustom ? (
+                  <>
+                    <BiMinus className={styles.plusIcon} />
+                    Custom Reward
+                  </>
+                ) : (
+                  <>
+                    <BiPlus className={styles.plusIcon} />
+                    Custom Reward
+                  </>
+                )}
+              </div>
             </div>
-          )}
-
-          <div className={styles.rewardTypeToggle}>
-            <button
-              className={`${styles.toggleButton} ${
-                !props.isCustom ? styles.active : ""
-              }`}
-              onClick={() => props.setIsCustom(false)}
-            >
-              <BiPlus className={styles.plusIcon} /> Choose Difficulty
-            </button>
-            <button
-              className={`${styles.toggleButton} ${
-                props.isCustom ? styles.active : ""
-              }`}
-              onClick={() => props.setIsCustom(true)}
-            >
-              <BiPlus className={styles.plusIcon} /> Add Custom Reward
-            </button>
           </div>
 
-          {!props.isCustom ? (
-            <div className={styles.difficultyGrid}>
-              <GoalDifficulty
-                easy={easy}
-                difficultyLevel="Easy"
-                diamonds={5}
-                currency={props.currency}
-                selectedDifficulty={props.difficulty}
-              />
-              <GoalDifficulty
-                easy={easy}
-                difficultyLevel="Boring"
-                diamonds={10}
-                currency={props.currency}
-                selectedDifficulty={props.difficulty}
-              />
-              <GoalDifficulty
-                easy={easy}
-                difficultyLevel="Difficult"
-                diamonds={20}
-                currency={props.currency}
-                selectedDifficulty={props.difficulty}
-              />
-              <GoalDifficulty
-                easy={easy}
-                difficultyLevel="Impossible"
-                diamonds={30}
-                currency={props.currency}
-                selectedDifficulty={props.difficulty}
-              />
-            </div>
-          ) : (
+          {props.isCustom && (
             <div className={styles.customRewardSection}>
               <input
                 type="text"
                 className={styles.customRewardInput}
-                placeholder="Reward title"
+                placeholder="Custom reward title"
                 onChange={(e) => props.setCustomRewardName(e.target.value)}
               />
             </div>
           )}
+
           <div className={styles.subtasksSection}>
             <div className={styles.subtasksHeader}>
-              <h4>Subtasks</h4>
               <div className={styles.subtaskInput}>
                 <input
                   type="text"
-                  placeholder="Subtask name"
+                  placeholder="+ Add Subtask"
                   value={newSubtask}
                   onChange={handleSubtaskInputChange}
                   onKeyDown={handleSubtaskKeyDown}
@@ -286,51 +391,32 @@ export default function AddGoal(props: AddGoalI) {
             </div>
 
             <div className={styles.subtasksList}>
-              {subtasks.length > 0 ? (
-                subtasks.map((subtask: SubtaskI) => (
-                  <div key={subtask.id} className={styles.subtaskItem}>
-                    <div className={styles.subtaskLeft}>
-                      <input
-                        type="checkbox"
-                        checked={subtask.isCompleted}
-                        onChange={() =>
-                          props.toggleCurrentSubtaskCompletion(subtask.id)
-                        }
-                      />
-                      <span
-                        className={subtask.isCompleted ? styles.completed : ""}
-                      >
-                        {subtask.title}
-                      </span>
-                    </div>
-                    <button
-                      className={styles.deleteSubtaskBtn}
-                      onClick={() => props.deleteCurrentSubtask(subtask.id)}
+              {subtasks.map((subtask: SubtaskI) => (
+                <div key={subtask.id} className={styles.subtaskItem}>
+                  <div className={styles.subtaskLeft}>
+                    <input
+                      type="checkbox"
+                      checked={subtask.isCompleted}
+                      onChange={() =>
+                        props.toggleCurrentSubtaskCompletion(subtask.id)
+                      }
+                    />
+                    <span
+                      className={subtask.isCompleted ? styles.completed : ""}
                     >
-                      <BiTrash />
-                    </button>
+                      {subtask.title}
+                    </span>
                   </div>
-                ))
-              ) : (
-                <p className={styles.noSubtasks}>No subtasks yet</p>
-              )}
+                  <button
+                    className={styles.deleteSubtaskBtn}
+                    onClick={() => props.deleteCurrentSubtask(subtask.id)}
+                  >
+                    <BiTrash />
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
-
-          {props.isCalendarOpen && (
-            <div className={styles.calendarWrapper}>
-              <Calendar
-                onClickDay={props.onClickDay}
-                tileDisabled={tileDisabled}
-                minDate={minDate}
-                value={
-                  props.newGoalDate
-                    ? new Date(props.newGoalDate)
-                    : new Date(props.goalDate)
-                }
-              />
-            </div>
-          )}
 
           <div className={styles.actionButtons}>
             <AddOrCancelBtn

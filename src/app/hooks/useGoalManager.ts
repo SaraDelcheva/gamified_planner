@@ -23,16 +23,18 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     totalRedGems,
     totalPinkGems,
   } = useDiamonds();
+
   const [goals, setGoals] = useState<GoalI[]>([]);
   const [notes, setNotes] = useState<NoteI[]>([]);
   const [goalName, setGoalName] = useState<string>("");
-  const [difficulty, setDifficulty] = useState<number>(0);
   const [goalDate, setGoalDate] = useState("");
-  const [repeating, setRepeating] = useState<string>("never");
-  const [rewardCurrency, setRewardCurrency] = useState("sapphire");
-  const [priority, setPriority] = useState<string>("none");
-  const [isCompleted, setIsCompleted] = useState(false);
 
+  const [difficulty, setDifficulty] = useState<number>(5);
+  const [repeating, setRepeating] = useState<string>("never");
+  const [rewardCurrency, setRewardCurrency] = useState<string>("sapphire");
+  const [priority, setPriority] = useState<string>("none");
+
+  const [isCompleted, setIsCompleted] = useState(false);
   const [newGoalDate, setNewGoalDate] = useState("");
   const [customCoverName, setCustomCoverName] = useState("reward");
   const [customRewardName, setCustomRewardName] = useState("");
@@ -162,38 +164,51 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setNotCompletedGoalNumber(notCompletedGoals.length);
   }
 
-  // Handle currency change
-  function handleInputCurrencyChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    setRewardCurrency(e.target.value.trim() || "sapphire");
-  }
+  // Consolidated handler for all input changes
+  function handleInputChange(
+    type: "currency" | "priority" | "difficulty" | "repeat",
+    value: string
+  ) {
+    switch (type) {
+      case "currency":
+        setRewardCurrency(value.trim() || "sapphire");
+        break;
 
-  // Handle currency change
-  function handleInputPriorityChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const newPriority = e.target.value.trim() || "none";
-    if (newPriority === "Today's focus") {
-      if (!isTodaysFocus) {
-        setIsTodaysFocus(true);
-      } else {
-        const focusedGoal = confirm(
-          "You already have a goal marked as today's focus. Do you want to change it?"
-        );
-        if (!focusedGoal) {
-          return;
-        }
+      case "difficulty":
+        setDifficulty(Number(value.trim()) || 0);
+        break;
 
-        // If confirmed, clear today's focus from all other goals
-        const updatedGoals = goals.map((goal) => {
-          if (goal.priority === "Today's focus") {
-            return { ...goal, priority: "none" };
+      case "repeat":
+        setRepeating(value.trim() || "never");
+        break;
+
+      case "priority":
+        const newPriority = value.trim() || "none";
+        if (newPriority === "Today's focus") {
+          if (!isTodaysFocus) {
+            setIsTodaysFocus(true);
+          } else {
+            const focusedGoal = confirm(
+              "You already have a goal marked as today's focus. Do you want to change it?"
+            );
+            if (!focusedGoal) {
+              return;
+            }
+
+            const updatedGoals = goals.map((goal) => {
+              if (goal.priority === "Today's focus") {
+                return { ...goal, priority: "none" };
+              }
+              return goal;
+            });
+
+            setGoals(updatedGoals);
+            saveData({ goals: updatedGoals });
           }
-          return goal;
-        });
-
-        setGoals(updatedGoals);
-        saveData({ goals: updatedGoals });
-      }
+        }
+        setPriority(newPriority);
+        break;
     }
-    setPriority(newPriority);
   }
 
   // ---------- Handlers for Goal Management ----------
@@ -292,16 +307,16 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setGoalName("");
     setCustomCoverName("reward");
     setCustomRewardName("");
-    setDifficulty(0);
+    setDifficulty(5);
     setRewardCurrency("sapphire");
-    setRepeating("never");
+    setRepeating("");
     setIsCustom(false);
     setExpanded((prev) => ({ ...prev, [containerDate]: false }));
     setIsCalendarOpen((prev) => ({ ...prev, [containerDate]: false }));
     setNewGoalDate("");
     setIsEditing(false);
     setEditingGoalId(null);
-    setPriority("none");
+    setPriority("");
     setCurrentSubtasks([]);
   }
 
@@ -518,7 +533,7 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     });
   };
 
-  // ----- NEW SUBTASK FUNCTIONS -----
+  // ----- SUBTASK FUNCTIONS -----
   // Add a subtask to a goal
   function addSubtask(goalTitle: string, subtaskTitle: string) {
     if (!subtaskTitle.trim()) return;
@@ -659,6 +674,9 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     setIsCustom,
     setGoalDate,
     setRepeating,
+    setExpanded,
+    setIsCalendarOpen,
+
     // Functions
     addNewGoal,
     cancelAddGoal,
@@ -668,9 +686,9 @@ export function useGoalManager({ daysToShow }: UseGoalManagerProps) {
     toggleExpanded,
     toggleCalendar,
     onClickDay,
-    handleInputCurrencyChange,
+    handleInputChange,
     removeReminder,
-    handleInputPriorityChange,
+
     // Subtask functions
     addSubtask,
     toggleSubtaskCompletion,

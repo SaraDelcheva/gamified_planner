@@ -39,12 +39,10 @@ export default function Home() {
     isEditing,
     editingGoalId,
     rewardCurrency,
-    handleInputCurrencyChange,
     removeReminder,
     goalNumber,
     completedGoalNumber,
     notCompletedGoalNumber,
-    handleInputPriorityChange,
     priority,
     addSubtask,
     toggleSubtaskCompletion,
@@ -53,6 +51,7 @@ export default function Home() {
     addCurrentSubtask,
     toggleCurrentSubtaskCompletion,
     deleteCurrentSubtask,
+    handleInputChange,
   } = useGoalManager({ daysToShow: 1 });
 
   return (
@@ -107,9 +106,8 @@ export default function Home() {
               isCalendarOpen: isCalendarOpen[formattedDate] || false,
               onClickDay,
               rewardCurrency,
-              handleInputCurrencyChange,
               priority,
-              handleInputPriorityChange,
+              handleInputChange,
               addSubtask,
               toggleSubtaskCompletion,
               deleteSubtask,

@@ -1,30 +1,19 @@
 import { useState, useRef, useEffect } from "react";
 import { BiChevronDown } from "react-icons/bi";
-import { BsExclamationCircleFill, BsStars, BsListTask } from "react-icons/bs";
 import styles from "./CustomSelect.module.css";
 
-// Define icons mapping
-const icons = {
-  // Currency icons
-  sapphire: "/images/sapphire.svg",
-  crystal: "/images/crystal.svg",
-  emerald: "/images/emerald.svg",
-  ruby: "/images/ruby.svg",
-
-  // Priority icons
-  none: null,
-  "Today's focus": <BsStars color="#FFD700" />,
-  "High Priority": <BsExclamationCircleFill color="#FF4500" />,
-  "Medium Priority": <BsExclamationCircleFill color="#FFA500" />,
-  "Low Priority": <BsExclamationCircleFill color="#90EE90" />,
-  "Optional/Backlog": <BsListTask color="#a0a0a0" />,
-};
+interface Option {
+  value: string;
+  label: string;
+  icon?: React.ReactNode;
+  iconPosition?: "left" | "right";
+}
 
 interface CustomSelectProps {
-  options: string[];
+  options: Option[];
   value: string;
   onChange: (value: string) => void;
-  type: "currency" | "priority"; // Type to determine icon rendering
+  placeholder?: string;
   className?: string;
 }
 
@@ -32,28 +21,12 @@ export default function CustomSelect({
   options,
   value,
   onChange,
-  type,
+  placeholder = "Select option",
   className,
 }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [dropdownPosition, setDropdownPosition] = useState<{
-    top: number;
-    left: number;
-  } | null>(null);
 
-  // Calculate dropdown position when it opens
-  useEffect(() => {
-    if (isOpen && dropdownRef.current) {
-      const rect = dropdownRef.current.getBoundingClientRect();
-      setDropdownPosition({
-        top: rect.bottom + window.scrollY,
-        left: rect.left + window.scrollX,
-      });
-    }
-  }, [isOpen]);
-
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -70,33 +43,15 @@ export default function CustomSelect({
     };
   }, []);
 
-  const handleSelect = (option: string) => {
-    onChange(option);
+  const handleSelect = (optionValue: string) => {
+    onChange(optionValue);
     setIsOpen(false);
   };
 
-  // Render icon based on type and option
-  const renderIcon = (option: string) => {
-    if (type === "currency") {
-      return (
-        <div
-          className={styles.gemIcon}
-          style={{
-            backgroundImage: `url('${icons[option as keyof typeof icons]}')`,
-          }}
-        ></div>
-      );
-    } else if (type === "priority") {
-      const icon = icons[option as keyof typeof icons];
-      return icon ? <span className={styles.priorityIcon}>{icon}</span> : null;
-    }
-    return null;
-  };
-
-  // Format display text for options
-  const getDisplayText = (option: string) => {
-    return option === "none" && type === "priority" ? "Set priority" : option;
-  };
+  const selectedOption = options.find((option) => option.value === value);
+  const displayText = selectedOption?.label || placeholder;
+  const displayIcon = selectedOption?.icon;
+  const iconPosition = selectedOption?.iconPosition || "left";
 
   return (
     <div
@@ -108,33 +63,36 @@ export default function CustomSelect({
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className={styles.selectedOption}>
-          {renderIcon(value)}
-          <span>{getDisplayText(value)}</span>
+          {displayIcon && iconPosition === "left" && (
+            <span className={styles.optionIcon}>{displayIcon}</span>
+          )}
+          <span>{displayText}</span>
+          {displayIcon && iconPosition === "right" && (
+            <span className={styles.optionIcon}>{displayIcon}</span>
+          )}
         </div>
         <BiChevronDown
           className={`${styles.chevron} ${isOpen ? styles.rotated : ""}`}
         />
       </div>
 
-      {isOpen && dropdownPosition && (
-        <div
-          className={styles.optionsContainer}
-          style={{
-            top: `${dropdownPosition.top}px`,
-            left: `${dropdownPosition.left}px`,
-            width: `${dropdownRef.current?.offsetWidth}px`,
-          }}
-        >
+      {isOpen && (
+        <div className={styles.optionsContainer}>
           {options.map((option) => (
             <div
-              key={option}
+              key={option.value}
               className={`${styles.option} ${
-                value === option ? styles.selected : ""
+                value === option.value ? styles.selected : ""
               }`}
-              onClick={() => handleSelect(option)}
+              onClick={() => handleSelect(option.value)}
             >
-              {renderIcon(option)}
-              <span>{getDisplayText(option)}</span>
+              {option.icon && (option.iconPosition || "left") === "left" && (
+                <span className={styles.optionIcon}>{option.icon}</span>
+              )}
+              <span>{option.label}</span>
+              {option.icon && (option.iconPosition || "left") === "right" && (
+                <span className={styles.optionIcon}>{option.icon}</span>
+              )}
             </div>
           ))}
         </div>

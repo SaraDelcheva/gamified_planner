@@ -1,26 +1,27 @@
 import { useState } from "react";
 import styles from "./RewardCard.module.css";
-import { RewardCardI } from "@/app/helpers/interfaces";
+import { RewardCardI, RewardI } from "@/app/helpers/interfaces";
 import { AiFillHeart } from "react-icons/ai";
 
 export default function RewardCard(props: RewardCardI) {
   const [isHovered, setIsHovered] = useState(false);
 
   const isClaimable =
-    props.currency === "sapphire"
+    props.price !== null &&
+    (props.currency === "sapphire"
       ? props.price <= props.totalBlueGems
       : props.currency === "crystal"
       ? props.price <= props.totalPinkGems
       : props.currency === "ruby"
       ? props.price <= props.totalRedGems
-      : props.price <= props.totalGreenGems;
+      : props.price <= props.totalGreenGems);
 
   const wasClaimedToday = props.claimedDate === props.currentDate;
   const shouldDisableHover = !isClaimable || wasClaimedToday;
 
   // Calculate progress toward being able to claim the reward
   const getProgressPercentage = () => {
-    if (isClaimable) return 100;
+    if (!props.price || isClaimable) return 100;
 
     const currentGems =
       props.currency === "sapphire"
@@ -50,6 +51,18 @@ export default function RewardCard(props: RewardCardI) {
     }
   };
 
+  const handleClaimClick = () => {
+    const reward: RewardI = {
+      id: props.id,
+      title: props.rewardName,
+      price: props.price,
+      currency: props.currency,
+      isWishListed: props.isWishListed,
+      cover: props.cover || "",
+    };
+    props.claimReward(reward);
+  };
+
   return (
     <div
       className={`${styles.rewardCard} ${
@@ -63,8 +76,15 @@ export default function RewardCard(props: RewardCardI) {
         <h3 className={styles.rewardCardTitle}>{props.rewardName}</h3>
         <div
           className={styles.wishlistToggle}
-          onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-            props.handleIsWishListed(e);
+          onClick={(e) => {
+            e.stopPropagation();
+            const divEvent = {
+              ...e,
+              currentTarget: e.currentTarget as unknown as HTMLDivElement,
+            };
+            props.handleIsWishListed(
+              divEvent as React.MouseEvent<HTMLDivElement>
+            );
           }}
         >
           <AiFillHeart
@@ -86,7 +106,7 @@ export default function RewardCard(props: RewardCardI) {
 
         <div className={styles.rewardCardInfo}>
           <div className={styles.priceTag}>
-            <span>{props.price}</span>
+            <span>{props.price ?? 0}</span>
             <div
               className={styles.gemIcon}
               style={{
@@ -106,7 +126,7 @@ export default function RewardCard(props: RewardCardI) {
               <button
                 className={`${styles.claimBtn} boxShadow`}
                 disabled={!isClaimable}
-                onClick={props.claimReward}
+                onClick={handleClaimClick}
               >
                 Claim Reward
               </button>
@@ -138,7 +158,7 @@ export default function RewardCard(props: RewardCardI) {
             )}
           </div>
 
-          {!isClaimable && (
+          {!isClaimable && props.price !== null && (
             <p className={styles.warning}>
               Need{" "}
               {props.price -

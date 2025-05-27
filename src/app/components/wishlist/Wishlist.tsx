@@ -9,7 +9,7 @@ import { useDiamonds } from "@/app/context/DiamondsContext";
 
 interface WishlistProps {
   rewards: RewardI[];
-  claimReward: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  claimReward: (reward: RewardI) => void;
   handleIsWishListed: (e: React.MouseEvent<HTMLDivElement>) => void;
   today: string;
 }

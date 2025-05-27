@@ -74,12 +74,11 @@ export default function GoalsForToday(props: GoalsForTodayI) {
             onClickDay={props.onClickDay}
             newGoalDate={props.newGoalDate}
             rewardCurrency={props.rewardCurrency}
-            handleInputCurrencyChange={props.handleInputCurrencyChange}
             currency={props.currency}
             repeating={props.repeating}
             setRepeating={props.setRepeating}
             priority={props.priority}
-            handleInputPriorityChange={props.handleInputPriorityChange}
+            handleInputChange={props.handleInputChange}
             goals={props.goals}
             currentSubtasks={props.currentSubtasks}
             addCurrentSubtask={props.addCurrentSubtask}
