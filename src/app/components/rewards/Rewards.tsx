@@ -5,12 +5,7 @@ import AddNewReward from "./addNewReward/AddNewReward";
 import ShopItem from "./shopItem/ShopItem";
 import { RewardsI } from "@/app/helpers/interfaces";
 import { useDiamonds } from "@/app/context/DiamondsContext";
-import {
-  FaShoppingBag,
-  FaChevronLeft,
-  FaChevronRight,
-  FaTrash,
-} from "react-icons/fa";
+import { FaShoppingBag, FaTrash } from "react-icons/fa";
 import { GiBlacksmith } from "react-icons/gi";
 
 interface GemTotals {
@@ -23,38 +18,11 @@ interface GemTotals {
 export default function Rewards(props: Omit<RewardsI, "totalDiamonds">) {
   const [currentShop, setCurrentShop] = useState<string>("sapphire");
   const [isShopOpen, setIsShopOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
-  const [itemsPerPage, setItemsPerPage] = useState(6);
   const { totalBlueGems, totalRedGems, totalGreenGems, totalPinkGems } =
     useDiamonds();
   const rewardsRef = useRef<HTMLDivElement>(null);
   const shopBtnRef = useRef<HTMLDivElement>(null);
-
-  // Calculate items per page based on screen size
-  useEffect(() => {
-    const calculateItemsPerPage = () => {
-      const isMobile = window.innerWidth <= 767;
-      const isTablet = window.innerWidth <= 1024;
-
-      if (isMobile) {
-        setItemsPerPage(4); // 2x2 grid on mobile
-      } else if (isTablet) {
-        setItemsPerPage(6); // 2x3 grid on tablet
-      } else {
-        setItemsPerPage(8); // 2x4 grid on desktop
-      }
-    };
-
-    calculateItemsPerPage();
-    window.addEventListener("resize", calculateItemsPerPage);
-    return () => window.removeEventListener("resize", calculateItemsPerPage);
-  }, []);
-
-  // Reset to first page when changing shops
-  useEffect(() => {
-    setCurrentPage(0);
-  }, [currentShop]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -159,25 +127,6 @@ export default function Rewards(props: Omit<RewardsI, "totalDiamonds">) {
   const filteredRewards = props.rewards.filter(
     (reward) => reward.currency === currentShop
   );
-
-  const totalPages = Math.ceil(filteredRewards.length / itemsPerPage);
-  const startIndex = currentPage * itemsPerPage;
-  const currentPageItems = filteredRewards.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  const goToNextPage = () => {
-    if (currentPage < totalPages - 1) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const goToPrevPage = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
 
   const remainingGems = getRemainingGems();
   const gemCounts = [
@@ -383,8 +332,8 @@ export default function Rewards(props: Omit<RewardsI, "totalDiamonds">) {
             />
           ) : (
             <>
-              <div className={styles.rewardsGrid}>
-                {currentPageItems.map((reward) => (
+              <div className={styles.shopItemsContainer}>
+                {filteredRewards.map((reward) => (
                   <ShopItem
                     key={reward.id}
                     id={reward.id}
@@ -406,28 +355,6 @@ export default function Rewards(props: Omit<RewardsI, "totalDiamonds">) {
                   />
                 ))}
               </div>
-
-              {totalPages > 1 && (
-                <div className={styles.pagination}>
-                  <button
-                    className={styles.paginationBtn}
-                    onClick={goToPrevPage}
-                    disabled={currentPage === 0}
-                  >
-                    <FaChevronLeft />
-                  </button>
-                  <span className={styles.pageInfo}>
-                    {currentPage + 1} / {totalPages}
-                  </span>
-                  <button
-                    className={styles.paginationBtn}
-                    onClick={goToNextPage}
-                    disabled={currentPage === totalPages - 1}
-                  >
-                    <FaChevronRight />
-                  </button>
-                </div>
-              )}
             </>
           )}
 

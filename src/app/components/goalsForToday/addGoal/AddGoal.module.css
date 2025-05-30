@@ -282,36 +282,49 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* Updated Subtasks Section */
 .subtasksSection {
-  background-color: var(--background);
   margin-top: 12px;
   border-radius: 6px;
+  border: 1px solid var(--surface-hover);
+  overflow: hidden;
+}
+
+.subtaskToggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background-color: var(--surface);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.subtaskToggle:hover {
+  background-color: var(--surface-hover);
 }
 
 .subtasksHeader {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.subtasksHeader h4 {
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  margin: 0;
+  padding: 12px;
+  background-color: var(--background);
+  border-top: 1px solid var(--surface-hover);
 }
 
 .subtaskInput {
   display: flex;
   gap: 8px;
+  align-items: center;
 }
 
 .subtaskInput input {
   flex-grow: 1;
-  padding: 8px 10px;
+  padding: 8px 12px;
   border: none;
   border-radius: 4px;
-  background-color: var(--surface-hover);
+  background-color: var(--surface);
   color: var(--text-primary);
   font-size: 0.9rem;
   outline: none;
@@ -319,33 +332,38 @@
 }
 
 .subtaskInput input:focus {
-  background-color: var(--background);
+  background-color: var(--surface-hover);
 }
 
 .subtaskInput input::placeholder {
   color: var(--text-muted);
 }
 
-.subtaskInput button {
-  padding: 6px 12px;
+.subtaskAddBtn {
+  height: 32px;
+  width: 32px;
   border: none;
   border-radius: 4px;
-  background-color: var(--accent);
-  color: var(--text-primary);
-  font-size: 0.85rem;
+  background-color: var(--surface-hover);
+  color: var(--text-muted);
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
-.subtaskInput button:hover {
-  background-color: var(--accent-hover);
+.subtaskAddBtn:hover {
+  background-color: var(--accent);
+  color: var(--text-primary);
+  transform: scale(1.05);
 }
 
 .subtasksList {
   display: flex;
   flex-direction: column;
-  margin-top: 8px;
-  gap: 8px;
+  background-color: var(--background);
   max-height: 180px;
   overflow-y: auto;
 }
@@ -355,7 +373,7 @@
 }
 
 .subtasksList::-webkit-scrollbar-track {
-  background: var(--background);
+  background: var(--surface);
   border-radius: 3px;
 }
 
@@ -372,20 +390,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 10px;
-  border-radius: 4px;
-  background-color: var(--surface-hover);
+  padding: 10px 12px;
+  border-top: 1px solid var(--surface-hover);
   transition: background-color 0.3s ease;
 }
 
 .subtaskItem:hover {
-  background-color: var(--background);
+  background-color: var(--surface);
 }
 
 .subtaskLeft {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex: 1;
 }
 
 .subtaskLeft input[type="checkbox"] {
@@ -395,15 +413,16 @@
   width: 16px;
   height: 16px;
   border-radius: 3px;
-  background-color: var(--background);
-  border: 1px solid var(--accent);
+  background-color: var(--surface);
+  border: 1px solid var(--text-muted);
   cursor: pointer;
   position: relative;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .subtaskLeft input[type="checkbox"]:checked {
   background-color: var(--accent);
+  border-color: var(--accent);
 }
 
 .subtaskLeft input[type="checkbox"]:checked:after {
@@ -425,7 +444,8 @@
 /* Style for completed subtasks */
 .subtaskLeft span.completed {
   text-decoration: line-through;
-  opacity: 0.5;
+  opacity: 0.6;
+  color: var(--text-muted);
 }
 
 .deleteSubtaskBtn {
@@ -437,31 +457,44 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
+  padding: 6px;
   border-radius: 4px;
-  transition: color 0.3s ease, background-color 0.3s ease;
+  transition: all 0.2s ease;
+  opacity: 0.7;
 }
 
 .deleteSubtaskBtn:hover {
-  color: var(--text-primary);
+  color: #ff6b6b;
   background-color: var(--surface-hover);
-}
-
-.noSubtasks {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  text-align: center;
-  padding: 12px 0;
+  opacity: 1;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .subtaskToggle {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  .subtaskInput {
+    gap: 6px;
+  }
+
+  .subtaskInput input {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+
+  .subtaskAddBtn {
+    height: 28px;
+    width: 28px;
+    font-size: 0.9rem;
+  }
 }
 
 .difficultyOption {
   display: flex;
   align-items: center;
-  gap: 8px;
 }
 
 .difficultyOption span {
@@ -490,7 +523,7 @@
 .difficultySelect {
   height: 40px;
   border-radius: 40px;
-  width: 100px !important;
+  width: 90px !important;
   display: flex;
   flex: none !important;
   align-items: center;
@@ -538,4 +571,16 @@
 .customRewardSelector {
   position: relative;
   z-index: 1;
+}
+.subtaskToggleContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+}
+
+.completedBadge {
+  color: var(--accent);
+  font-weight: bold;
+  margin-left: 4px;
 }

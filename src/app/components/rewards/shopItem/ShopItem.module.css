@@ -1,5 +1,12 @@
+.shopItemWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-basis: calc(12.5% - 8px);
+}
+
 .shopItem {
-  width: 100px;
+  width: 100%;
   background-color: var(--surface);
   border-radius: 16px;
   overflow: hidden;
@@ -18,7 +25,7 @@
 
 .shopItem.selected {
   border: 2px solid var(--accent);
-  background-color: var(--surface-hover);
+  /* background-color: var(--surface-hover); */
 }
 
 .rewardImage {
@@ -27,7 +34,7 @@
   background-size: 70%;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: var(--background);
+  /* background-color: var(--background); */
   position: relative;
 }
 
@@ -38,29 +45,30 @@
   left: 0;
   right: 0;
   height: 40%;
-  background: linear-gradient(to top, var(--surface), transparent);
   pointer-events: none;
 }
 
 .rewardInfo {
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  background-color: var(--surface);
-  flex: 1;
+  padding: 0px 8px 8px 8px;
 }
 
 .rewardName {
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin: 0;
+  margin-top: 5px;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.4;
+  line-height: 1.2;
+}
+
+.priceAndWishlist {
+  width: 100%;
+  display: flex;
+
+  justify-content: space-between;
 }
 
 .priceContainer {
@@ -74,7 +82,6 @@
   padding: 4px 8px;
   border-radius: 12px;
   width: fit-content;
-  margin: 0 auto;
 }
 
 .price {
@@ -117,18 +124,24 @@
 }
 
 .statusText {
-  flex: 1;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
   text-align: center;
+  margin-top: 4px;
+  height: 16px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.shopItemWrapper:hover .statusText {
+  opacity: 1;
 }
 
 .wishlistButton {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   border: none;
-  border-radius: 8px;
-  background-color: var(--surface-hover);
+  background: none;
   color: var(--text-muted);
   display: flex;
   align-items: center;
@@ -136,16 +149,15 @@
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 1.1rem;
+  padding: 0;
 }
 
 .wishlistButton:hover {
-  background-color: var(--surface);
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .wishlistButton.active {
   color: #ff6b6b;
-  background-color: rgba(255, 107, 107, 0.1);
 }
 
 /* Gem-specific styling */
@@ -221,4 +233,18 @@
   opacity: 0.5;
   cursor: not-allowed;
   background-color: var(--surface-hover);
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 767px) {
+  .shopItemWrapper {
+    flex-basis: calc(33.33% - 8px);
+  }
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .shopItemWrapper {
+    flex-basis: calc(25% - 8px);
+  }
 }

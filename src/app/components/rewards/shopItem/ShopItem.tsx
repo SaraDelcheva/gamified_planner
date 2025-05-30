@@ -1,7 +1,6 @@
 import styles from "./ShopItem.module.css";
 import { RewardCardI } from "@/app/helpers/interfaces";
 import { AiFillHeart } from "react-icons/ai";
-import { FaCheck } from "react-icons/fa";
 
 export default function ShopItem(props: RewardCardI) {
   const isClaimable =
@@ -46,70 +45,61 @@ export default function ShopItem(props: RewardCardI) {
   };
 
   return (
-    <div
-      className={`${styles.shopItem} ${getGemColorClass()} ${
-        props.isSelected ? styles.selected : ""
-      } ${!canInteract ? styles.disabled : ""}`}
-      data-reward-id={props.id}
-      onClick={() => {
-        if (canInteract) {
-          props.onSelect?.(props.id);
-        }
-      }}
-      style={{
-        cursor: canInteract ? "pointer" : "not-allowed",
-        opacity: !canInteract ? 0.6 : 1,
-      }}
-    >
+    <div className={styles.shopItemWrapper}>
       <div
-        className={styles.rewardImage}
-        style={{
-          backgroundImage: `url('/images/rewards/${
-            props.cover ? props.cover : "reward"
-          }.svg')`,
+        className={`${styles.shopItem} ${getGemColorClass()} ${
+          props.isSelected ? styles.selected : ""
+        } ${!canInteract ? styles.disabled : ""}`}
+        data-reward-id={props.id}
+        onClick={() => {
+          if (canInteract) {
+            props.onSelect?.(props.id);
+          }
         }}
-      />
-
-      <div className={styles.rewardInfo}>
+        style={{
+          cursor: canInteract ? "pointer" : "not-allowed",
+          opacity: !canInteract ? 0.6 : 1,
+        }}
+      >
         <h3 className={styles.rewardName}>{props.rewardName}</h3>
+        <div
+          className={styles.rewardImage}
+          style={{
+            backgroundImage: `url('/images/rewards/${
+              props.cover ? props.cover : "reward"
+            }.svg')`,
+          }}
+        />
 
-        <div className={styles.priceContainer}>
-          <span className={styles.price}>{props.price ?? 0}</span>
-          <div
-            className={styles.gemIcon}
-            style={{
-              backgroundImage: `url('/images/${
-                props.currency || "sapphire"
-              }.svg')`,
-            }}
-          />
-        </div>
-
-        <div className={styles.actions}>
-          {canInteract ? (
-            <div className={styles.selectionIndicator}>
-              {props.isSelected ? (
-                <FaCheck className={styles.checkIcon} />
-              ) : (
-                <div className={styles.checkbox} />
-              )}
+        <div className={styles.rewardInfo}>
+          <div className={styles.priceAndWishlist}>
+            <div className={styles.priceContainer}>
+              <span className={styles.price}>{props.price ?? 0}</span>
+              <div
+                className={styles.gemIcon}
+                style={{
+                  backgroundImage: `url('/images/${
+                    props.currency || "sapphire"
+                  }.svg')`,
+                }}
+              />
             </div>
-          ) : (
-            <div className={styles.statusText}>
-              {wasClaimedToday ? "Claimed" : "Not enough gems"}
-            </div>
-          )}
-
-          <button
-            className={`${styles.wishlistButton} ${
-              props.isWishListed ? styles.active : ""
-            }`}
-            onClick={handleWishlistClick}
-          >
-            <AiFillHeart />
-          </button>
+            <button
+              className={`${styles.wishlistButton} ${
+                props.isWishListed ? styles.active : ""
+              }`}
+              onClick={handleWishlistClick}
+            >
+              <AiFillHeart />
+            </button>
+          </div>
         </div>
       </div>
+      {!canInteract && (
+        <div className={styles.statusText}>
+          {wasClaimedToday ? "Claimed" : "Not enough gems"}
+        </div>
+      )}
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { MdDeleteForever, MdOutlineEdit } from "react-icons/md";
 import { BsExclamationCircleFill, BsStars, BsListTask } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
 import { SubtaskI } from "@/app/helpers/interfaces";
+import SubtaskProgress from "../subtaskProgress/SubtaskProgress";
 
 export default function NewGoal({
   goalTitle,
@@ -64,15 +65,7 @@ export default function NewGoal({
 
   return (
     <div className={styles.newGoalContainer}>
-      <div
-        className={styles.newGoal}
-        onMouseEnter={() => {
-          setIsGoalHovered(true);
-        }}
-        onMouseLeave={() => {
-          setIsGoalHovered(false);
-        }}
-      >
+      <div className={styles.newGoal}>
         <div className={styles.newGoalHeader}>
           <div className={styles.goalTitleContainer}>
             <p className={styles.newGoalP}>
@@ -83,6 +76,12 @@ export default function NewGoal({
             <button
               onClick={() => completeGoal(goalTitle)}
               className={`${styles.newBtn} ${styles.completeBtn}`}
+              onMouseEnter={() => {
+                setIsGoalHovered(true);
+              }}
+              onMouseLeave={() => {
+                setIsGoalHovered(false);
+              }}
             >
               <FaCheck />
             </button>
@@ -96,7 +95,11 @@ export default function NewGoal({
               onMouseLeave={() => setIsGoalHovered(false)}
             ></button>
           ) : (
-            <button className={`${styles.newBtn} ${styles.diamondBtn}`}>
+            <button
+              className={`${styles.newBtn} ${styles.diamondBtn}`}
+              onMouseEnter={() => setIsGoalHovered(true)}
+              onMouseLeave={() => setIsGoalHovered(false)}
+            >
               {price}{" "}
               <div
                 className={styles.gemIcon}
@@ -186,9 +189,23 @@ export default function NewGoal({
             setShowSubtasks(!showSubtasks);
           }}
         >
-          <IoIosArrowDown />
-          <span className={styles.highlight}>{subtasks.length}</span>
-          subtasks
+          <IoIosArrowDown
+            className={`${styles.chevron} ${
+              showSubtasks ? styles.rotated : ""
+            }`}
+          />
+
+          <span className={styles.subtaskToggleContent}>
+            {/* Circular Progress Diagram */}
+            {subtasks.length > 0 && <SubtaskProgress subtasks={subtasks} />}
+            Subtasks{" "}
+            {subtasks.length > 0 && (
+              <>
+                ({subtasks.filter((subtask) => subtask.isCompleted).length}/
+                {subtasks.length})
+              </>
+            )}
+          </span>
         </button>
       )}
     </div>

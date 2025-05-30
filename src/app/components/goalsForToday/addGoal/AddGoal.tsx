@@ -9,13 +9,14 @@ import CustomSelect from "@/app/components/customSelect/CustomSelect";
 import { AddGoalI, SubtaskI } from "@/app/helpers/interfaces";
 import Calendar from "react-calendar";
 import CoverModal from "@/app/components/coverModal/CoverModal";
+import SubtaskProgress from "../subtaskProgress/SubtaskProgress";
 
 export default function AddGoal(props: AddGoalI) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newSubtask, setNewSubtask] = useState("");
+  const [isSubtaskExpanded, setIsSubtaskExpanded] = useState(false);
 
   // Currency options with icons
-
   const repeatOptions = [
     {
       value: "never",
@@ -112,7 +113,6 @@ export default function AddGoal(props: AddGoalI) {
   ];
 
   // Difficulty options with gem count display
-
   const difficultyOptions = [
     {
       value: "5",
@@ -218,9 +218,7 @@ export default function AddGoal(props: AddGoalI) {
       >
         {!props.expanded ? (
           <div className={styles.collapsedHeader}>
-            <p className={styles.addGoalTitle}>
-              {props.isEditing ? "Edit Goal" : "Add New Goal"}
-            </p>
+            <p className={styles.addGoalTitle}>Add New Goal</p>
             <button className={`${styles.addBtn} ${styles.boxShadow}`}>
               <AiOutlinePlus />
             </button>
@@ -333,15 +331,19 @@ export default function AddGoal(props: AddGoalI) {
               placeholder="Priority"
               className={styles.prioritySelector}
             />
-            {!props.isCustom && (
-              <CustomSelect
-                options={currencyOptions}
-                value={props.currency}
-                onChange={(value) => props.handleInputChange("currency", value)}
-                placeholder=""
-                className={styles.currencySelector}
-              />
-            )}
+            <div>
+              {!props.isCustom && (
+                <CustomSelect
+                  options={currencyOptions}
+                  value={props.currency}
+                  onChange={(value) =>
+                    props.handleInputChange("currency", value)
+                  }
+                  placeholder=""
+                  className={styles.currencySelector}
+                />
+              )}
+            </div>
 
             <div className={styles.customSelect}>
               <div
@@ -377,45 +379,80 @@ export default function AddGoal(props: AddGoalI) {
           )}
 
           <div className={styles.subtasksSection}>
-            <div className={styles.subtasksHeader}>
-              <div className={styles.subtaskInput}>
-                <input
-                  type="text"
-                  placeholder="+ Add Subtask"
-                  value={newSubtask}
-                  onChange={handleSubtaskInputChange}
-                  onKeyDown={handleSubtaskKeyDown}
-                />
-                <button onClick={handleAddSubtask}>Add</button>
+            <div
+              className={styles.subtaskToggle}
+              onClick={() => setIsSubtaskExpanded(!isSubtaskExpanded)}
+            >
+              <span className={styles.subtaskToggleContent}>
+                {/* Circular Progress Diagram */}
+                {subtasks.length > 0 && <SubtaskProgress subtasks={subtasks} />}
+                Subtasks{" "}
+                {subtasks.length > 0 && (
+                  <>
+                    ({subtasks.filter((subtask) => subtask.isCompleted).length}/
+                    {subtasks.length})
+                  </>
+                )}
+              </span>
+              <div
+                className={`${styles.chevron} ${
+                  isSubtaskExpanded ? styles.rotated : ""
+                }`}
+              >
+                <BiChevronDown />
               </div>
             </div>
 
-            <div className={styles.subtasksList}>
-              {subtasks.map((subtask: SubtaskI) => (
-                <div key={subtask.id} className={styles.subtaskItem}>
-                  <div className={styles.subtaskLeft}>
+            {isSubtaskExpanded && (
+              <>
+                <div className={styles.subtasksHeader}>
+                  <div className={styles.subtaskInput}>
                     <input
-                      type="checkbox"
-                      checked={subtask.isCompleted}
-                      onChange={() =>
-                        props.toggleCurrentSubtaskCompletion(subtask.id)
-                      }
+                      type="text"
+                      placeholder="Add subtask..."
+                      value={newSubtask}
+                      onChange={handleSubtaskInputChange}
+                      onKeyDown={handleSubtaskKeyDown}
                     />
-                    <span
-                      className={subtask.isCompleted ? styles.completed : ""}
+                    <button
+                      onClick={handleAddSubtask}
+                      className={styles.subtaskAddBtn}
                     >
-                      {subtask.title}
-                    </span>
+                      <BiPlus />
+                    </button>
                   </div>
-                  <button
-                    className={styles.deleteSubtaskBtn}
-                    onClick={() => props.deleteCurrentSubtask(subtask.id)}
-                  >
-                    <BiTrash />
-                  </button>
                 </div>
-              ))}
-            </div>
+
+                <div className={styles.subtasksList}>
+                  {subtasks.map((subtask: SubtaskI) => (
+                    <div key={subtask.id} className={styles.subtaskItem}>
+                      <div className={styles.subtaskLeft}>
+                        <input
+                          type="checkbox"
+                          checked={subtask.isCompleted}
+                          onChange={() =>
+                            props.toggleCurrentSubtaskCompletion(subtask.id)
+                          }
+                        />
+                        <span
+                          className={
+                            subtask.isCompleted ? styles.completed : ""
+                          }
+                        >
+                          {subtask.title}
+                        </span>
+                      </div>
+                      <button
+                        className={styles.deleteSubtaskBtn}
+                        onClick={() => props.deleteCurrentSubtask(subtask.id)}
+                      >
+                        <BiTrash />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           <div className={styles.actionButtons}>

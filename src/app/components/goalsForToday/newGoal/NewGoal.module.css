@@ -68,7 +68,7 @@
 }
 
 .subtasksToggle:hover {
-  background-color: var(--surface-hover);
+  box-shadow: var(--shadow-lg);
   color: var(--text-primary);
 }
 
@@ -225,4 +225,24 @@
 .edit:hover {
   transform: scale(1.1);
   opacity: 1;
+}
+
+.subtaskToggleContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.completedBadge {
+  color: var(--accent);
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+}
+
+.chevron.rotated {
+  transform: rotate(180deg);
 }

@@ -1,6 +1,4 @@
 import styles from "./AddOrCancel.module.css";
-import { AiOutlineClose } from "react-icons/ai";
-import { FaPlay } from "react-icons/fa";
 
 export default function AddOrCancelBtn({
   onAdd,
@@ -14,7 +12,7 @@ export default function AddOrCancelBtn({
   return (
     <div className={styles.addOrCancelBtn}>
       <button className={styles.cancelBtn} onClick={onCancel}>
-        <AiOutlineClose />
+        Cancel
       </button>
       <button
         onClick={() => {
@@ -22,7 +20,7 @@ export default function AddOrCancelBtn({
         }}
         className={styles.addBtn}
       >
-        <FaPlay />
+        Add
       </button>
     </div>
   );
